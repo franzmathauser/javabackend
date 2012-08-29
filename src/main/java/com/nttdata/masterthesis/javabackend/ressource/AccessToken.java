@@ -6,14 +6,13 @@ package com.nttdata.masterthesis.javabackend.ressource;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize.Inclusion;
-import com.nttdata.masterthesis.javabackend.Constants;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.xml.bind.annotation.XmlRootElement;
-
+ 
 /**
  *
  * @author MATHAF
@@ -23,9 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML, MediaType.TEXT_XML})
 @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML, MediaType.TEXT_XML})
 public class AccessToken {
-    
-    
-
+  
     public AccessToken() {
 
         this.accessToken = generateSecureAccessToken();

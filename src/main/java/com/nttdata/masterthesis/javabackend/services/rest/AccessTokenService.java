@@ -4,8 +4,8 @@
  */
 package com.nttdata.masterthesis.javabackend.services.rest;
 
-import com.nttdata.masterthesis.javabackend.ressource.AccessToken;
 import com.nttdata.masterthesis.javabackend.manager.AccessTokenManager;
+import com.nttdata.masterthesis.javabackend.ressource.AccessToken;
 import com.nttdata.masterthesis.javabackend.services.exceptions.NotAuthorizedException;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;

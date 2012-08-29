@@ -18,8 +18,8 @@ import javax.ws.rs.QueryParam;
  * @author MATHAF
  */
 @Stateless
-@Path("/places")
-public class PlacesService extends AbstractAccessTokenService {
+@Path("/secure/places")
+public class SecurePlacesService {
     
     @EJB
     PlacesManager placesMgr;
@@ -27,7 +27,7 @@ public class PlacesService extends AbstractAccessTokenService {
     @GET
     @Produces("application/json")
     public String getHtml(@QueryParam("location") String location) {
-        return placesMgr.getFinancePlaces(location); 
+        return placesMgr.getFinancePlaces(location);
     }
 
 }

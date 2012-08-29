@@ -4,10 +4,17 @@
  */
 package com.nttdata.masterthesis.javabackend.entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+import javax.persistence.Cacheable;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,6 +23,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
+import javax.persistence.UniqueConstraint;
 
 /**
  *
@@ -23,15 +31,19 @@ import javax.persistence.Temporal;
  */
 @Entity
 @Table(name="account_user")
+@Cacheable(false)
 public class User implements Serializable {
+    
     private static final long serialVersionUID = 1L;
+        
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
-    @Column(name="username")
+    @Column(name="username", nullable=false)
     private String userName;
     
+    @Column(nullable=false) //sha-512 + hex
     private String password;
     
     private String email;
@@ -46,6 +58,19 @@ public class User implements Serializable {
     @OneToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="bank_account_id")
     private BankAccount bankAccount;
+    
+    @ElementCollection(targetClass = Group.class)
+    @CollectionTable(name = "user_group", 
+                    joinColumns       = @JoinColumn(name = "account_user_id", nullable=false, referencedColumnName="id") 
+                    ,uniqueConstraints = { @UniqueConstraint(columnNames={"account_user_id","groupname"}) }
+            )
+    @Enumerated(EnumType.STRING)
+    @Column(name="groupname", length=64, nullable=false)  
+    private List<Group> groups;
+    
+    // TODO Constructor which hashes the password
+    //DigestUtils.sha512Hex
+    
 
     public Long getId() {
         return id;
@@ -102,6 +127,13 @@ public class User implements Serializable {
     public void setBankAccount(BankAccount bankAccount) {
         this.bankAccount = bankAccount;
     }
-    
+
+    public List<Group> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(List<Group> groups) {
+        this.groups = groups;
+    }
     
 }
