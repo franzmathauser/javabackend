@@ -40,10 +40,10 @@
         </auth-constraint>
 
         <!-- we always want https! -->
-<!--        <user-data-constraint>
+        <user-data-constraint>
           <description>highest supported transport security level</description>
           <transport-guarantee>CONFIDENTIAL</transport-guarantee>
-        </user-data-constraint>-->
+        </user-data-constraint>
   
   </security-constraint>
   
