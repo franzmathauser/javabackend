@@ -4,6 +4,7 @@
  */
 package com.nttdata.masterthesis.javabackend.listener;
 
+import com.nttdata.masterthesis.javabackend.filter.HttpToHttpsFilter;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -11,6 +12,8 @@ import javax.servlet.http.HttpSessionAttributeListener;
 import javax.servlet.http.HttpSessionBindingEvent;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -18,6 +21,8 @@ import javax.servlet.http.HttpSessionListener;
  */
 public class EventListener implements ServletContextListener,
         HttpSessionAttributeListener, HttpSessionListener { 
+    
+    static final Logger LOG = LoggerFactory.getLogger(EventListener.class);
  
     /**
      * The servlet context with which we are associated.
@@ -115,23 +120,17 @@ public class EventListener implements ServletContextListener,
     }
  
     /**
-     * Log a message to the servlet context application log.
+     * Log a message to the application log.
      * 
      * @param message
      *            Message to be logged
      */
     private void log(String message) {
- 
-        if (context != null)
-            context.log("EventListener: " + message);
-        else
-            System.out.println("EventListener: " + message);
- 
+          LOG.info("EventListener: {}", message);
     }
  
     /**
-     * Log a message and associated exception to the servlet context application
-     * log.
+     * Log a message and associated exception.
      * 
      * @param message
      *            Message to be logged
@@ -139,14 +138,9 @@ public class EventListener implements ServletContextListener,
      *            Exception to be logged
      */
     private void log(String message, Throwable throwable) {
- 
-        if (context != null)
-            context.log("EventListener: " + message, throwable);
-        else {
-            System.out.println("EventListener: " + message);
-            throwable.printStackTrace(System.out);
+        if(LOG.isErrorEnabled()) {
+            LOG.error("EventListener: "+message, throwable);
         }
- 
     }
  
 }

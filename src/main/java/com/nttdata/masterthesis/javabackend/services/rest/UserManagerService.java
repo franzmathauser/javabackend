@@ -8,6 +8,7 @@ import com.nttdata.masterthesis.javabackend.dao.UserDAO;
 import com.nttdata.masterthesis.javabackend.entities.User;
 import com.nttdata.masterthesis.javabackend.interceptor.ServicesLoggingInterceptor;
 import com.nttdata.masterthesis.javabackend.ressource.ResponseEnvelope;
+import com.nttdata.masterthesis.javabackend.services.exceptions.ThrowableExceptionMapper;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.interceptor.Interceptors;
@@ -22,6 +23,8 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -33,6 +36,8 @@ import org.apache.commons.codec.digest.DigestUtils;
 @Stateless
 public class UserManagerService {
 
+    static final Logger LOG = LoggerFactory.getLogger(UserManagerService.class);
+    
     @EJB
     private UserDAO userDAO;
 
@@ -45,23 +50,34 @@ public class UserManagerService {
             try {
                 String hash = DigestUtils.sha512Hex(password);
                 req.login(userName, password); 
-                req.getServletContext().log("Authentication: successfully logged in " + userName);
+                
+                if(LOG.isInfoEnabled()){
+                    LOG.info("Authentication: successfully logged in ",userName);
+                }
             } catch (ServletException e) {
-                e.printStackTrace();
+                
+                if(LOG.isErrorEnabled()){
+                    LOG.error(e.getMessage(), e);
+                }
                 response.setStatus("FAILED");
                 response.setErrorMsg("Authentication failed");
                 return Response.ok().entity(response).build();
+                
             }
         } else {
-            req.getServletContext().log("Skip logged because already logged in: "+ userName);
+            if(LOG.isInfoEnabled()){
+                LOG.info("Skip login because already logged in ",userName);
+            }
         }
         
        //read the user data from db and return to caller
         response.setStatus("SUCCESS");
          
         User user = userDAO.findByName(userName);
-        req.getServletContext().log("Authentication: successfully retrieved User Profile from DB for " + userName);
         
+        if(LOG.isInfoEnabled()){
+            LOG.info("Authentication: successfully retrieved User Profile from DB for ",userName);
+        }
          
         //we don't want to send the hashed password out in the json response
         userDAO.detach(user);
@@ -85,7 +101,10 @@ public class UserManagerService {
             response.setStatus("SUCCESS");
             req.getSession().invalidate();
         } catch (ServletException e) {
-            e.printStackTrace();
+            
+            if(LOG.isErrorEnabled()){
+                LOG.error(e.getMessage(), e);
+            }
             response.setStatus("FAILED");
             response.setErrorMsg("Logout failed on backend");
         }

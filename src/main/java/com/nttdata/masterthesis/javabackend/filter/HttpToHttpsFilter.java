@@ -4,6 +4,7 @@
  */
 package com.nttdata.masterthesis.javabackend.filter;
 
+import com.nttdata.masterthesis.javabackend.manager.AccessManager;
 import java.io.IOException;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -14,6 +15,8 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -21,6 +24,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebFilter("/")
 public class HttpToHttpsFilter implements Filter{
+    
+    static final Logger LOG = LoggerFactory.getLogger(HttpToHttpsFilter.class);
+    
     @Override
     public void init(FilterConfig config) throws ServletException {
         // if you have any init-params in web.xml then you could retrieve them
@@ -34,7 +40,9 @@ public class HttpToHttpsFilter implements Filter{
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) res;
  
-        System.out.println("HttpToHttpsFilter: URL requested = "+request.getRequestURL().toString());
+        if(LOG.isInfoEnabled()){
+            LOG.info("HttpToHttpsFilter: URL requested = {}",request.getRequestURL().toString());
+        }
          
         if ( !request.isSecure() ) {
             String url = request.getRequestURL().toString().replaceFirst("http", "https");
@@ -43,7 +51,11 @@ public class HttpToHttpsFilter implements Filter{
             //don't forget to add the parameters
             if (request.getQueryString() != null) 
                 url += "?" + request.getQueryString();
-            System.out.println("HttpToHttpsFilter redirect to: "+url);
+            
+            if(LOG.isInfoEnabled()){
+                LOG.info("HttpToHttpsFilter redirect to: {} ",url);
+            }
+            
             response.sendRedirect(url);
         } else {
             chain.doFilter(req, res); // we already have a https connection ==> so just continue request
