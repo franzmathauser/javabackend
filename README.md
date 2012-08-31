@@ -13,17 +13,17 @@ different path at: src/main/resources/backend_config.xml
 REST-Calls: 
 -----------
 
-Receive Places (GOOGLE API - format)
+1. **Receive Places (GOOGLE API - format)**
 
-    curl -k -i -H "Accept: application/json" --basic -u franz:123 -X GET "https://localhost:8181/JavaBackend/rest/secure/places?location=48.13661,11.57709"
+        curl -k -i -H "Accept: application/json" --basic -u franz:123 -X GET "https://localhost:8181/JavaBackend/rest/secure/places?location=48.13661,11.57709"
 
-Receive Transactions
+2. **Receive Transactions**
 
-Successful:
+   2.1 Successful:
 
-    curl -k -i -H "Accept: application/json" --basic -u franz:123 -X GET "https://127.0.0.1:8181/JavaBackend/rest/secure/bankaccount/1/transactions"
+        curl -k -i -H "Accept: application/json" --basic -u franz:123 -X GET "https://127.0.0.1:8181/JavaBackend/rest/secure/bankaccount/1/transactions"
     
-Error:
+   2.2 Error:
 
-    curl -k -i -H "Accept: application/json" --basic -u franz:123 -X GET "https://127.0.0.1:8181/JavaBackend/rest/secure/bankaccount/2/transactions"
+        curl -k -i -H "Accept: application/json" --basic -u franz:123 -X GET "https://127.0.0.1:8181/JavaBackend/rest/secure/bankaccount/2/transactions"
 
