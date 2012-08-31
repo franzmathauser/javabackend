@@ -7,15 +7,11 @@ package com.nttdata.masterthesis.javabackend.manager;
 import com.nttdata.masterthesis.javabackend.config.ConfigurationConstants;
 import com.nttdata.masterthesis.javabackend.config.ConfigurationSingleton;
 import com.nttdata.masterthesis.javabackend.services.exceptions.GatewayTimeoutException;
-import com.nttdata.masterthesis.javabackend.services.exceptions.NotAuthorizedException;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
-import com.sun.jersey.api.client.filter.HTTPBasicAuthFilter;
-import java.net.URLEncoder;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
-import javax.ejb.Remote;
 import org.glassfish.grizzly.http.util.HttpStatus;
 
 /**

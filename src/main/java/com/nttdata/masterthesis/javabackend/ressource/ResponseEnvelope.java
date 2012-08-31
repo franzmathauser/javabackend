@@ -11,6 +11,7 @@ import com.nttdata.masterthesis.javabackend.entities.Category;
 import com.nttdata.masterthesis.javabackend.entities.Group;
 import com.nttdata.masterthesis.javabackend.entities.Transaction;
 import com.nttdata.masterthesis.javabackend.entities.User;
+import java.util.ArrayList;
 import java.util.Map;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -35,12 +36,17 @@ public class ResponseEnvelope {
     private Map<String, Object> fieldErrors;
     private Object data;
  
-    public ResponseEnvelope() {
+    public ResponseEnvelope() { 
     }
      
     public ResponseEnvelope(String status) {
         this.status = status;
-    }    
+    }   
+    
+    public ResponseEnvelope(String status, String errorMessage) {
+        this.status = status;
+        this.errorMsg = errorMessage;
+    } 
      
     public float getVersion() {
         return ResponseEnvelope.version;
@@ -50,31 +56,42 @@ public class ResponseEnvelope {
         return status;
     }
  
-    public void setStatus(String status) {
+    public ResponseEnvelope setStatus(String status) {
         this.status = status;
+        return this;
     }
      
     public String getErrorMsg() {
         return errorMsg;
     }
  
-    public void setErrorMsg(String errorMsg) {
+    public ResponseEnvelope setErrorMsg(String errorMsg) {
         this.errorMsg = errorMsg;
+        return this;
     }
  
     public Map<String, Object> getFieldErrors() {
         return fieldErrors;
     }
  
-    public void setFieldErrors(Map<String, Object> fieldErrors) {
+    public ResponseEnvelope setFieldErrors(Map<String, Object> fieldErrors) {
         this.fieldErrors = fieldErrors;
+        return this;
     }
      
     public Object getData() {
         return data;
     }
  
-    public void setData(Object data) {
+    public ResponseEnvelope setData(Object data) {
         this.data = data;
+        return this;
     }
+
+    @Override
+    public String toString() {
+        return "ResponseEnvelope{" + "status=" + status + ", errorMsg=" + errorMsg + ", fieldErrors=" + fieldErrors + ", data=" + data + '}';
+    }
+    
+    
 }

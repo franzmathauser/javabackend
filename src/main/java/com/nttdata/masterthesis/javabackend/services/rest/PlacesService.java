@@ -4,10 +4,11 @@
  */
 package com.nttdata.masterthesis.javabackend.services.rest;
 
+import com.nttdata.masterthesis.javabackend.interceptor.ServicesLoggingInterceptor;
 import com.nttdata.masterthesis.javabackend.manager.PlacesManager;
-import com.nttdata.masterthesis.javabackend.services.AbstractAccessTokenService;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.interceptor.Interceptors;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -18,8 +19,9 @@ import javax.ws.rs.QueryParam;
  * @author MATHAF
  */
 @Stateless
-@Path("/places")
-public class PlacesService extends AbstractAccessTokenService {
+@Path("/secure/places")
+@Interceptors( ServicesLoggingInterceptor.class )
+public class PlacesService {
     
     @EJB
     PlacesManager placesMgr;
@@ -27,7 +29,7 @@ public class PlacesService extends AbstractAccessTokenService {
     @GET
     @Produces("application/json")
     public String getHtml(@QueryParam("location") String location) {
-        return placesMgr.getFinancePlaces(location); 
+        return placesMgr.getFinancePlaces(location);
     }
 
 }

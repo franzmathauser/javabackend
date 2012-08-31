@@ -6,10 +6,11 @@ package com.nttdata.masterthesis.javabackend.services.rest;
 
 import com.nttdata.masterthesis.javabackend.dao.UserDAO;
 import com.nttdata.masterthesis.javabackend.entities.User;
+import com.nttdata.masterthesis.javabackend.interceptor.ServicesLoggingInterceptor;
 import com.nttdata.masterthesis.javabackend.ressource.ResponseEnvelope;
-import java.security.MessageDigest;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.interceptor.Interceptors;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.FormParam;
@@ -20,7 +21,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.DigestUtils;
 
 /**
@@ -29,6 +29,7 @@ import org.apache.commons.codec.digest.DigestUtils;
  */
 @Path("/auth")
 @Produces(MediaType.APPLICATION_JSON)
+@Interceptors( ServicesLoggingInterceptor.class )
 @Stateless
 public class UserManagerService {
 
@@ -38,7 +39,7 @@ public class UserManagerService {
     @Path("login")
     @POST
     public Response login(@FormParam("username") String userName, @FormParam("password") String password, @Context HttpServletRequest req) {
-        ResponseEnvelope response = new ResponseEnvelope();
+        ResponseEnvelope response = new ResponseEnvelope(); 
 
         if (req.getUserPrincipal() == null) {
             try {

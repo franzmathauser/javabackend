@@ -146,7 +146,10 @@ public class Transaction implements Serializable {
     public void setCategory(Category category) {
         this.category = category;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return "Transaction{" + "id=" + id + ", billingDate=" + billingDate + ", valueDate=" + valueDate + ", amount=" + amount + ", revenueType=" + revenueType + ", name=" + name + ", account=" + account + ", bankCode=" + bankCode + ", purpose=" + purpose + ", bankAccount=" + bankAccount + ", category=" + category + '}';
+    }
     
 }

@@ -59,5 +59,5 @@ public class UserDAO {
          Query query = em.createQuery("SELECT u FROM User u WHERE u.userName = :username");
          query.setParameter("username", userName);
          return (User) query.getSingleResult();
-    }
+    } 
 }
