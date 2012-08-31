@@ -66,8 +66,13 @@ public class ServicesLoggingInterceptor {
                }
                    throw e;
            }
-
-           Object[] args = {callerClass.getName(), ctx.getMethod().getName(), ((Response)ret).getEntity(), new Long(duration)};
+           
+           Object logRet = ret;
+           if(logRet instanceof Response){
+               logRet = ((Response)ret).getEntity();
+           }
+           
+           Object[] args = {callerClass.getName(), ctx.getMethod().getName(), logRet, new Long(duration)};
            
            if(LOG.isErrorEnabled()){
                 LOG.info("Class: {}, Method: {}, Return: {}, Durration: {} ms", args);

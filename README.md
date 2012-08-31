@@ -12,11 +12,16 @@ different path at: src/main/resources/backend_config.xml
 
 REST-Calls: 
 -----------
-* Login
-`curl -i -H "Accept: application/json" -H "Content-Type: application/x-www-form-urlencoded" -X POST -d "username=franz&password=123" http://localhost:8080/JavaBackend/rest/auth/login`
 
-* Logout
-`curl -i -H "Accept: application/json" -X GET http://localhost:8080/JavaBackend/rest/auth/logout`
+* Receive Places (GOOGLE API - format)
 
-* Receive Secured Places
-`curl -i -H "Accept: application/json" --basic -u franz:123 -X GET "http://127.0.0.1:8080/JavaBackend/rest/secure/places?location=48.13661,11.57709"`
+    curl -k -i -H "Accept: application/json" --basic -u franz:123 -X GET "https://localhost:8181/JavaBackend/rest/secure/places?location=48.13661,11.57709"
+
+* Receive Transactions
+
+    Successful:
+    curl -k -i -H "Accept: application/json" --basic -u franz:123 -X GET "https://127.0.0.1:8181/JavaBackend/rest/secure/bankaccount/1/transactions"
+    
+    Error:
+    curl -k -i -H "Accept: application/json" --basic -u franz:123 -X GET "https://127.0.0.1:8181/JavaBackend/rest/secure/bankaccount/2/transactions"
+
