@@ -30,4 +30,18 @@ public final class ConfigurationConstants {
     */
     public static final String GOOGLE_API_KEY = "com.nttdata.masterthesis.javabackend.googleapi.key";
     
+    /**
+    * Konfigurations-Konstante für CN-Name des SSL-Zertifikats.
+    */
+    public static final String CN_NAME = "com.nttdata.masterthesis.javabackend.cnName";
+    
+    /**
+    * Konfigurations-Konstante username für JUNIT test.
+    */
+    public static final String JUNIT_TESTUSER1_NAME = "com.nttdata.masterthesis.javabackend.tests.user1.name";
+    
+    /**
+    * Konfigurations-Konstante username für JUNIT test.
+    */
+    public static final String JUNIT_TESTUSER1_PASSWORD = "com.nttdata.masterthesis.javabackend.tests.user1.password";
 }
