@@ -3,14 +3,14 @@ Masterthesis JavaBackend
 
 Logback/Glassfish Configuration
 -------------------------------
-1. copy these jars into %GLASSFISH_HOME%/glassfish/lib/endorsed
+1. copy these jars into `%GLASSFISH_HOME%/glassfish/lib/endorsed`
    * jul-to-slf4j.jar
    * slf4j-api.jar
    * logback-classic.jar
    * logback-core.jar
-2. copy src/main/setup/logback.xml into %GLASSFISH_HOME%/glassfish/domains/domain1/config/
-3. copy src/main/setup/custom_logging.properties into %GLASSFISH_HOME%/glassfish/domains/domain1/config/
-4. add following lines into domain.xml (<java-config>...</java-config>)
+2. copy `src/main/setup/logback.xml` into `%GLASSFISH_HOME%/glassfish/domains/domain1/config/`
+3. copy `src/main/setup/custom_logging.properties` into `%GLASSFISH_HOME%/glassfish/domains/domain1/config/`
+4. add following lines into `domain.xml` (`<java-config>...</java-config>`)
 
         <jvm-options>-Dlog4j.configuration=file:///${com.sun.aas.instanceRoot}/config/custom_logging.properties</jvm-options>
         <jvm-options>-Dlogback.configurationFile=file:///${com.sun.aas.instanceRoot}/config/logback.xml</jvm-options>
