@@ -20,7 +20,7 @@ public class ThrowableExceptionMapper implements ExceptionMapper<Throwable> {
 
     private static final Response RESPONSE ;
     
-    private static final ResponseEnvelope RESPONSE_ENVELOPE = new ResponseEnvelope("ERROR");
+    private static final ResponseEnvelope RESPONSE_ENVELOPE = new ResponseEnvelope(false);
     
     static final Logger LOG = LoggerFactory.getLogger(ThrowableExceptionMapper.class);
     

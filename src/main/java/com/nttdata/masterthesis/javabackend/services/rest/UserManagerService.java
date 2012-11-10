@@ -9,6 +9,7 @@ import com.nttdata.masterthesis.javabackend.entities.User;
 import com.nttdata.masterthesis.javabackend.interceptor.ServicesLoggingInterceptor;
 import com.nttdata.masterthesis.javabackend.ressource.ResponseEnvelope;
 import com.nttdata.masterthesis.javabackend.services.exceptions.ThrowableExceptionMapper;
+import java.util.logging.Level;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.interceptor.Interceptors;
@@ -23,6 +24,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.eclipse.jetty.util.log.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,36 +45,44 @@ public class UserManagerService {
 
     @Path("login")
     @POST
-    public Response login(@FormParam("username") String userName, @FormParam("password") String password, @Context HttpServletRequest req) {
+    public ResponseEnvelope login(@FormParam("username") String userName, @FormParam("password") String password, @Context HttpServletRequest req) {
         ResponseEnvelope response = new ResponseEnvelope(); 
-
-        if (req.getUserPrincipal() == null) {
-            try {
-                String hash = DigestUtils.sha512Hex(password);
-                req.login(userName, password); 
-                
-                if(LOG.isInfoEnabled()){
-                    LOG.info("Authentication: successfully logged in ",userName);
-                }
-            } catch (ServletException e) {
-                
-                if(LOG.isErrorEnabled()){
-                    LOG.error(e.getMessage(), e);
-                }
-                response.setStatus("FAILED");
-                response.setErrorMsg("Authentication failed");
-                return Response.ok().entity(response).build();
-                
-            }
-        } else {
+        
+        // Container does the hashing
+        //String hash = DigestUtils.sha512Hex(password);
+        
+        if (req.getUserPrincipal() != null) {
             if(LOG.isInfoEnabled()){
-                LOG.info("Skip login because already logged in ",userName);
+                LOG.info("Authentication: User has Session! Invalidate now. ",userName);
+            }
+            try {
+                req.logout();
+                req.getSession().invalidate();
+            } catch (ServletException ex) {
+                if(LOG.isErrorEnabled()){
+                    LOG.error(ex.getMessage(), ex);
+                } 
             }
         }
         
-       //read the user data from db and return to caller
-        response.setStatus("SUCCESS");
-         
+        try {
+            req.login(userName, password); 
+            response.setSuccess(true);
+            
+            if(LOG.isInfoEnabled()){
+                LOG.info("Authentication: successfully logged in ",userName);
+            }
+        } catch (ServletException ex) {
+
+            if(LOG.isErrorEnabled()){
+                LOG.error(ex.getMessage(), ex);
+            }
+            response.setErrorMsg("Authentication failed");
+            return response;
+
+        }
+
+        //read the user data from db and return to caller
         User user = userDAO.findByName(userName);
         
         if(LOG.isInfoEnabled()){
@@ -83,31 +93,32 @@ public class UserManagerService {
         userDAO.detach(user);
         user.setPassword(null);
         user.setGroups(null);
+        user.setBankAccount(null);
         
         response.setData(user); 
         
-        return Response.ok().entity(response).build();
+        return response;
     }
     
     @GET
     @Path("logout")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response logout(@Context HttpServletRequest req) {
+    public ResponseEnvelope logout(@Context HttpServletRequest req) {
  
         ResponseEnvelope response = new ResponseEnvelope();
  
         try {
             req.logout();
-            response.setStatus("SUCCESS");
             req.getSession().invalidate();
+            response.setSuccess(true);
         } catch (ServletException e) {
             
             if(LOG.isErrorEnabled()){
                 LOG.error(e.getMessage(), e);
             }
-            response.setStatus("FAILED");
-            response.setErrorMsg("Logout failed on backend");
+            
+            response.setErrorMsg("Logout failed.");
         }
-        return Response.ok().entity(response).build();
+        return response;
     }
 }

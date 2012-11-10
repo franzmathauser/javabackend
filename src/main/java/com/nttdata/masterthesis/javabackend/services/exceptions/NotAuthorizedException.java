@@ -20,7 +20,7 @@ public class NotAuthorizedException extends WebApplicationException {
          
          super(
                  Response.status(HttpStatus.UNAUTHORIZED_401.getStatusCode()).entity(
-                 (new ResponseEnvelope("FAILURE")).setErrorMsg(message)
+                 (new ResponseEnvelope(false)).setErrorMsg(message)
                  ).type(MediaType.APPLICATION_JSON).build()
               );
          

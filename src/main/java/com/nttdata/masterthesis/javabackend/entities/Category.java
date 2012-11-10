@@ -6,6 +6,7 @@ package com.nttdata.masterthesis.javabackend.entities;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -38,6 +39,10 @@ public class Category implements Serializable {
     @ManyToOne(fetch= FetchType.LAZY)
     @JoinColumn(name="bank_account_id")
     BankAccount bankAccount;
+    
+    @OneToMany(mappedBy="category", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    Set<MappedCategory> mappedCategory;
+    
 
     public Long getId() {
         return id;

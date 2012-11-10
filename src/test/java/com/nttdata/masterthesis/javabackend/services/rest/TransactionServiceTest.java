@@ -4,6 +4,7 @@
  */
 package com.nttdata.masterthesis.javabackend.services.rest;
 
+import com.nttdata.masterthesis.javabackend.ressource.ResponseEnvelope;
 import static org.junit.Assert.*;
 
 import com.sun.jersey.api.client.Client;
@@ -46,7 +47,7 @@ public class TransactionServiceTest extends AbstractSecureTest{
     public void hasAccessToTransactionTest() {
         
         String requestUri = "https://"+getCnName()+":8181/JavaBackend/rest/secure/bankaccount/1/transactions";
-        
+                
         Client client = Client.create();
         client.addFilter(new HTTPBasicAuthFilter(getUser(), getPassword()));
         
@@ -55,8 +56,16 @@ public class TransactionServiceTest extends AbstractSecureTest{
         ClientResponse response = webResource.accept("application/json")
             .get(ClientResponse.class);
 
+        ResponseEnvelope env = response.getEntity(ResponseEnvelope.class);
+        
+        //List<Transaction> test = (List<Transaction>) Unmarshaller.unmarshal(env.getData());
+       // ElementNSImpl test = (ElementNSImpl) env.getData();
+        //test.
         assertEquals("authorized", 200, response.getStatus());
-
+        assertEquals("env-success", true, env.isSuccess());
+        assertEquals("env-status", "", env.getErrorMsg());
+        assertEquals("env-errorMsg", 0, env.getFieldErrors().size());
+        
     }
     
     @Test

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+    
     <servlet>
         <servlet-name>ServletAdaptor</servlet-name>
         <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
@@ -18,38 +19,37 @@
         <listener-class>com.nttdata.masterthesis.javabackend.listener.EventListener</listener-class>
     </listener>
     
+    
     <login-config>
+        
         <auth-method>BASIC</auth-method>
         <realm-name>userMgmtJdbcRealm</realm-name>
-<!--        <form-login-config>
+       <!--
+         <form-login-config>
           <form-login-page>/index.jsp</form-login-page>
           <form-error-page>/login.jsp?auth-error=1</form-error-page>
-        </form-login-config>--> 
+        </form-login-config>
+        -->
+        
+        
     </login-config>
     
-    <security-constraint>
-  
-        <!-- everything below /secure/* and /services/secure/* requires authentication -->
-        <web-resource-collection>
-          <web-resource-name>Secured Content</web-resource-name>
-          <url-pattern>/secure/*</url-pattern>
-          <url-pattern>/rest/secure/*</url-pattern>
-          <url-pattern>/services/secure/*</url-pattern>
-        </web-resource-collection>
-
-        <!-- only users with at least one of these roles are allowed to access the secured content -->
-        <auth-constraint>
-          <role-name>ADMINISTRATOR</role-name>
-          <role-name>USER</role-name>
-        </auth-constraint>
-
-        <!-- we always want https! -->
-        <user-data-constraint>
-          <description>highest supported transport security level</description>
-          <transport-guarantee>CONFIDENTIAL</transport-guarantee>
-        </user-data-constraint>
-  
-  </security-constraint>
+    <!-- define order of filter execution --> 
+    <!-- this can't be done thru Annotations -->
+    <filter-mapping>
+        <filter-name>http2https</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>cors</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>auth</filter-name>
+        <url-pattern>/rest/secure/*</url-pattern>
+    </filter-mapping>
+    
+    
   
   <!-- declare the roles relevant for our webapp -->
   <security-role>
@@ -61,6 +61,7 @@
   <security-role>
     <role-name>DEFAULT</role-name>
   </security-role>
+  
    
   <session-config>
     <!-- on productive systems you might have another value for the timeout -->
@@ -71,7 +72,12 @@
     -->
     <cookie-config>
       <name>SESSIONID</name>
+      <http-only>true</http-only>
+      <secure>true</secure>
+      <max-age>30000</max-age>
     </cookie-config>
+    <tracking-mode>COOKIE</tracking-mode>
+    
   </session-config>
     
 </web-app>

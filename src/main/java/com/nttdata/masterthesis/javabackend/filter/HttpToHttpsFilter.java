@@ -22,7 +22,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author MATHAF
  */
-@WebFilter("/")
+@WebFilter(filterName="http2https")
 public class HttpToHttpsFilter implements Filter{
     
     static final Logger LOG = LoggerFactory.getLogger(HttpToHttpsFilter.class);

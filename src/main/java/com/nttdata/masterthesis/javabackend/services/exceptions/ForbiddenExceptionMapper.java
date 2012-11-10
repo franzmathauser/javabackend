@@ -20,7 +20,7 @@ public class ForbiddenExceptionMapper implements ExceptionMapper<ForbiddenExcept
 
     private static final Response RESPONSE ;
     
-    private static final ResponseEnvelope RESPONSE_ENVELOPE = new ResponseEnvelope("FAILURE");
+    private static final ResponseEnvelope RESPONSE_ENVELOPE = new ResponseEnvelope(false);
     
     static {
         RESPONSE = Response.status(HttpStatus.FORBIDDEN_403.getStatusCode()).entity(RESPONSE_ENVELOPE).build();

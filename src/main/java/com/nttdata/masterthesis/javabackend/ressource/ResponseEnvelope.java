@@ -5,18 +5,12 @@
 package com.nttdata.masterthesis.javabackend.ressource;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.nttdata.masterthesis.javabackend.entities.Bank;
-import com.nttdata.masterthesis.javabackend.entities.BankAccount;
-import com.nttdata.masterthesis.javabackend.entities.Category;
-import com.nttdata.masterthesis.javabackend.entities.Group;
-import com.nttdata.masterthesis.javabackend.entities.Transaction;
-import com.nttdata.masterthesis.javabackend.entities.User;
-import java.util.ArrayList;
 import java.util.Map;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlSeeAlso;
 
 /**
  *
@@ -26,41 +20,34 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 @XmlRootElement( name = "responseEnv") 
 @JsonSerialize( include = JsonSerialize.Inclusion.NON_NULL)
 @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML, MediaType.TEXT_XML})
-@XmlSeeAlso({User.class, Bank.class, BankAccount.class, Category.class, Group.class, Transaction.class})
+@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML, MediaType.TEXT_XML})
 public class ResponseEnvelope {
     private static final float version = 1.0f;  
  
     
-    private String status;
+    private boolean success = false;
     private String errorMsg;
     private Map<String, Object> fieldErrors;
-    private Object data;
+    
+    @XmlAnyElement(lax=true)
+    private Object bodyData; 
  
     public ResponseEnvelope() { 
     }
      
-    public ResponseEnvelope(String status) {
-        this.status = status;
+    public ResponseEnvelope(boolean success) {
+        this.success = success;
     }   
     
-    public ResponseEnvelope(String status, String errorMessage) {
-        this.status = status;
+    public ResponseEnvelope(boolean success, String errorMessage) {
+        this.success = success;
         this.errorMsg = errorMessage;
     } 
      
     public float getVersion() {
         return ResponseEnvelope.version;
     }
-         
-    public String getStatus() {
-        return status;
-    }
- 
-    public ResponseEnvelope setStatus(String status) {
-        this.status = status;
-        return this;
-    }
-     
+          
     public String getErrorMsg() {
         return errorMsg;
     }
@@ -79,18 +66,30 @@ public class ResponseEnvelope {
         return this;
     }
      
-    public Object getData() {
-        return data;
+    public Object getBodyData() {
+        return bodyData;
     }
  
     public ResponseEnvelope setData(Object data) {
-        this.data = data;
+        this.bodyData = data;
         return this;
     }
 
+    public boolean isSuccess() {
+        return success;
+    }
+
+    public void setSuccess(boolean success) {
+        this.success = success;
+    }
+    
+    
+    
+    
+
     @Override
     public String toString() {
-        return "ResponseEnvelope{" + "status=" + status + ", errorMsg=" + errorMsg + ", fieldErrors=" + fieldErrors + ", data=" + data + '}';
+        return "ResponseEnvelope{" + ", errorMsg=" + errorMsg + ", fieldErrors=" + fieldErrors + ", data=" + bodyData + '}';
     }
     
     

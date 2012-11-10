@@ -4,8 +4,7 @@
  */
 package com.nttdata.masterthesis.javabackend.services.rest;
 
-import com.nttdata.masterthesis.javabackend.dao.TransactionDAO;
-import com.nttdata.masterthesis.javabackend.entities.Transaction;
+import com.nttdata.masterthesis.javabackend.ressource.TransactionDTO;
 import com.nttdata.masterthesis.javabackend.interceptor.ServicesLoggingInterceptor;
 import com.nttdata.masterthesis.javabackend.manager.TransactionManager;
 import com.nttdata.masterthesis.javabackend.manager.exceptions.ForbiddenException;
@@ -36,20 +35,23 @@ public class TransactionService {
     @EJB
     TransactionManager transactionMgr;
     
-    @EJB
-    TransactionDAO transactionDAO;
+    //@EJB
+    //TransactionDAO transactionDAO;
     
     @GET
     public Response getUserTransactions(@PathParam("bankAccountId") Long bankAccountId) throws ForbiddenException{
         
-        ResponseEnvelope response = new ResponseEnvelope();
-        List<Transaction> transactions = null;
+        //System.out.println(request.getUserPrincipal().getName());
+        System.out.println(request.getSession().getId());
         
+        ResponseEnvelope response = new ResponseEnvelope();
+        List<TransactionDTO> transactions = null;
+
         String user = request.getRemoteUser();
         //try {
             transactions = transactionMgr.getTransactionList(user, bankAccountId);
-            removeCascading(transactions);
-            response.setStatus("SUCCESS");
+            //removeCascading(transactions);
+            response.setSuccess(true);
             response.setData(transactions); 
         
         return Response.ok().entity(response).build();
@@ -62,11 +64,11 @@ public class TransactionService {
 
     }
     
-    private void removeCascading(List<Transaction> transactions){
-        for(Transaction trx : transactions){
-            transactionDAO.detach(trx); 
-            trx.setBankAccount(null);
-        }
-    }
+    //private void removeCascading(List<Transaction> transactions){
+    //    for(Transaction trx : transactions){
+    //        transactionDAO.detach(trx); 
+    //        trx.setBankAccount(null);
+    //    }
+    //}
     
 }

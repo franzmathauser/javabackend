@@ -20,7 +20,7 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.10</version>
-            <scope>test</scope>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.glassfish.extras</groupId>
@@ -104,6 +104,33 @@
             <version>1.6.6</version>
             <scope>provided</scope>
         </dependency>
+        
+        <!-- paypal dependencies -->
+        <dependency>
+             <groupId>com.paypal</groupId>
+             <artifactId>merchant-java-sdk</artifactId>
+             <version>1.2.95</version>
+        </dependency>
+      
+        <dependency>
+             <groupId>com.paypal.sdk</groupId>
+             <artifactId>paypal-auth-signature</artifactId>
+             <version>1.0</version>
+        </dependency>
+        
+        <!-- Date / Time Library -->
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>2.1</version>
+        </dependency>
+        
+        <!-- cross origin -->
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-servlets</artifactId>
+            <version>7.6.7.v20120910</version>
+        </dependency>
 
         
     </dependencies>
@@ -155,6 +182,38 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>axistools-maven-plugin</artifactId>
+                <version>1.4</version>
+                <configuration>
+                  <wsdlFiles>
+                    <wsdlFiles>/PayPalSvc.wsdl</wsdlFiles>
+                  </wsdlFiles>
+                  <packageSpace>com.paypal.sdk</packageSpace>
+                  <testCases>true</testCases>
+                  <serverSide>true</serverSide>
+                  <subPackageByFileName>true</subPackageByFileName>
+                </configuration>
+                <executions>
+                  <execution>
+                    <goals>
+                      <goal>wsdl2java</goal>
+                    </goals>
+                  </execution>
+                </executions>
+              </plugin>
+              
+              <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.9</version>
+                <configuration>
+                    <show>private</show>
+                    <nohelp>true</nohelp>
+                </configuration>
+              </plugin>
+              
         </plugins>
     </build>
     

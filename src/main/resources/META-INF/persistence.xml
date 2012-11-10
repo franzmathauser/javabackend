@@ -5,6 +5,7 @@
     <jta-data-source>jdbc/backendDS</jta-data-source>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
+      <property name="hibernate.hbm2ddl.auto" value="update"/>
     </properties>
   </persistence-unit>
 </persistence>
