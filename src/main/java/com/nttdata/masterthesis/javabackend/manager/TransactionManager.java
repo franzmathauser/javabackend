@@ -32,7 +32,7 @@ public class TransactionManager {
         
         
         transactionList.addAll(convertTransactionListToTransactionDTOList(dbTransactions));
-        //transactionList.addAll( payPalMgr.getTransactions() );
+        transactionList.addAll( payPalMgr.getTransactions() );
         
         return transactionList;
     }
@@ -52,6 +52,8 @@ public class TransactionManager {
         TransactionDTO transactionDto = new TransactionDTO();
         
         transactionDto.setId(Long.toString(transaction.getId()));
+        transactionDto.setName(transaction.getName());
+        transactionDto.setPurpose(transaction.getPurpose());
         transactionDto.setAccount(transaction.getAccount());
         transactionDto.setAmount(transaction.getAmount());
         transactionDto.setBankCode(transaction.getBankCode());

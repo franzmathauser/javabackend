@@ -18,7 +18,6 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Context;
-import javax.ws.rs.core.Response;
 
 /**
  *
@@ -39,7 +38,7 @@ public class TransactionService {
     //TransactionDAO transactionDAO;
     
     @GET
-    public Response getUserTransactions(@PathParam("bankAccountId") Long bankAccountId) throws ForbiddenException{
+    public ResponseEnvelope getUserTransactions(@PathParam("bankAccountId") Long bankAccountId) throws ForbiddenException{
         
         //System.out.println(request.getUserPrincipal().getName());
         System.out.println(request.getSession().getId());
@@ -54,7 +53,10 @@ public class TransactionService {
             response.setSuccess(true);
             response.setData(transactions); 
         
-        return Response.ok().entity(response).build();
+        //return Response.ok().entity(response).build();
+            
+            
+        return response;
         //}
         //catch(ForbiddenException ex){
         //    throw new com.nttdata.masterthesis.javabackend.services.exceptions.ForbiddenException("Access is restricted.");

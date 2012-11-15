@@ -7,6 +7,7 @@ package com.nttdata.masterthesis.javabackend.filter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nttdata.masterthesis.javabackend.ressource.ResponseEnvelope;
 import java.io.IOException;
+import java.util.Date;
 import javax.activation.MimeType;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;

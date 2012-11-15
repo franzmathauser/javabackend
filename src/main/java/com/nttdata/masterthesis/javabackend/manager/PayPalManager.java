@@ -64,7 +64,7 @@ public class PayPalManager {
             TransactionSearchRequestType txReqType = new TransactionSearchRequestType();
 
             DateTime dt = new DateTime();
-            dt = dt.minusDays(14);
+            dt = dt.minusDays(100);
             
             txReqType.setStartDate(dt.toString());
 

@@ -38,6 +38,7 @@ public class PlacesManager {
         }
         url.append("&radius=500");
         url.append("&types=bank%7Cfinance");
+        //url.append("&rankby=distance");
         
         WebResource webResource = client.resource(url.toString());
         ClientResponse response = webResource.accept("application/json").get(ClientResponse.class);

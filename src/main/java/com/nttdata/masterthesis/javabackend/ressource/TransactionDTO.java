@@ -4,6 +4,8 @@
  */
 package com.nttdata.masterthesis.javabackend.ressource;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.nttdata.masterthesis.javabackend.helper.CustomJsonDateSerializer;
 import java.io.Serializable;
 import java.util.Date;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -46,6 +48,7 @@ public class TransactionDTO implements Serializable {
         this.id = id;
     }
 
+    @JsonSerialize(using=CustomJsonDateSerializer.class)
     public Date getBillingDate() {
         return billingDate;
     }
@@ -54,6 +57,7 @@ public class TransactionDTO implements Serializable {
         this.billingDate = billingDate;
     }
 
+    @JsonSerialize(using=CustomJsonDateSerializer.class)
     public Date getValueDate() {
         return valueDate;
     }

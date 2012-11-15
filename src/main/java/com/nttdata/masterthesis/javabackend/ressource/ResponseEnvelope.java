@@ -5,6 +5,8 @@
 package com.nttdata.masterthesis.javabackend.ressource;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.nttdata.masterthesis.javabackend.helper.CustomJsonDateSerializer;
+import java.util.Date;
 import java.util.Map;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
@@ -17,10 +19,10 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author MATHAF
  */
 //@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML, MediaType.TEXT_XML})
-@XmlRootElement( name = "responseEnv") 
+//@XmlRootElement( name = "responseEnv") 
 @JsonSerialize( include = JsonSerialize.Inclusion.NON_NULL)
-@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML, MediaType.TEXT_XML})
-@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML, MediaType.TEXT_XML})
+@Produces({MediaType.APPLICATION_JSON})
+@Consumes({MediaType.APPLICATION_JSON})
 public class ResponseEnvelope {
     private static final float version = 1.0f;  
  

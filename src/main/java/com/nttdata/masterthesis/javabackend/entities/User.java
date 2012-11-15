@@ -5,6 +5,8 @@
 package com.nttdata.masterthesis.javabackend.entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.nttdata.masterthesis.javabackend.helper.CustomJsonDateSerializer;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -104,6 +106,7 @@ public class User implements Serializable {
         this.email = email;
     }
 
+    @JsonSerialize(using=CustomJsonDateSerializer.class)
     public Date getLastLogin() {
         return lastLogin;
     }

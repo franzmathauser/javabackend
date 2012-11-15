@@ -8,13 +8,13 @@ import com.nttdata.masterthesis.javabackend.dao.UserDAO;
 import com.nttdata.masterthesis.javabackend.entities.User;
 import com.nttdata.masterthesis.javabackend.interceptor.ServicesLoggingInterceptor;
 import com.nttdata.masterthesis.javabackend.ressource.ResponseEnvelope;
-import com.nttdata.masterthesis.javabackend.services.exceptions.ThrowableExceptionMapper;
-import java.util.logging.Level;
+import java.util.Date;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.interceptor.Interceptors;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -22,9 +22,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import org.apache.commons.codec.digest.DigestUtils;
-import org.eclipse.jetty.util.log.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,8 +30,8 @@ import org.slf4j.LoggerFactory;
  * @author MATHAF
  */
 @Path("/auth")
-@Produces(MediaType.APPLICATION_JSON)
 @Interceptors( ServicesLoggingInterceptor.class )
+@Produces({MediaType.APPLICATION_JSON})
 @Stateless
 public class UserManagerService {
 
@@ -45,9 +42,11 @@ public class UserManagerService {
 
     @Path("login")
     @POST
+    @Produces({MediaType.APPLICATION_JSON})
+    @Consumes({MediaType.APPLICATION_FORM_URLENCODED})
     public ResponseEnvelope login(@FormParam("username") String userName, @FormParam("password") String password, @Context HttpServletRequest req) {
         ResponseEnvelope response = new ResponseEnvelope(); 
-        
+               
         // Container does the hashing
         //String hash = DigestUtils.sha512Hex(password);
         
@@ -65,7 +64,7 @@ public class UserManagerService {
             }
         }
         
-        try {
+        try {    
             req.login(userName, password); 
             response.setSuccess(true);
             
