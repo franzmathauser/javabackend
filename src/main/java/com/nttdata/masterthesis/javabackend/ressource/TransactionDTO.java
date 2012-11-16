@@ -39,6 +39,8 @@ public class TransactionDTO implements Serializable {
     private String purpose;
     
     private String category;
+    
+    private String categoryIcon;
 
     public String getId() {
         return id;
@@ -121,10 +123,18 @@ public class TransactionDTO implements Serializable {
     public void setCategory(String category) {
         this.category = category;
     }
+    
+    public String getCategoryIcon() {
+        return categoryIcon;
+    }
+
+    public void setCategoryIcon(String categoryIcon) {
+        this.categoryIcon = categoryIcon;
+    }
 
     @Override
     public String toString() {
-        return "TransactionDTO{" + "id=" + id + ", billingDate=" + billingDate + ", valueDate=" + valueDate + ", amount=" + amount + ", revenueType=" + revenueType + ", name=" + name + ", account=" + account + ", bankCode=" + bankCode + ", purpose=" + purpose + ", category=" + category + '}';
+        return "TransactionDTO{" + "id=" + id + ", billingDate=" + billingDate + ", valueDate=" + valueDate + ", amount=" + amount + ", revenueType=" + revenueType + ", name=" + name + ", account=" + account + ", bankCode=" + bankCode + ", purpose=" + purpose + ", category=" + category + ", categoryIcon=" + categoryIcon + '}';
     }
 
 }
