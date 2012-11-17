@@ -35,6 +35,14 @@ public final class ConfigurationConstants {
     */
     public static final String CN_NAME = "com.nttdata.masterthesis.javabackend.cnName";
     
+    public static final String TWITTER_ACCESS_TOKEN = "com.nttdata.masterthesis.javabackend.accessToken";
+    
+    public static final String TWITTER_ACCESS_TOKEN_SECURE = "com.nttdata.masterthesis.javabackend.accessTokenSecure";
+    
+    public static final String TWITTER_CUSTOMER_KEY = "com.nttdata.masterthesis.javabackend.customerKey";
+    
+    public static final String TWITTER_CUSTOMER_KEY_SECURE = "com.nttdata.masterthesis.javabackend.customerKeySecure";
+    
     /**
     * Konfigurations-Konstante username für JUNIT test.
     */

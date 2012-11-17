@@ -43,7 +43,7 @@ public class ServicesLoggingInterceptor {
            Object[] parameters = ctx.getParameters();
            String stringParam = Arrays.toString( parameters );
 
-           if (parameters.length > 0)
+           if (parameters != null && parameters.length > 0)
            {
                if(LOG.isDebugEnabled()){
                    Object[] args = { callerClass.getName(), ctx.getMethod().getName(), stringParam };

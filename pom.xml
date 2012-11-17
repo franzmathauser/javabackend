@@ -124,6 +124,13 @@
              <version>1.0</version>
         </dependency>
         
+        <!-- twitter dependencies -->
+        <dependency>
+            <groupId>org.twitter4j</groupId>
+            <artifactId>twitter4j-core</artifactId>
+            <version>2.2.6</version>
+        </dependency>
+        
         <!-- Date / Time Library -->
         <dependency>
             <groupId>joda-time</groupId>
