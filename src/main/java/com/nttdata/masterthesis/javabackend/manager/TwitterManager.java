@@ -4,14 +4,18 @@
  */
 package com.nttdata.masterthesis.javabackend.manager;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.ejb.LocalBean;
+import javax.ejb.Singleton;
+
+import org.slf4j.LoggerFactory;
+
 import com.nttdata.masterthesis.javabackend.config.ConfigurationConstants;
 import com.nttdata.masterthesis.javabackend.config.ConfigurationSingleton;
 import com.nttdata.masterthesis.javabackend.ressource.NewsDTO;
-import java.util.ArrayList;
-import java.util.List;
-import javax.ejb.LocalBean;
-import javax.ejb.Singleton;
-import org.slf4j.LoggerFactory;
+
 import twitter4j.ResponseList;
 import twitter4j.Status;
 import twitter4j.Twitter;

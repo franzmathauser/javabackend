@@ -4,11 +4,8 @@
  */
 package com.nttdata.masterthesis.javabackend.filter;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.nttdata.masterthesis.javabackend.ressource.ResponseEnvelope;
 import java.io.IOException;
-import java.util.Date;
-import javax.activation.MimeType;
+
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -19,6 +16,9 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.core.MediaType;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.nttdata.masterthesis.javabackend.ressource.ResponseEnvelope;
 
 /**
  *

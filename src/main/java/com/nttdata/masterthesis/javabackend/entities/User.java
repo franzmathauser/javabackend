@@ -4,11 +4,10 @@
  */
 package com.nttdata.masterthesis.javabackend.entities;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.nttdata.masterthesis.javabackend.helper.CustomJsonDateSerializer;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+
 import javax.persistence.Cacheable;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
@@ -25,6 +24,9 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.UniqueConstraint;
+
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.nttdata.masterthesis.javabackend.helper.CustomJsonDateSerializer;
 
 /**
  *

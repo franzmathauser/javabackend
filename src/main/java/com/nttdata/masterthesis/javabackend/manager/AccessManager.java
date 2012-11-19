@@ -4,13 +4,15 @@
  */
 package com.nttdata.masterthesis.javabackend.manager;
 
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.nttdata.masterthesis.javabackend.entities.BankAccount;
 import com.nttdata.masterthesis.javabackend.entities.User;
 import com.nttdata.masterthesis.javabackend.manager.exceptions.ForbiddenException;
-import javax.ejb.LocalBean;
-import javax.ejb.Stateless;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  *

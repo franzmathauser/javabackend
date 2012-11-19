@@ -4,16 +4,17 @@
  */
 package com.nttdata.masterthesis.javabackend.dao;
 
-import com.nttdata.masterthesis.javabackend.entities.BankAccount;
-import com.nttdata.masterthesis.javabackend.entities.MappedCategory;
-import com.nttdata.masterthesis.javabackend.entities.Transaction;
 import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+
+import com.nttdata.masterthesis.javabackend.entities.MappedCategory;
+
 
 /**
  *

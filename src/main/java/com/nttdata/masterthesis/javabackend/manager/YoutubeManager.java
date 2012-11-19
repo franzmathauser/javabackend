@@ -4,6 +4,19 @@
  */
 package com.nttdata.masterthesis.javabackend.manager;
 
+import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.ejb.LocalBean;
+import javax.ejb.Singleton;
+
+import org.slf4j.LoggerFactory;
+
 import com.google.gdata.client.youtube.YouTubeQuery;
 import com.google.gdata.client.youtube.YouTubeService;
 import com.google.gdata.data.youtube.VideoEntry;
@@ -12,16 +25,6 @@ import com.google.gdata.util.ServiceException;
 import com.nttdata.masterthesis.javabackend.config.ConfigurationConstants;
 import com.nttdata.masterthesis.javabackend.config.ConfigurationSingleton;
 import com.nttdata.masterthesis.javabackend.ressource.NewsDTO;
-import java.io.IOException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.ejb.LocalBean;
-import javax.ejb.Singleton;
-import org.slf4j.LoggerFactory;
 
 /**
  *

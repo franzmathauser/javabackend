@@ -4,15 +4,16 @@
  */
 package com.nttdata.masterthesis.javabackend;
 
-import com.nttdata.masterthesis.javabackend.filter.HttpToHttpsFilterTest;
-import com.nttdata.masterthesis.javabackend.services.rest.AuthenticationTest;
-import com.nttdata.masterthesis.javabackend.services.rest.TransactionServiceTest;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
+
+import com.nttdata.masterthesis.javabackend.filter.HttpToHttpsFilterTest;
+import com.nttdata.masterthesis.javabackend.services.rest.AuthenticationTest;
+import com.nttdata.masterthesis.javabackend.services.rest.TransactionServiceTest;
 
 /**
  *

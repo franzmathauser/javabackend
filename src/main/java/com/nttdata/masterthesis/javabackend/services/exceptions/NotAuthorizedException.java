@@ -4,11 +4,13 @@
  */
 package com.nttdata.masterthesis.javabackend.services.exceptions;
 
-import com.nttdata.masterthesis.javabackend.ressource.ResponseEnvelope;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
 import org.glassfish.grizzly.http.util.HttpStatus;
+
+import com.nttdata.masterthesis.javabackend.ressource.ResponseEnvelope;
 
 /**
  *

@@ -7,6 +7,7 @@ package com.nttdata.masterthesis.javabackend.services.exceptions;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
 import org.glassfish.grizzly.http.util.HttpStatus;
 
 /**

@@ -4,12 +4,14 @@
  */
 package com.nttdata.masterthesis.javabackend.ressource;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import java.util.Map;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.xml.bind.annotation.XmlAnyElement;
+
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 /**
  *

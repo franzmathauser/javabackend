@@ -4,10 +4,6 @@
  */
 package com.nttdata.masterthesis.javabackend.services.rest;
 
-import com.nttdata.masterthesis.javabackend.dao.UserDAO;
-import com.nttdata.masterthesis.javabackend.entities.User;
-import com.nttdata.masterthesis.javabackend.interceptor.ServicesLoggingInterceptor;
-import com.nttdata.masterthesis.javabackend.ressource.ResponseEnvelope;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.interceptor.Interceptors;
@@ -21,8 +17,14 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.nttdata.masterthesis.javabackend.dao.UserDAO;
+import com.nttdata.masterthesis.javabackend.entities.User;
+import com.nttdata.masterthesis.javabackend.interceptor.ServicesLoggingInterceptor;
+import com.nttdata.masterthesis.javabackend.ressource.ResponseEnvelope;
 
 /**
  *

@@ -4,9 +4,8 @@
  */
 package com.nttdata.masterthesis.javabackend.services.rest;
 
-import com.nttdata.masterthesis.javabackend.ressource.TransactionDTO;
-import com.nttdata.masterthesis.javabackend.manager.PayPalManager;
 import java.util.List;
+
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.servlet.ServletContext;
@@ -14,6 +13,9 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
+
+import com.nttdata.masterthesis.javabackend.manager.PayPalManager;
+import com.nttdata.masterthesis.javabackend.ressource.TransactionDTO;
 
 /**
  *

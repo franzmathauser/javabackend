@@ -4,19 +4,21 @@
  */
 package com.nttdata.masterthesis.javabackend.services.rest;
 
-import com.nttdata.masterthesis.javabackend.interceptor.ServicesLoggingInterceptor;
-import com.nttdata.masterthesis.javabackend.manager.NewsChannelManager;
-import com.nttdata.masterthesis.javabackend.manager.TwitterManager;
-import com.nttdata.masterthesis.javabackend.manager.YoutubeManager;
-import com.nttdata.masterthesis.javabackend.ressource.NewsDTO;
-import com.nttdata.masterthesis.javabackend.ressource.ResponseEnvelope;
 import java.util.List;
+
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.interceptor.Interceptors;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+
+import com.nttdata.masterthesis.javabackend.interceptor.ServicesLoggingInterceptor;
+import com.nttdata.masterthesis.javabackend.manager.NewsChannelManager;
+import com.nttdata.masterthesis.javabackend.manager.TwitterManager;
+import com.nttdata.masterthesis.javabackend.manager.YoutubeManager;
+import com.nttdata.masterthesis.javabackend.ressource.NewsDTO;
+import com.nttdata.masterthesis.javabackend.ressource.ResponseEnvelope;
 
 /**
  *

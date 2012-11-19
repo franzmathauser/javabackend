@@ -4,11 +4,13 @@
  */
 package com.nttdata.masterthesis.javabackend.services.exceptions;
 
-import com.nttdata.masterthesis.javabackend.ressource.ResponseEnvelope;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.nttdata.masterthesis.javabackend.ressource.ResponseEnvelope;
 
 /**
  *

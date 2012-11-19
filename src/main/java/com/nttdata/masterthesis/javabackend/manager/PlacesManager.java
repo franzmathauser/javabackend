@@ -4,15 +4,17 @@
  */
 package com.nttdata.masterthesis.javabackend.manager;
 
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
+
+import org.glassfish.grizzly.http.util.HttpStatus;
+
 import com.nttdata.masterthesis.javabackend.config.ConfigurationConstants;
 import com.nttdata.masterthesis.javabackend.config.ConfigurationSingleton;
 import com.nttdata.masterthesis.javabackend.services.exceptions.GatewayTimeoutException;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
-import javax.ejb.Stateless;
-import javax.ejb.LocalBean;
-import org.glassfish.grizzly.http.util.HttpStatus;
 
 /**
  *

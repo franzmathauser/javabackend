@@ -4,13 +4,15 @@
  */
 package com.nttdata.masterthesis.javabackend.ressource;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.nttdata.masterthesis.javabackend.helper.CustomJsonDateSerializer;
 import java.io.Serializable;
 import java.util.Date;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.nttdata.masterthesis.javabackend.helper.CustomJsonDateSerializer;
 
 /**
  *

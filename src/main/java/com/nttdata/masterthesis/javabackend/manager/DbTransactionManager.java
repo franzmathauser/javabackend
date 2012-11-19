@@ -4,6 +4,14 @@
  */
 package com.nttdata.masterthesis.javabackend.manager;
 
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.ejb.EJB;
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
+
 import com.nttdata.masterthesis.javabackend.dao.BankAccountDAO;
 import com.nttdata.masterthesis.javabackend.dao.TransactionDAO;
 import com.nttdata.masterthesis.javabackend.dao.UserDAO;
@@ -11,11 +19,6 @@ import com.nttdata.masterthesis.javabackend.entities.BankAccount;
 import com.nttdata.masterthesis.javabackend.entities.Transaction;
 import com.nttdata.masterthesis.javabackend.entities.User;
 import com.nttdata.masterthesis.javabackend.manager.exceptions.ForbiddenException;
-import java.util.ArrayList;
-import java.util.List;
-import javax.ejb.EJB;
-import javax.ejb.LocalBean;
-import javax.ejb.Stateless;
 
 /**
  *

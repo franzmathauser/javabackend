@@ -4,6 +4,23 @@
  */
 package com.nttdata.masterthesis.javabackend.manager;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.ejb.EJB;
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+import org.xml.sax.SAXException;
+
 import com.nttdata.masterthesis.javabackend.dao.MappedCategoryDAO;
 import com.nttdata.masterthesis.javabackend.entities.MappedCategory;
 import com.nttdata.masterthesis.javabackend.ressource.TransactionDTO;
@@ -15,20 +32,7 @@ import com.paypal.exception.InvalidResponseDataException;
 import com.paypal.exception.MissingCredentialException;
 import com.paypal.exception.SSLConfigurationException;
 import com.paypal.sdk.exceptions.OAuthException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.ejb.EJB;
-import javax.ejb.Stateless;
-import javax.ejb.LocalBean;
-import javax.xml.parsers.ParserConfigurationException;
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
-import org.xml.sax.SAXException;
+
 import urn.ebay.api.PayPalAPI.PayPalAPIInterfaceServiceService;
 import urn.ebay.api.PayPalAPI.TransactionSearchReq;
 import urn.ebay.api.PayPalAPI.TransactionSearchRequestType;
