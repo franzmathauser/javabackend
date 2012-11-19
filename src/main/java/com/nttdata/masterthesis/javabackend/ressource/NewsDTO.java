@@ -5,7 +5,7 @@
 package com.nttdata.masterthesis.javabackend.ressource;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.nttdata.masterthesis.javabackend.helper.CustomJsonDateSerializer;
+import com.nttdata.masterthesis.javabackend.helper.CustomJsonDateTimeSerializer;
 import java.util.Date;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -18,9 +18,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public class NewsDTO {
-    
-    private String message; 
+
+    private String message;
     private Date date;
+    private String image;
+
 
     public String getMessage() {
         return message;
@@ -30,7 +32,7 @@ public class NewsDTO {
         this.message = message;
     }
 
-    @JsonSerialize(using=CustomJsonDateSerializer.class)
+    @JsonSerialize(using=CustomJsonDateTimeSerializer.class)
     public Date getDate() {
         return date;
     }
@@ -38,8 +40,13 @@ public class NewsDTO {
     public void setDate(Date date) {
         this.date = date;
     }
-    
-    
-    
-    
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
 }

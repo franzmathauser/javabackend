@@ -14,32 +14,32 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author MATHAF 
+ * @author MATHAF
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public class TransactionDTO implements Serializable {
-    
+
     private String id;
-    
+
     private Date billingDate;
-    
+
     private Date valueDate;
-    
+
     private float amount;
-    
+
     private String revenueType;
-    
+
     private String name;
-    
+
     private String account;
-    
+
     private String bankCode;
-    
+
     private String purpose;
-    
+
     private String category;
-    
+
     private String categoryIcon;
 
     public String getId() {
@@ -123,7 +123,7 @@ public class TransactionDTO implements Serializable {
     public void setCategory(String category) {
         this.category = category;
     }
-    
+
     public String getCategoryIcon() {
         return categoryIcon;
     }
@@ -133,7 +133,7 @@ public class TransactionDTO implements Serializable {
     }
 
     @Override
-    public String toString() {
+    public final String toString() {
         return "TransactionDTO{" + "id=" + id + ", billingDate=" + billingDate + ", valueDate=" + valueDate + ", amount=" + amount + ", revenueType=" + revenueType + ", name=" + name + ", account=" + account + ", bankCode=" + bankCode + ", purpose=" + purpose + ", category=" + category + ", categoryIcon=" + categoryIcon + '}';
     }
 

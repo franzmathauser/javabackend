@@ -16,15 +16,15 @@ import java.util.Date;
  *
  * @author MATHAF
  */
-public class CustomJsonDateSerializer extends JsonSerializer<Date> {
+public class CustomJsonDateTimeSerializer extends JsonSerializer<Date> {
     
-    public static final String DATE_FORMAT = "dd.MM.yyyy";
+    public static final String DATETIME_FORMAT = "dd.MM.yyyy HH:mm:ss";
     
     @Override
     public void serialize(Date aDate, JsonGenerator aJsonGenerator, SerializerProvider aSerializerProvider)
             throws IOException, JsonProcessingException {
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
+        SimpleDateFormat dateFormat = new SimpleDateFormat(DATETIME_FORMAT);
         String dateString = dateFormat.format(aDate);
         aJsonGenerator.writeString(dateString);
     }

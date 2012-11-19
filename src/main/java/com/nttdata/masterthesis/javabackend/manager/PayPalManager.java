@@ -59,6 +59,7 @@ public class PayPalManager {
         try {
 
             InputStream is = this.getClass().getClassLoader().getResourceAsStream(fileName);
+            
             service = new PayPalAPIInterfaceServiceService(is); 
             TransactionSearchReq txSearchReq = new TransactionSearchReq();
             TransactionSearchRequestType txReqType = new TransactionSearchRequestType();

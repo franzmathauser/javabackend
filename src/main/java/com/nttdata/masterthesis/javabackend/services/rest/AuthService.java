@@ -33,9 +33,9 @@ import org.slf4j.LoggerFactory;
 @Interceptors( ServicesLoggingInterceptor.class )
 @Produces({MediaType.APPLICATION_JSON})
 @Stateless
-public class UserManagerService {
+public class AuthService {
 
-    static final Logger LOG = LoggerFactory.getLogger(UserManagerService.class);
+    static final Logger LOG = LoggerFactory.getLogger(AuthService.class);
     
     @EJB
     private UserDAO userDAO;

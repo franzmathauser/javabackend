@@ -27,60 +27,60 @@ import twitter4j.conf.ConfigurationBuilder;
 @Singleton
 @LocalBean
 public class TwitterManager {
-    
+
     static final org.slf4j.Logger LOG = LoggerFactory.getLogger(TwitterManager.class);
-    
+
     private final String ACCESS_TOKEN = ConfigurationSingleton.getInstance().getString(ConfigurationConstants.TWITTER_ACCESS_TOKEN);
     private final String ACCESS_TOKEN_SECRET = ConfigurationSingleton.getInstance().getString(ConfigurationConstants.TWITTER_ACCESS_TOKEN_SECURE);
     private final String CUSTOMER_KEY = ConfigurationSingleton.getInstance().getString(ConfigurationConstants.TWITTER_CUSTOMER_KEY);
     private final String CUSTOMER_KEY_SECRET = ConfigurationSingleton.getInstance().getString(ConfigurationConstants.TWITTER_CUSTOMER_KEY_SECURE);
-    
-    private final Twitter twitter; 
-    
+
+    private final String TWITTER_ICON = "https://pc42366.de.softlab.net:8181/JavaBackend/icons/newschannel/twitter.png";
+
+    private final Twitter twitter;
+
     public TwitterManager() {
-        
+
         ConfigurationBuilder cb = new ConfigurationBuilder();
         cb.setDebugEnabled(true)
           .setOAuthConsumerKey(CUSTOMER_KEY)
           .setOAuthConsumerSecret(CUSTOMER_KEY_SECRET)
           .setOAuthAccessToken(ACCESS_TOKEN)
           .setOAuthAccessTokenSecret(ACCESS_TOKEN_SECRET);
-        
+
         TwitterFactory tf = new TwitterFactory(cb.build());
         twitter = tf.getInstance();
-               
+
         try {
             User user = twitter.verifyCredentials();
-             
+
         } catch (TwitterException ex) {
-            LOG.error("could not load home-timeline of twitter"); 
+            LOG.error("could not load home-timeline of twitter");
         }
-        
+
 
     }
-    public String getTimeLine(){
-        return "";
-    }
-    
+
     public List<NewsDTO> getNews() {
-        
+
         List<NewsDTO> newsList = new ArrayList<NewsDTO>();
-        
+
         try {
             ResponseList<Status> responseList = twitter.getUserTimeline();
-            
+
             for(Status status : responseList){
                 NewsDTO news = new NewsDTO();
                 news.setDate(status.getCreatedAt());
                 news.setMessage(status.getText());
+                news.setImage(TWITTER_ICON);
                 newsList.add(news);
             }
 
         } catch (TwitterException ex) {
             LOG.error("twitter error durring usertimeline request", ex);
         }
-                
+
         return newsList;
     }
-    
+
 }
