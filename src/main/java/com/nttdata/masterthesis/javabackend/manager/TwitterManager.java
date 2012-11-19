@@ -35,7 +35,9 @@ public class TwitterManager {
     private final String CUSTOMER_KEY = ConfigurationSingleton.getInstance().getString(ConfigurationConstants.TWITTER_CUSTOMER_KEY);
     private final String CUSTOMER_KEY_SECRET = ConfigurationSingleton.getInstance().getString(ConfigurationConstants.TWITTER_CUSTOMER_KEY_SECURE);
 
-    private final String TWITTER_ICON = "https://pc42366.de.softlab.net:8181/JavaBackend/icons/newschannel/twitter.png";
+    private final String APPLICATION_ROOT_URL = ConfigurationSingleton.getInstance().getString(ConfigurationConstants.APPLICATION_ROOT_URL);
+
+    private final String TWITTER_ICON = APPLICATION_ROOT_URL + "icons/newschannel/twitter.png";
 
     private final Twitter twitter;
 

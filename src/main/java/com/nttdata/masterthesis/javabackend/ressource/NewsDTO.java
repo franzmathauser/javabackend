@@ -17,12 +17,11 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class NewsDTO {
+public class NewsDTO implements Comparable<NewsDTO> {
 
     private String message;
     private Date date;
     private String image;
-
 
     public String getMessage() {
         return message;
@@ -47,6 +46,11 @@ public class NewsDTO {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    @Override
+    public int compareTo(NewsDTO o) {
+        return o.getDate().compareTo(this.getDate());
     }
 
 }
