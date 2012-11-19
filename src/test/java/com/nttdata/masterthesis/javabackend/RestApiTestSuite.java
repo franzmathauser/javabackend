@@ -18,24 +18,31 @@ import org.junit.runners.Suite;
  *
  * @author MATHAF
  */
-@RunWith(Suite.class)
-@Suite.SuiteClasses({HttpToHttpsFilterTest.class, AuthenticationTest.class, TransactionServiceTest.class})
-public class RestApiTestSuite {
+@RunWith( Suite.class )
+@Suite.SuiteClasses(
+{
+    HttpToHttpsFilterTest.class, AuthenticationTest.class, TransactionServiceTest.class
+} )
+public class RestApiTestSuite
+{
 
     @BeforeClass
-    public static void setUpClass() throws Exception {
+    public static void setUpClass() throws Exception
+    {
     }
 
     @AfterClass
-    public static void tearDownClass() throws Exception {
+    public static void tearDownClass() throws Exception
+    {
     }
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() throws Exception
+    {
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() throws Exception
+    {
     }
-    
 }

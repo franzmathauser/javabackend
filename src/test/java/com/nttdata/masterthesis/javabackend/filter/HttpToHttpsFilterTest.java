@@ -19,38 +19,45 @@ import org.junit.Test;
  *
  * @author MATHAF
  */
-public class HttpToHttpsFilterTest {
-    
-    public HttpToHttpsFilterTest() {
+public class HttpToHttpsFilterTest
+{
+
+    public HttpToHttpsFilterTest()
+    {
     }
-    
+
     @BeforeClass
-    public static void setUpClass() {
+    public static void setUpClass()
+    {
     }
-    
+
     @AfterClass
-    public static void tearDownClass() {
+    public static void tearDownClass()
+    {
     }
-    
+
     @Before
-    public void setUp() {
+    public void setUp()
+    {
     }
-    
+
     @After
-    public void tearDown() {
+    public void tearDown()
+    {
     }
- 
+
     @Test
-    public void redirectionTest() {
+    public void redirectionTest()
+    {
         Client client = Client.create();
-        
+
         WebResource webResource = client
-            .resource("http://127.0.0.1:8080/JavaBackend/rest/secure/bankaccount/1/transactions");
+        .resource( "http://127.0.0.1:8080/JavaBackend/rest/secure/bankaccount/1/transactions" );
 
-        ClientResponse response = webResource.accept("application/json")
-            .get(ClientResponse.class);
+        ClientResponse response = webResource.accept( "application/json" )
+        .get( ClientResponse.class );
 
-        assertEquals("redirection test.", 302, response.getStatus());
-       
+        assertEquals( "redirection test.", 302, response.getStatus() );
+
     }
 }

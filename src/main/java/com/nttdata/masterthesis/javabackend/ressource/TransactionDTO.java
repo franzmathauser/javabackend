@@ -17,124 +17,137 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author MATHAF
  */
 @XmlRootElement
-@XmlAccessorType(XmlAccessType.FIELD)
-public class TransactionDTO implements Serializable {
+@XmlAccessorType( XmlAccessType.FIELD )
+public class TransactionDTO implements Serializable
+{
 
     private String id;
-
     private Date billingDate;
-
     private Date valueDate;
-
     private float amount;
-
     private String revenueType;
-
     private String name;
-
     private String account;
-
     private String bankCode;
-
     private String purpose;
-
     private String category;
-
     private String categoryIcon;
 
-    public String getId() {
+    public String getId()
+    {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId( String id )
+    {
         this.id = id;
     }
 
-    @JsonSerialize(using=CustomJsonDateSerializer.class)
-    public Date getBillingDate() {
+    @JsonSerialize( using = CustomJsonDateSerializer.class )
+    public Date getBillingDate()
+    {
         return billingDate;
     }
 
-    public void setBillingDate(Date billingDate) {
+    public void setBillingDate( Date billingDate )
+    {
         this.billingDate = billingDate;
     }
 
-    @JsonSerialize(using=CustomJsonDateSerializer.class)
-    public Date getValueDate() {
+    @JsonSerialize( using = CustomJsonDateSerializer.class )
+    public Date getValueDate()
+    {
         return valueDate;
     }
 
-    public void setValueDate(Date valueDate) {
+    public void setValueDate( Date valueDate )
+    {
         this.valueDate = valueDate;
     }
 
-    public float getAmount() {
+    public float getAmount()
+    {
         return amount;
     }
 
-    public void setAmount(float amount) {
+    public void setAmount( float amount )
+    {
         this.amount = amount;
     }
 
-    public String getRevenueType() {
+    public String getRevenueType()
+    {
         return revenueType;
     }
 
-    public void setRevenueType(String revenueType) {
+    public void setRevenueType( String revenueType )
+    {
         this.revenueType = revenueType;
     }
 
-    public String getName() {
+    public String getName()
+    {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName( String name )
+    {
         this.name = name;
     }
 
-    public String getAccount() {
+    public String getAccount()
+    {
         return account;
     }
 
-    public void setAccount(String account) {
+    public void setAccount( String account )
+    {
         this.account = account;
     }
 
-    public String getBankCode() {
+    public String getBankCode()
+    {
         return bankCode;
     }
 
-    public void setBankCode(String bankCode) {
+    public void setBankCode( String bankCode )
+    {
         this.bankCode = bankCode;
     }
 
-    public String getPurpose() {
+    public String getPurpose()
+    {
         return purpose;
     }
 
-    public void setPurpose(String purpose) {
+    public void setPurpose( String purpose )
+    {
         this.purpose = purpose;
     }
 
-    public String getCategory() {
+    public String getCategory()
+    {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory( String category )
+    {
         this.category = category;
     }
 
-    public String getCategoryIcon() {
+    public String getCategoryIcon()
+    {
         return categoryIcon;
     }
 
-    public void setCategoryIcon(String categoryIcon) {
+    public void setCategoryIcon( String categoryIcon )
+    {
         this.categoryIcon = categoryIcon;
     }
 
     @Override
-    public final String toString() {
+    public final String toString()
+    {
         return "TransactionDTO{" + "id=" + id + ", billingDate=" + billingDate + ", valueDate=" + valueDate + ", amount=" + amount + ", revenueType=" + revenueType + ", name=" + name + ", account=" + account + ", bankCode=" + bankCode + ", purpose=" + purpose + ", category=" + category + ", categoryIcon=" + categoryIcon + '}';
     }
-
 }

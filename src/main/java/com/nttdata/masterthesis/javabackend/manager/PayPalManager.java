@@ -41,94 +41,109 @@ import urn.ebay.apis.eBLBaseComponents.PaymentTransactionSearchResultType;
  */
 @Stateless
 @LocalBean
-public class PayPalManager {
-    
+public class PayPalManager
+{
+
     @EJB
     MappedCategoryDAO mappedCategoryDao;
-    
-    public List<TransactionDTO> getTransactions(){
-        
+
+    public List<TransactionDTO> getTransactions()
+    {
+
         List<TransactionDTO> transactionList = new ArrayList<TransactionDTO>();
-        
+
         String fileName = "paypal-sdk-config.properties";
         Class c1 = this.getClass();
         ClassLoader loader = c1.getClassLoader();
-        
+
         PayPalAPIInterfaceServiceService service;
         List<PaymentTransactionSearchResultType> paymentTransactions = null;
-        try {
+        try
+        {
 
-            InputStream is = this.getClass().getClassLoader().getResourceAsStream(fileName);
-            
-            service = new PayPalAPIInterfaceServiceService(is); 
+            InputStream is = this.getClass().getClassLoader().getResourceAsStream( fileName );
+
+            service = new PayPalAPIInterfaceServiceService( is );
             TransactionSearchReq txSearchReq = new TransactionSearchReq();
             TransactionSearchRequestType txReqType = new TransactionSearchRequestType();
 
             DateTime dt = new DateTime();
-            dt = dt.minusDays(100);
-            
-            txReqType.setStartDate(dt.toString());
+            dt = dt.minusDays( 100 );
 
-            txSearchReq.setTransactionSearchRequest(txReqType);
+            txReqType.setStartDate( dt.toString() );
+
+            txSearchReq.setTransactionSearchRequest( txReqType );
 
             TransactionSearchResponseType txSearchRespType = null;
-            txSearchRespType = service.transactionSearch(txSearchReq);
+            txSearchRespType = service.transactionSearch( txSearchReq );
 
             paymentTransactions = txSearchRespType.getPaymentTransactions();
-            
-            for(PaymentTransactionSearchResultType transaction : paymentTransactions){
-                System.out.println(transaction.getPayer()); 
-                
-                TransactionDTO transactionDto = new TransactionDTO();
-                
-                transactionDto.setId(transaction.getTransactionID());
-                transactionDto.setAmount(Float.valueOf(transaction.getGrossAmount().getValue()));
-                
-                MappedCategory mappedCategory = mappedCategoryDao.findByMappedId(transaction.getTransactionID());
-                if(mappedCategory != null){
-                    transactionDto.setCategory(mappedCategory.getCategory().getName());
-                }
-                
-                
-                
-                
-                DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss'Z'");
-                dt = fmt.parseDateTime(transaction.getTimestamp());
-                transactionDto.setBillingDate(dt.toDate());
-                transactionDto.setValueDate(dt.toDate());
-                transactionDto.setPurpose(transaction.getStatus());
-                transactionDto.setAccount(transaction.getPayer());
-                
-                transactionList.add(transactionDto);
-            }
-            
-            
-        } catch (OAuthException ex) {
-            Logger.getLogger(PayPalTransactionService.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(PayPalTransactionService.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SSLConfigurationException ex) {
-            Logger.getLogger(PayPalTransactionService.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InvalidCredentialException ex) {
-            Logger.getLogger(PayPalTransactionService.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (HttpErrorException ex) {
-            Logger.getLogger(PayPalTransactionService.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InvalidResponseDataException ex) {
-            Logger.getLogger(PayPalTransactionService.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClientActionRequiredException ex) {
-            Logger.getLogger(PayPalTransactionService.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (MissingCredentialException ex) {
-            Logger.getLogger(PayPalTransactionService.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(PayPalTransactionService.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParserConfigurationException ex) {
-            Logger.getLogger(PayPalTransactionService.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SAXException ex) {
-            Logger.getLogger(PayPalTransactionService.class.getName()).log(Level.SEVERE, null, ex);
-        } 
-        
-        return transactionList;
-        
-    }
 
+            for ( PaymentTransactionSearchResultType transaction : paymentTransactions )
+            {
+                System.out.println( transaction.getPayer() );
+
+                TransactionDTO transactionDto = new TransactionDTO();
+
+                transactionDto.setId( transaction.getTransactionID() );
+                transactionDto.setAmount( Float.valueOf( transaction.getGrossAmount().getValue() ) );
+
+                MappedCategory mappedCategory = mappedCategoryDao.findByMappedId( transaction.getTransactionID() );
+                if ( mappedCategory != null )
+                {
+                    transactionDto.setCategory( mappedCategory.getCategory().getName() );
+                }
+
+
+
+
+                DateTimeFormatter fmt = DateTimeFormat.forPattern( "yyyy-MM-dd'T'HH:mm:ss'Z'" );
+                dt = fmt.parseDateTime( transaction.getTimestamp() );
+                transactionDto.setBillingDate( dt.toDate() );
+                transactionDto.setValueDate( dt.toDate() );
+                transactionDto.setPurpose( transaction.getStatus() );
+                transactionDto.setAccount( transaction.getPayer() );
+
+                transactionList.add( transactionDto );
+            }
+
+
+        } catch ( OAuthException ex )
+        {
+            Logger.getLogger( PayPalTransactionService.class.getName() ).log( Level.SEVERE, null, ex );
+        } catch ( IOException ex )
+        {
+            Logger.getLogger( PayPalTransactionService.class.getName() ).log( Level.SEVERE, null, ex );
+        } catch ( SSLConfigurationException ex )
+        {
+            Logger.getLogger( PayPalTransactionService.class.getName() ).log( Level.SEVERE, null, ex );
+        } catch ( InvalidCredentialException ex )
+        {
+            Logger.getLogger( PayPalTransactionService.class.getName() ).log( Level.SEVERE, null, ex );
+        } catch ( HttpErrorException ex )
+        {
+            Logger.getLogger( PayPalTransactionService.class.getName() ).log( Level.SEVERE, null, ex );
+        } catch ( InvalidResponseDataException ex )
+        {
+            Logger.getLogger( PayPalTransactionService.class.getName() ).log( Level.SEVERE, null, ex );
+        } catch ( ClientActionRequiredException ex )
+        {
+            Logger.getLogger( PayPalTransactionService.class.getName() ).log( Level.SEVERE, null, ex );
+        } catch ( MissingCredentialException ex )
+        {
+            Logger.getLogger( PayPalTransactionService.class.getName() ).log( Level.SEVERE, null, ex );
+        } catch ( InterruptedException ex )
+        {
+            Logger.getLogger( PayPalTransactionService.class.getName() ).log( Level.SEVERE, null, ex );
+        } catch ( ParserConfigurationException ex )
+        {
+            Logger.getLogger( PayPalTransactionService.class.getName() ).log( Level.SEVERE, null, ex );
+        } catch ( SAXException ex )
+        {
+            Logger.getLogger( PayPalTransactionService.class.getName() ).log( Level.SEVERE, null, ex );
+        }
+
+        return transactionList;
+
+    }
 }

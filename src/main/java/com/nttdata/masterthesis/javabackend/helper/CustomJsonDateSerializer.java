@@ -16,16 +16,18 @@ import java.util.Date;
  *
  * @author MATHAF
  */
-public class CustomJsonDateSerializer extends JsonSerializer<Date> {
-    
-    public static final String DATE_FORMAT = "dd.MM.yyyy";
-    
-    @Override
-    public void serialize(Date aDate, JsonGenerator aJsonGenerator, SerializerProvider aSerializerProvider)
-            throws IOException, JsonProcessingException {
+public class CustomJsonDateSerializer extends JsonSerializer<Date>
+{
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
-        String dateString = dateFormat.format(aDate);
-        aJsonGenerator.writeString(dateString);
+    public static final String DATE_FORMAT = "dd.MM.yyyy";
+
+    @Override
+    public void serialize( Date aDate, JsonGenerator aJsonGenerator, SerializerProvider aSerializerProvider )
+    throws IOException, JsonProcessingException
+    {
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat( DATE_FORMAT );
+        String dateString = dateFormat.format( aDate );
+        aJsonGenerator.writeString( dateString );
     }
 }

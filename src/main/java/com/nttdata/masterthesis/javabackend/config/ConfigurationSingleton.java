@@ -8,29 +8,29 @@ package com.nttdata.masterthesis.javabackend.config;
  *
  * @author MATHAF
  */
-public class ConfigurationSingleton extends BackendConfiguration {
-    
-        private static ConfigurationSingleton config = new ConfigurationSingleton();
+public class ConfigurationSingleton extends BackendConfiguration
+{
 
-	/**
-	 * Konstruktor.
-	 */
-	private ConfigurationSingleton()
-	{
-		super( ConfigurationConstants.CONFIG_FILE_NAME );
-	}
+    private static ConfigurationSingleton config = new ConfigurationSingleton();
 
-	/**
-	 * Singleton Factory Methode.
-	 * 
-	 * @return unique Instanz von {@link ConfigurationSingleton}
-	 */
-	public static ConfigurationSingleton getInstance()
-	{
-		synchronized (config)
-		{
-			return config;
-		}
-	}
-    
+    /**
+     * Konstruktor.
+     */
+    private ConfigurationSingleton()
+    {
+        super( ConfigurationConstants.CONFIG_FILE_NAME );
+    }
+
+    /**
+     * Singleton Factory Methode.
+     *
+     * @return unique Instanz von {@link ConfigurationSingleton}
+     */
+    public static ConfigurationSingleton getInstance()
+    {
+        synchronized ( config )
+        {
+            return config;
+        }
+    }
 }

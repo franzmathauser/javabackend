@@ -17,47 +17,59 @@ import javax.persistence.TypedQuery;
  * @author MATHAF
  */
 @Stateless
-public class UserDAO {
+public class UserDAO
+{
+
     @PersistenceContext
     private EntityManager em;
-     
-    public List<User> findAll() {
-        TypedQuery<User> query = em.createQuery("SELECT usr FROM User", User.class);
+
+    public List<User> findAll()
+    {
+        TypedQuery<User> query = em.createQuery( "SELECT usr FROM User", User.class );
         return query.getResultList();
     }
-  
-    public void save(User user) {
-        em.persist(user);
-    }
-  
-    public void update(User user) {
-        em.merge(user);
-    }
-  
-    public void remove(Long id) {
-        User user = find(id);
-        if (user != null) {
-            em.remove(user);
-        }
-    }
-      
-    public void remove(User user) {
-        if (user != null && user.getEmail()!=null && em.contains(user)) {
-            em.remove(user);
-        }
-    }
-  
-    public User find(Long id) {
-        return em.find(User.class, id);
-    }
-     
-    public void detach(User user) {
-        em.detach(user);
+
+    public void save( User user )
+    {
+        em.persist( user );
     }
 
-    public User findByName(String userName) {
-         Query query = em.createQuery("SELECT u FROM User u WHERE u.userName = :username");
-         query.setParameter("username", userName);
-         return (User) query.getSingleResult();
-    } 
+    public void update( User user )
+    {
+        em.merge( user );
+    }
+
+    public void remove( Long id )
+    {
+        User user = find( id );
+        if ( user != null )
+        {
+            em.remove( user );
+        }
+    }
+
+    public void remove( User user )
+    {
+        if ( user != null && user.getEmail() != null && em.contains( user ) )
+        {
+            em.remove( user );
+        }
+    }
+
+    public User find( Long id )
+    {
+        return em.find( User.class, id );
+    }
+
+    public void detach( User user )
+    {
+        em.detach( user );
+    }
+
+    public User findByName( String userName )
+    {
+        Query query = em.createQuery( "SELECT u FROM User u WHERE u.userName = :username" );
+        query.setParameter( "username", userName );
+        return ( User ) query.getSingleResult();
+    }
 }

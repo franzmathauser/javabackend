@@ -26,63 +26,66 @@ import twitter4j.conf.ConfigurationBuilder;
  */
 @Singleton
 @LocalBean
-public class TwitterManager {
+public class TwitterManager
+{
 
-    static final org.slf4j.Logger LOG = LoggerFactory.getLogger(TwitterManager.class);
-
-    private final String ACCESS_TOKEN = ConfigurationSingleton.getInstance().getString(ConfigurationConstants.TWITTER_ACCESS_TOKEN);
-    private final String ACCESS_TOKEN_SECRET = ConfigurationSingleton.getInstance().getString(ConfigurationConstants.TWITTER_ACCESS_TOKEN_SECURE);
-    private final String CUSTOMER_KEY = ConfigurationSingleton.getInstance().getString(ConfigurationConstants.TWITTER_CUSTOMER_KEY);
-    private final String CUSTOMER_KEY_SECRET = ConfigurationSingleton.getInstance().getString(ConfigurationConstants.TWITTER_CUSTOMER_KEY_SECURE);
-
-    private final String APPLICATION_ROOT_URL = ConfigurationSingleton.getInstance().getString(ConfigurationConstants.APPLICATION_ROOT_URL);
-
+    static final org.slf4j.Logger LOG = LoggerFactory.getLogger( TwitterManager.class );
+    private final String ACCESS_TOKEN = ConfigurationSingleton.getInstance().getString( ConfigurationConstants.TWITTER_ACCESS_TOKEN );
+    private final String ACCESS_TOKEN_SECRET = ConfigurationSingleton.getInstance().getString( ConfigurationConstants.TWITTER_ACCESS_TOKEN_SECURE );
+    private final String CUSTOMER_KEY = ConfigurationSingleton.getInstance().getString( ConfigurationConstants.TWITTER_CUSTOMER_KEY );
+    private final String CUSTOMER_KEY_SECRET = ConfigurationSingleton.getInstance().getString( ConfigurationConstants.TWITTER_CUSTOMER_KEY_SECURE );
+    private final String APPLICATION_ROOT_URL = ConfigurationSingleton.getInstance().getString( ConfigurationConstants.APPLICATION_ROOT_URL );
     private final String TWITTER_ICON = APPLICATION_ROOT_URL + "icons/newschannel/twitter.png";
-
     private final Twitter twitter;
 
-    public TwitterManager() {
+    public TwitterManager()
+    {
 
         ConfigurationBuilder cb = new ConfigurationBuilder();
-        cb.setDebugEnabled(true)
-          .setOAuthConsumerKey(CUSTOMER_KEY)
-          .setOAuthConsumerSecret(CUSTOMER_KEY_SECRET)
-          .setOAuthAccessToken(ACCESS_TOKEN)
-          .setOAuthAccessTokenSecret(ACCESS_TOKEN_SECRET);
+        cb.setDebugEnabled( true )
+        .setOAuthConsumerKey( CUSTOMER_KEY )
+        .setOAuthConsumerSecret( CUSTOMER_KEY_SECRET )
+        .setOAuthAccessToken( ACCESS_TOKEN )
+        .setOAuthAccessTokenSecret( ACCESS_TOKEN_SECRET );
 
-        TwitterFactory tf = new TwitterFactory(cb.build());
+        TwitterFactory tf = new TwitterFactory( cb.build() );
         twitter = tf.getInstance();
 
-        try {
+        try
+        {
             User user = twitter.verifyCredentials();
 
-        } catch (TwitterException ex) {
-            LOG.error("could not load home-timeline of twitter");
+        } catch ( TwitterException ex )
+        {
+            LOG.error( "could not load home-timeline of twitter" );
         }
 
 
     }
 
-    public List<NewsDTO> getNews() {
+    public List<NewsDTO> getNews()
+    {
 
         List<NewsDTO> newsList = new ArrayList<NewsDTO>();
 
-        try {
+        try
+        {
             ResponseList<Status> responseList = twitter.getUserTimeline();
 
-            for(Status status : responseList){
+            for ( Status status : responseList )
+            {
                 NewsDTO news = new NewsDTO();
-                news.setDate(status.getCreatedAt());
-                news.setMessage(status.getText());
-                news.setImage(TWITTER_ICON);
-                newsList.add(news);
+                news.setDate( status.getCreatedAt() );
+                news.setMessage( status.getText() );
+                news.setImage( TWITTER_ICON );
+                newsList.add( news );
             }
 
-        } catch (TwitterException ex) {
-            LOG.error("twitter error durring usertimeline request", ex);
+        } catch ( TwitterException ex )
+        {
+            LOG.error( "twitter error durring usertimeline request", ex );
         }
 
         return newsList;
     }
-
 }

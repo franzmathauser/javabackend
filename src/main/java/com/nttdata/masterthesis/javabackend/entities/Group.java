@@ -8,6 +8,8 @@ package com.nttdata.masterthesis.javabackend.entities;
  *
  * @author MATHAF
  */
-public enum Group {
+public enum Group
+{
+
     ADMINISTRATOR, USER, DEFAULT;
 }

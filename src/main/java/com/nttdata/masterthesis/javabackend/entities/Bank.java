@@ -21,52 +21,57 @@ import javax.persistence.Table;
  * @author MATHAF
  */
 @Entity
-@Table(name="bank")
-public class Bank implements Serializable {
+@Table( name = "bank" )
+public class Bank implements Serializable
+{
+
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue( strategy = GenerationType.AUTO )
     private Long id;
-    
-    private String name; 
-    
-    @Column(name="bankcode")
+    private String name;
+    @Column( name = "bankcode" )
     private String bankCode;
-    
-    @OneToMany(mappedBy="bank", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany( mappedBy = "bank", fetch = FetchType.LAZY, cascade = CascadeType.ALL )
     private List<BankAccount> bankAccounts;
 
-    public Long getId() {
+    public Long getId()
+    {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId( Long id )
+    {
         this.id = id;
     }
 
-    public String getName() {
+    public String getName()
+    {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName( String name )
+    {
         this.name = name;
     }
 
-    public String getBankCode() {
+    public String getBankCode()
+    {
         return bankCode;
     }
 
-    public void setBankCode(String bankCode) {
+    public void setBankCode( String bankCode )
+    {
         this.bankCode = bankCode;
     }
 
-    public List<BankAccount> getBankAccounts() {
+    public List<BankAccount> getBankAccounts()
+    {
         return bankAccounts;
     }
 
-    public void setBankAccounts(List<BankAccount> bankAccounts) {
+    public void setBankAccounts( List<BankAccount> bankAccounts )
+    {
         this.bankAccounts = bankAccounts;
     }
-    
-    
 }

@@ -18,37 +18,40 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author MATHAF
  */
-@WebFilter(filterName="cors")
-public class CrossOriginResourceSharingFilter implements Filter{
-    @Override
-    public void init(FilterConfig fConfig) throws ServletException { }
+@WebFilter( filterName = "cors" )
+public class CrossOriginResourceSharingFilter implements Filter
+{
 
     @Override
-    public void destroy() { }
+    public void init( FilterConfig fConfig ) throws ServletException
+    {
+    }
+
+    @Override
+    public void destroy()
+    {
+    }
 
     @Override
     public void doFilter(
-        ServletRequest request, ServletResponse response,
-        FilterChain chain) throws IOException, ServletException {
+    ServletRequest request, ServletResponse response,
+    FilterChain chain ) throws IOException, ServletException
+    {
 
-        ((HttpServletResponse)response).addHeader(
-            "Access-Control-Allow-Origin", "http://localhost"
-        );
-        
-        ((HttpServletResponse)response).addHeader(
-            "Access-Control-Allow-Credentials", "true"
-        );
-        
-        ((HttpServletResponse)response).addHeader(
-            "Access-Control-Allow-Headers", "Content-Type, Authorization, Accept, Origin, X-Requested-With"
-        );
-        
-        ((HttpServletResponse)response).addHeader(
-            "Access-Control-Allow-Methods", "GET, POST, OPTIONS"
-        );
-        
-        System.out.println("Filter:" + ((HttpServletResponse)response).getHeaderNames().toString() );
+        ( ( HttpServletResponse ) response ).addHeader(
+        "Access-Control-Allow-Origin", "http://localhost" );
 
-        chain.doFilter(request, response);
+        ( ( HttpServletResponse ) response ).addHeader(
+        "Access-Control-Allow-Credentials", "true" );
+
+        ( ( HttpServletResponse ) response ).addHeader(
+        "Access-Control-Allow-Headers", "Content-Type, Authorization, Accept, Origin, X-Requested-With" );
+
+        ( ( HttpServletResponse ) response ).addHeader(
+        "Access-Control-Allow-Methods", "GET, POST, OPTIONS" );
+
+        System.out.println( "Filter:" + ( ( HttpServletResponse ) response ).getHeaderNames().toString() );
+
+        chain.doFilter( request, response );
     }
 }

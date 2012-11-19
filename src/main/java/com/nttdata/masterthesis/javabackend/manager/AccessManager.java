@@ -18,19 +18,21 @@ import org.slf4j.LoggerFactory;
  */
 @Stateless
 @LocalBean
-public class AccessManager {
-    
-    static final Logger LOG = LoggerFactory.getLogger(AccessManager.class);
-    
-    public boolean isAllowed(User user, BankAccount bankAccount) throws ForbiddenException{
+public class AccessManager
+{
 
-        if(!user.getBankAccount().equals(bankAccount)){
-            String accountNumber = (bankAccount == null) ? null : bankAccount.getAccountNumber();
-            
-            LOG.error("access restricted for user: {} to access bankaccount: {}",user.getUserName(), accountNumber);
-            throw new ForbiddenException("access restricted");
+    static final Logger LOG = LoggerFactory.getLogger( AccessManager.class );
+
+    public boolean isAllowed( User user, BankAccount bankAccount ) throws ForbiddenException
+    {
+
+        if ( !user.getBankAccount().equals( bankAccount ) )
+        {
+            String accountNumber = ( bankAccount == null ) ? null : bankAccount.getAccountNumber();
+
+            LOG.error( "access restricted for user: {} to access bankaccount: {}", user.getUserName(), accountNumber );
+            throw new ForbiddenException( "access restricted" );
         }
         return true;
     }
-    
 }

@@ -19,17 +19,18 @@ import javax.ws.rs.QueryParam;
  * @author MATHAF
  */
 @Stateless
-@Path("/secure/places")
+@Path( "/secure/places" )
 @Interceptors( ServicesLoggingInterceptor.class )
-public class PlacesService {
-    
+public class PlacesService
+{
+
     @EJB
     PlacesManager placesMgr;
-    
-    @GET
-    @Produces("application/json")
-    public String getHtml(@QueryParam("location") String location) {
-        return placesMgr.getFinancePlaces(location);
-    }
 
+    @GET
+    @Produces( "application/json" )
+    public String getHtml( @QueryParam( "location" ) String location )
+    {
+        return placesMgr.getFinancePlaces( location );
+    }
 }

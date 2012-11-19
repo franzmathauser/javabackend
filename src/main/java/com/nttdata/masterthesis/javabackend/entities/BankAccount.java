@@ -25,110 +25,119 @@ import javax.persistence.Temporal;
  * @author MATHAF
  */
 @Entity
-@Table(name="bank_account")
-public class BankAccount implements Serializable {
+@Table( name = "bank_account" )
+public class BankAccount implements Serializable
+{
+
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue( strategy = GenerationType.AUTO )
     private Long id;
-    
-    @Column(name="firstname")
-    private String firstName; 
-    
-    @Column(name="lastname")
-    private String lastName; 
-    
-    @Column(name="create_date")
-    @Temporal(javax.persistence.TemporalType.DATE)
+    @Column( name = "firstname" )
+    private String firstName;
+    @Column( name = "lastname" )
+    private String lastName;
+    @Column( name = "create_date" )
+    @Temporal( javax.persistence.TemporalType.DATE )
     private Date createDate;
-    
-    @Column(name="account_number")
+    @Column( name = "account_number" )
     private String accountNumber;
-    
-    @OneToMany(mappedBy="bankAccount", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany( mappedBy = "bankAccount", fetch = FetchType.LAZY, cascade = CascadeType.ALL )
     private List<Transaction> transactions;
-    
-    @OneToMany(mappedBy="bankAccount", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany( mappedBy = "bankAccount", fetch = FetchType.LAZY, cascade = CascadeType.ALL )
     private List<Category> categories;
-    
-    @OneToOne(mappedBy="bankAccount", fetch= FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne( mappedBy = "bankAccount", fetch = FetchType.LAZY, cascade = CascadeType.ALL )
     private User user;
-    
-    @ManyToOne(fetch= FetchType.LAZY)
+    @ManyToOne( fetch = FetchType.LAZY )
     private Bank bank;
 
-    public Long getId() {
+    public Long getId()
+    {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId( Long id )
+    {
         this.id = id;
     }
 
-    public String getFirstName() {
+    public String getFirstName()
+    {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
+    public void setFirstName( String firstName )
+    {
         this.firstName = firstName;
     }
 
-    public String getLastName() {
+    public String getLastName()
+    {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
+    public void setLastName( String lastName )
+    {
         this.lastName = lastName;
     }
 
-    public Date getCreateDate() {
+    public Date getCreateDate()
+    {
         return createDate;
     }
 
-    public void setCreateDate(Date createDate) {
+    public void setCreateDate( Date createDate )
+    {
         this.createDate = createDate;
     }
 
-    public String getAccountNumber() {
+    public String getAccountNumber()
+    {
         return accountNumber;
     }
 
-    public void setAccountNumber(String accountNumber) {
+    public void setAccountNumber( String accountNumber )
+    {
         this.accountNumber = accountNumber;
     }
 
-    public List<Transaction> getTransactions() {
+    public List<Transaction> getTransactions()
+    {
         return transactions;
     }
 
-    public void setTransactions(List<Transaction> transactions) {
+    public void setTransactions( List<Transaction> transactions )
+    {
         this.transactions = transactions;
     }
 
-    public List<Category> getCategories() {
+    public List<Category> getCategories()
+    {
         return categories;
     }
 
-    public void setCategories(List<Category> categories) {
+    public void setCategories( List<Category> categories )
+    {
         this.categories = categories;
     }
 
-    public User getUser() {
+    public User getUser()
+    {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser( User user )
+    {
         this.user = user;
     }
 
-    public Bank getBank() {
+    public Bank getBank()
+    {
         return bank;
     }
 
-    public void setBank(Bank bank) {
+    public void setBank( Bank bank )
+    {
         this.bank = bank;
     }
-    
-    
-
 }

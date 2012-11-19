@@ -16,41 +16,44 @@ import org.junit.Test;
  *
  * @author MATHAF
  */
-public class AuthenticationTest  extends AbstractSecureTest{
-    
-    
+public class AuthenticationTest extends AbstractSecureTest
+{
+
     private final String requestUri;
-    
-    public AuthenticationTest() {
+
+    public AuthenticationTest()
+    {
         super();
-        requestUri = "https://"+getCnName()+":8181/JavaBackend/rest/secure/bankaccount/1/transactions";
+        requestUri = "https://" + getCnName() + ":8181/JavaBackend/rest/secure/bankaccount/1/transactions";
     }
-    
+
     @Test
-    public void authenticationFailTest() {
+    public void authenticationFailTest()
+    {
         Client client = Client.create();
-        
+
         WebResource webResource = client
-            .resource(requestUri);
+        .resource( requestUri );
 
-        ClientResponse response = webResource.accept("application/json")
-            .get(ClientResponse.class);
+        ClientResponse response = webResource.accept( "application/json" )
+        .get( ClientResponse.class );
 
-        assertEquals("not authorized", 401, response.getStatus());
+        assertEquals( "not authorized", 401, response.getStatus() );
 
     }
-    
+
     @Test
-    public void authenticationSuccessTest() {
+    public void authenticationSuccessTest()
+    {
         Client client = Client.create();
-        client.addFilter(new HTTPBasicAuthFilter(getUser(), getPassword()));
-        
-        WebResource webResource = client.resource(requestUri);
+        client.addFilter( new HTTPBasicAuthFilter( getUser(), getPassword() ) );
 
-        ClientResponse response = webResource.accept("application/json")
-            .get(ClientResponse.class);
+        WebResource webResource = client.resource( requestUri );
 
-        assertEquals("authorized", 200, response.getStatus());
+        ClientResponse response = webResource.accept( "application/json" )
+        .get( ClientResponse.class );
+
+        assertEquals( "authorized", 200, response.getStatus() );
 
     }
 }

@@ -23,38 +23,38 @@ import javax.ejb.Stateless;
  */
 @Stateless
 @LocalBean
-public class DbTransactionManager {
-    
+public class DbTransactionManager
+{
+
     @EJB
-    TransactionDAO transactionDAO;
-    
+    private TransactionDAO transactionDAO;
     @EJB
-    UserDAO userDAO;
-    
-    @EJB 
-    BankAccountDAO bankAccountDAO;
-    
+    private UserDAO userDAO;
     @EJB
-    AccessManager accessManager; 
-    
-    public List<Transaction> getTransactionList(BankAccount bankAccount){
-        return transactionDAO.findByBankAccount(bankAccount);
+    private BankAccountDAO bankAccountDAO;
+    @EJB
+    private AccessManager accessManager;
+
+    public List<Transaction> getTransactionList( BankAccount bankAccount )
+    {
+        return transactionDAO.findByBankAccount( bankAccount );
     }
 
-    public List<Transaction> getTransactionList(String userName, Long bankAccountId) throws ForbiddenException{
-            List<Transaction> transactions = new ArrayList<Transaction>();
-        
-        if(userName == null){
-            throw new IllegalArgumentException("user is null");
+    public List<Transaction> getTransactionList( String userName, Long bankAccountId ) throws ForbiddenException
+    {
+        List<Transaction> transactions = new ArrayList<Transaction>();
+
+        if ( userName == null )
+        {
+            throw new IllegalArgumentException( "user is null" );
         }
 
-        User user = userDAO.findByName(userName);
-        BankAccount bankAccount = bankAccountDAO.find(bankAccountId); 
-        accessManager.isAllowed(user, bankAccount);
-        
-        transactions.addAll(getTransactionList(bankAccount));
-         
+        User user = userDAO.findByName( userName );
+        BankAccount bankAccount = bankAccountDAO.find( bankAccountId );
+        accessManager.isAllowed( user, bankAccount );
+
+        transactions.addAll( getTransactionList( bankAccount ) );
+
         return transactions;
     }
-
 }

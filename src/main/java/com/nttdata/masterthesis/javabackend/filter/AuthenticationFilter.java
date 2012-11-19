@@ -24,53 +24,61 @@ import javax.ws.rs.core.MediaType;
  *
  * @author MATHAF
  */
-@WebFilter(filterName="auth")
-public class AuthenticationFilter implements Filter{
-    
+@WebFilter( filterName = "auth" )
+public class AuthenticationFilter implements Filter
+{
+
     public static String ERROR_MESSAGE = "No valid session";
-    
-    @Override
-    public void init(FilterConfig fConfig) throws ServletException { }
 
     @Override
-    public void destroy() { }
+    public void init( FilterConfig fConfig ) throws ServletException
+    {
+    }
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        HttpServletResponse httpResponse = (HttpServletResponse) response;
-        HttpServletRequest httpRequest = (HttpServletRequest) request;
-        
-        if(httpRequest.getUserPrincipal() == null){
-        /*    
-            ((HttpServletResponse)response).addHeader(
-            "Access-Control-Allow-Origin", "http://localhost"
-        );
-        
-        ((HttpServletResponse)response).addHeader(
-            "Access-Control-Allow-Credentials", "true"
-        );
-        
-        ((HttpServletResponse)response).addHeader(
-            "Access-Control-Allow-Headers", "Content-Type, Authorization, Accept, Origin, X-Requested-With"
-        );
-        
-        ((HttpServletResponse)response).addHeader(
-            "Access-Control-Allow-Methods", "GET, POST, OPTIONS"
-        );
-        */
-            httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            httpResponse.setContentType(MediaType.APPLICATION_JSON);
+    public void destroy()
+    {
+    }
+
+    @Override
+    public void doFilter( ServletRequest request, ServletResponse response, FilterChain chain ) throws IOException, ServletException
+    {
+        HttpServletResponse httpResponse = ( HttpServletResponse ) response;
+        HttpServletRequest httpRequest = ( HttpServletRequest ) request;
+
+        if ( httpRequest.getUserPrincipal() == null )
+        {
+            /*
+             ((HttpServletResponse)response).addHeader(
+             "Access-Control-Allow-Origin", "http://localhost"
+             );
+
+             ((HttpServletResponse)response).addHeader(
+             "Access-Control-Allow-Credentials", "true"
+             );
+
+             ((HttpServletResponse)response).addHeader(
+             "Access-Control-Allow-Headers", "Content-Type, Authorization, Accept, Origin, X-Requested-With"
+             );
+
+             ((HttpServletResponse)response).addHeader(
+             "Access-Control-Allow-Methods", "GET, POST, OPTIONS"
+             );
+             */
+            httpResponse.setStatus( HttpServletResponse.SC_UNAUTHORIZED );
+            httpResponse.setContentType( MediaType.APPLICATION_JSON );
 
             ResponseEnvelope responseEnv = new ResponseEnvelope();
-            responseEnv.setErrorMsg(ERROR_MESSAGE);
-            
-            ObjectMapper mapper = new ObjectMapper();
-            String json = mapper.writeValueAsString(responseEnv);
-            httpResponse.getWriter().print(json );
+            responseEnv.setErrorMsg( ERROR_MESSAGE );
 
-        } else {
-            chain.doFilter(request, response);
+            ObjectMapper mapper = new ObjectMapper();
+            String json = mapper.writeValueAsString( responseEnv );
+            httpResponse.getWriter().print( json );
+
+        } else
+        {
+            chain.doFilter( request, response );
         }
-        
+
     }
 }

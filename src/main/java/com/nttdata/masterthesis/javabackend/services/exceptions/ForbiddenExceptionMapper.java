@@ -16,23 +16,24 @@ import com.nttdata.masterthesis.javabackend.manager.exceptions.ForbiddenExceptio
  * @author MATHAF
  */
 @Provider
-public class ForbiddenExceptionMapper implements ExceptionMapper<ForbiddenException> {
+public class ForbiddenExceptionMapper implements ExceptionMapper<ForbiddenException>
+{
 
-    private static final Response RESPONSE ;
-    
-    private static final ResponseEnvelope RESPONSE_ENVELOPE = new ResponseEnvelope(false);
-    
-    static {
-        RESPONSE = Response.status(HttpStatus.FORBIDDEN_403.getStatusCode()).entity(RESPONSE_ENVELOPE).build();
+    private static final Response RESPONSE;
+    private static final ResponseEnvelope RESPONSE_ENVELOPE = new ResponseEnvelope( false );
+
+    static
+    {
+        RESPONSE = Response.status( HttpStatus.FORBIDDEN_403.getStatusCode() ).entity( RESPONSE_ENVELOPE ).build();
     }
-    
+
     @Override
-    public Response toResponse(ForbiddenException ex) {
+    public Response toResponse( ForbiddenException ex )
+    {
 
         //usually you don't pass detailed info out (don't do this here in production environments)
-        RESPONSE_ENVELOPE.setErrorMsg(ex.getMessage());
-         
+        RESPONSE_ENVELOPE.setErrorMsg( ex.getMessage() );
+
         return RESPONSE;
     }
-    
 }

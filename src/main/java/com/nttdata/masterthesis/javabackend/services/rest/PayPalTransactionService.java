@@ -14,36 +14,33 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
-import urn.ebay.apis.eBLBaseComponents.PaymentTransactionSearchResultType;
-
 
 /**
  *
  * @author MATHAF
  */
 @Stateless
-@Path("/secure/paypal")
+@Path( "/secure/paypal" )
 //@Interceptors( ServicesLoggingInterceptor.class )
-public class PayPalTransactionService {
-    
+public class PayPalTransactionService
+{
+
     @EJB
     PayPalManager payPalManager;
-    
     @Context
     ServletContext context;
-    
+
     @GET
-    @Produces("application/json")
-    public List<TransactionDTO> getTransactions() {
+    @Produces( "application/json" )
+    public List<TransactionDTO> getTransactions()
+    {
         return payPalManager.getTransactions();
     }
-    
     /*
-    @GET
-    @Produces("application/json")
-    public String getHtml(@QueryParam("transactions") String location) {
-        return placesMgr.getFinancePlaces(location);
-    }
-    */
-
+     @GET
+     @Produces("application/json")
+     public String getHtml(@QueryParam("transactions") String location) {
+     return placesMgr.getFinancePlaces(location);
+     }
+     */
 }

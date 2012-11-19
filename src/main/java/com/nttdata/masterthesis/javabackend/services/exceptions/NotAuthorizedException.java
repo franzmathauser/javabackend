@@ -14,16 +14,16 @@ import org.glassfish.grizzly.http.util.HttpStatus;
  *
  * @author MATHAF
  */
-public class NotAuthorizedException extends WebApplicationException {
-    
-     public NotAuthorizedException(String message) { 
-         
-         super(
-                 Response.status(HttpStatus.UNAUTHORIZED_401.getStatusCode()).entity(
-                 (new ResponseEnvelope(false)).setErrorMsg(message)
-                 ).type(MediaType.APPLICATION_JSON).build()
-              );
-         
-         
-     }
+public class NotAuthorizedException extends WebApplicationException
+{
+
+    public NotAuthorizedException( String message )
+    {
+
+        super(
+        Response.status( HttpStatus.UNAUTHORIZED_401.getStatusCode() ).entity(
+        ( new ResponseEnvelope( false ) ).setErrorMsg( message ) ).type( MediaType.APPLICATION_JSON ).build() );
+
+
+    }
 }

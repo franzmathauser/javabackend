@@ -8,10 +8,11 @@ package com.nttdata.masterthesis.javabackend.manager.exceptions;
  *
  * @author MATHAF
  */
-public class ForbiddenException extends Exception {
-    
-    public ForbiddenException( String message ){
-        super(message);
+public class ForbiddenException extends Exception
+{
+
+    public ForbiddenException( String message )
+    {
+        super( message );
     }
-   
 }

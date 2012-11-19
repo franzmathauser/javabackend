@@ -24,53 +24,51 @@ import javax.ws.rs.core.Context;
  * @author MATHAF
  */
 @Stateless
-@Path("secure/bankaccount/{bankAccountId}/transactions")
+@Path( "secure/bankaccount/{bankAccountId}/transactions" )
 @Interceptors( ServicesLoggingInterceptor.class )
-public class TransactionService {
-    
+public class TransactionService
+{
+
     @Context
     HttpServletRequest request;
-    
     @EJB
     TransactionManager transactionMgr;
-    
+
     //@EJB
     //TransactionDAO transactionDAO;
-    
     @GET
-    public ResponseEnvelope getUserTransactions(@PathParam("bankAccountId") Long bankAccountId) throws ForbiddenException{
-        
+    public ResponseEnvelope getUserTransactions( @PathParam( "bankAccountId" ) Long bankAccountId ) throws ForbiddenException
+    {
+
         //System.out.println(request.getUserPrincipal().getName());
-        System.out.println(request.getSession().getId());
-        
+        System.out.println( request.getSession().getId() );
+
         ResponseEnvelope response = new ResponseEnvelope();
         List<TransactionDTO> transactions = null;
 
         String user = request.getRemoteUser();
         //try {
-            transactions = transactionMgr.getTransactionList(user, bankAccountId);
-            //removeCascading(transactions);
-            response.setSuccess(true);
-            response.setData(transactions); 
-        
+        transactions = transactionMgr.getTransactionList( user, bankAccountId );
+        //removeCascading(transactions);
+        response.setSuccess( true );
+        response.setData( transactions );
+
         //return Response.ok().entity(response).build();
-            
-            
+
+
         return response;
         //}
         //catch(ForbiddenException ex){
         //    throw new com.nttdata.masterthesis.javabackend.services.exceptions.ForbiddenException("Access is restricted.");
         //}
-       
-        
+
+
 
     }
-    
     //private void removeCascading(List<Transaction> transactions){
     //    for(Transaction trx : transactions){
-    //        transactionDAO.detach(trx); 
+    //        transactionDAO.detach(trx);
     //        trx.setBankAccount(null);
     //    }
     //}
-    
 }

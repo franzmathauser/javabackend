@@ -16,41 +16,48 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author MATHAF
  */
 @XmlRootElement
-@XmlAccessorType(XmlAccessType.FIELD)
-public class NewsDTO implements Comparable<NewsDTO> {
+@XmlAccessorType( XmlAccessType.FIELD )
+public class NewsDTO implements Comparable<NewsDTO>
+{
 
     private String message;
     private Date date;
     private String image;
 
-    public String getMessage() {
+    public String getMessage()
+    {
         return message;
     }
 
-    public void setMessage(String message) {
+    public void setMessage( String message )
+    {
         this.message = message;
     }
 
-    @JsonSerialize(using=CustomJsonDateTimeSerializer.class)
-    public Date getDate() {
+    @JsonSerialize( using = CustomJsonDateTimeSerializer.class )
+    public Date getDate()
+    {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate( Date date )
+    {
         this.date = date;
     }
 
-    public String getImage() {
+    public String getImage()
+    {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage( String image )
+    {
         this.image = image;
     }
 
     @Override
-    public int compareTo(NewsDTO o) {
-        return o.getDate().compareTo(this.getDate());
+    public int compareTo( NewsDTO o )
+    {
+        return o.getDate().compareTo( this.getDate() );
     }
-
 }

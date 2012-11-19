@@ -23,29 +23,28 @@ import javax.ws.rs.Produces;
  * @author MATHAF
  */
 @Stateless
-@Path("/newschannel")
+@Path( "/newschannel" )
 @Interceptors( ServicesLoggingInterceptor.class )
-public class NewsChannelService {
+public class NewsChannelService
+{
 
     @EJB
     NewsChannelManager newsChannelManager;
-
     @EJB
     TwitterManager twitterManager;
-
     @EJB
     YoutubeManager youtubeManager;
 
     @GET
-    @Produces("application/json")
-    public ResponseEnvelope getNewsStream(){
+    @Produces( "application/json" )
+    public ResponseEnvelope getNewsStream()
+    {
 
-        ResponseEnvelope response = new ResponseEnvelope(true);
+        ResponseEnvelope response = new ResponseEnvelope( true );
 
         List<NewsDTO> news = newsChannelManager.getNewsChannel();
-        response.setData(news);
+        response.setData( news );
 
         return response;
     }
-
 }

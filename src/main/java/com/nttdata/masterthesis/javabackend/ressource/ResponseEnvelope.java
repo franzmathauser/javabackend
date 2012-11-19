@@ -5,94 +5,103 @@
 package com.nttdata.masterthesis.javabackend.ressource;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.nttdata.masterthesis.javabackend.helper.CustomJsonDateSerializer;
-import java.util.Date;
 import java.util.Map;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.xml.bind.annotation.XmlAnyElement;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author MATHAF
  */
 //@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML, MediaType.TEXT_XML})
-//@XmlRootElement( name = "responseEnv") 
-@JsonSerialize( include = JsonSerialize.Inclusion.NON_NULL)
-@Produces({MediaType.APPLICATION_JSON})
-@Consumes({MediaType.APPLICATION_JSON})
-public class ResponseEnvelope {
-    private static final float version = 1.0f;  
- 
-    
+//@XmlRootElement( name = "responseEnv")
+@JsonSerialize( include = JsonSerialize.Inclusion.NON_NULL )
+@Produces(
+{
+    MediaType.APPLICATION_JSON
+} )
+@Consumes(
+{
+    MediaType.APPLICATION_JSON
+} )
+public class ResponseEnvelope
+{
+
+    private static final float version = 1.0f;
     private boolean success = false;
     private String errorMsg;
     private Map<String, Object> fieldErrors;
-    
-    @XmlAnyElement(lax=true)
-    private Object bodyData; 
- 
-    public ResponseEnvelope() { 
+    @XmlAnyElement( lax = true )
+    private Object bodyData;
+
+    public ResponseEnvelope()
+    {
     }
-     
-    public ResponseEnvelope(boolean success) {
+
+    public ResponseEnvelope( boolean success )
+    {
         this.success = success;
-    }   
-    
-    public ResponseEnvelope(boolean success, String errorMessage) {
+    }
+
+    public ResponseEnvelope( boolean success, String errorMessage )
+    {
         this.success = success;
         this.errorMsg = errorMessage;
-    } 
-     
-    public float getVersion() {
+    }
+
+    public float getVersion()
+    {
         return ResponseEnvelope.version;
     }
-          
-    public String getErrorMsg() {
+
+    public String getErrorMsg()
+    {
         return errorMsg;
     }
- 
-    public ResponseEnvelope setErrorMsg(String errorMsg) {
+
+    public ResponseEnvelope setErrorMsg( String errorMsg )
+    {
         this.errorMsg = errorMsg;
         return this;
     }
- 
-    public Map<String, Object> getFieldErrors() {
+
+    public Map<String, Object> getFieldErrors()
+    {
         return fieldErrors;
     }
- 
-    public ResponseEnvelope setFieldErrors(Map<String, Object> fieldErrors) {
+
+    public ResponseEnvelope setFieldErrors( Map<String, Object> fieldErrors )
+    {
         this.fieldErrors = fieldErrors;
         return this;
     }
-     
-    public Object getBodyData() {
+
+    public Object getBodyData()
+    {
         return bodyData;
     }
- 
-    public ResponseEnvelope setData(Object data) {
+
+    public ResponseEnvelope setData( Object data )
+    {
         this.bodyData = data;
         return this;
     }
 
-    public boolean isSuccess() {
+    public boolean isSuccess()
+    {
         return success;
     }
 
-    public void setSuccess(boolean success) {
+    public void setSuccess( boolean success )
+    {
         this.success = success;
     }
-    
-    
-    
-    
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "ResponseEnvelope{" + ", errorMsg=" + errorMsg + ", fieldErrors=" + fieldErrors + ", data=" + bodyData + '}';
     }
-    
-    
 }

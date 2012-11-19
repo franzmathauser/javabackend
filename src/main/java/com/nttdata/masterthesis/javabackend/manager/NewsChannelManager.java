@@ -14,22 +14,23 @@ import javax.ejb.Stateless;
  */
 @Stateless
 @LocalBean
-public class NewsChannelManager {
+public class NewsChannelManager
+{
 
     @EJB
     TwitterManager twitterManager;
-
     @EJB
     YoutubeManager youtubeManager;
 
-    public List<NewsDTO> getNewsChannel(){
+    public List<NewsDTO> getNewsChannel()
+    {
 
         List<NewsDTO> newsList = new ArrayList<NewsDTO>();
 
-        newsList.addAll(twitterManager.getNews());
-        newsList.addAll(youtubeManager.getLatestVideoFeeds("nttdata"));
+        newsList.addAll( twitterManager.getNews() );
+        newsList.addAll( youtubeManager.getLatestVideoFeeds( "nttdata" ) );
 
-        Collections.sort(newsList);
+        Collections.sort( newsList );
 
         return newsList;
 

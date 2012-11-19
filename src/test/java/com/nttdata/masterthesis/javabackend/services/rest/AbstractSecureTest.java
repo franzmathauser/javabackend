@@ -11,26 +11,25 @@ import com.nttdata.masterthesis.javabackend.config.ConfigurationSingleton;
  *
  * @author MATHAF
  */
-public abstract class AbstractSecureTest {
-    
-    private final String cnName = ConfigurationSingleton.getInstance().getString(ConfigurationConstants.CN_NAME);
-    
-    private final String user = ConfigurationSingleton.getInstance().getString(ConfigurationConstants.JUNIT_TESTUSER1_NAME);
-    
-    private final String password = ConfigurationSingleton.getInstance().getString(ConfigurationConstants.JUNIT_TESTUSER1_PASSWORD);
+public abstract class AbstractSecureTest
+{
 
-    public String getCnName() {
+    private final String cnName = ConfigurationSingleton.getInstance().getString( ConfigurationConstants.CN_NAME );
+    private final String user = ConfigurationSingleton.getInstance().getString( ConfigurationConstants.JUNIT_TESTUSER1_NAME );
+    private final String password = ConfigurationSingleton.getInstance().getString( ConfigurationConstants.JUNIT_TESTUSER1_PASSWORD );
+
+    public String getCnName()
+    {
         return cnName;
     }
 
-    public String getUser() {
+    public String getUser()
+    {
         return user;
     }
 
-    public String getPassword() {
+    public String getPassword()
+    {
         return password;
     }
-    
-    
-    
 }
