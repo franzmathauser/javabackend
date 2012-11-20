@@ -34,7 +34,7 @@ public class ResponseEnvelope
     /**
      * version of the json structure.
      */
-    public static final float VERSION = 1.0f;
+    private final float version = 1.0f;
     private boolean success = false;
     private String errorMsg;
     private Map<String, Object> fieldErrors;
@@ -82,9 +82,14 @@ public class ResponseEnvelope
         return errorMsg;
     }
 
-    public ResponseEnvelope setErrorMsg( String errorMsg )
+    /**
+     * Sets Error Message.
+     * @param msg Error message
+     * @return ResponseEnvelope
+     */
+    public ResponseEnvelope setErrorMsg( String msg )
     {
-        this.errorMsg = errorMsg;
+        this.errorMsg = msg;
         return this;
     }
 
@@ -108,10 +113,16 @@ public class ResponseEnvelope
         this.bodyData = bodyData;
     }
 
+    public float getVersion()
+    {
+        return version;
+    }
+
     @Override
     public int hashCode()
     {
         int hash = 3;
+        hash = 67 * hash + Float.floatToIntBits( this.version );
         hash = 67 * hash + ( this.success ? 1 : 0 );
         hash = 67 * hash + ( this.errorMsg != null ? this.errorMsg.hashCode() : 0 );
         hash = 67 * hash + ( this.fieldErrors != null ? this.fieldErrors.hashCode() : 0 );
@@ -131,6 +142,10 @@ public class ResponseEnvelope
             return false;
         }
         final ResponseEnvelope other = (ResponseEnvelope) obj;
+        if ( Float.floatToIntBits( this.version ) != Float.floatToIntBits( other.version ) )
+        {
+            return false;
+        }
         if ( this.success != other.success )
         {
             return false;
@@ -149,6 +164,5 @@ public class ResponseEnvelope
         }
         return true;
     }
-
 
 }

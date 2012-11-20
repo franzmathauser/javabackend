@@ -6,10 +6,6 @@ package com.nttdata.masterthesis.javabackend.filter;
 
 import static org.junit.Assert.*;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.sun.jersey.api.client.Client;
@@ -17,36 +13,15 @@ import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 
 /**
- *
+ * Test checks the http to https redirect.
  * @author MATHAF
  */
 public class HttpToHttpsFilterTest
 {
 
-    public HttpToHttpsFilterTest()
-    {
-    }
-
-    @BeforeClass
-    public static void setUpClass()
-    {
-    }
-
-    @AfterClass
-    public static void tearDownClass()
-    {
-    }
-
-    @Before
-    public void setUp()
-    {
-    }
-
-    @After
-    public void tearDown()
-    {
-    }
-
+    /**
+     * check http to https redirect
+     */
     @Test
     public void redirectionTest()
     {

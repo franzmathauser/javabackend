@@ -353,6 +353,21 @@
                           <groupId>org.codehaus.mojo</groupId>
                           <artifactId>cobertura-maven-plugin</artifactId>
                           <version>2.5.1</version>
+                          <configuration>
+                            <instrumentation>
+                              <excludes>
+                                <exclude>com/nttdata/masterthesis/javabackend/config/**/*.class</exclude>
+                                <exclude>com/nttdata/masterthesis/javabackend/dao/**/*.class</exclude>
+                                <exclude>com/nttdata/masterthesis/javabackend/entities/**/*.class</exclude>
+                                <exclude>com/nttdata/masterthesis/javabackend/filter/**/*.class</exclude>
+                                <exclude>com/nttdata/masterthesis/javabackend/helper/**/*.class</exclude>
+                                <exclude>com/nttdata/masterthesis/javabackend/interceptor/**/*.class</exclude>
+                                <exclude>com/nttdata/masterthesis/javabackend/listener/**/*.class</exclude>
+                                <exclude>com/nttdata/masterthesis/javabackend/manager/**/*.class</exclude>
+                                <exclude>com/nttdata/masterthesis/javabackend/helper/**/*.class</exclude>
+                              </excludes>
+                            </instrumentation>
+                          </configuration>
                         </plugin>
                         <plugin>
                           <groupId>org.codehaus.mojo</groupId>
