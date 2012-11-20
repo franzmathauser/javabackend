@@ -15,12 +15,11 @@ import javax.ws.rs.Produces;
 
 import com.nttdata.masterthesis.javabackend.interceptor.ServicesLoggingInterceptor;
 import com.nttdata.masterthesis.javabackend.manager.NewsChannelManager;
-import com.nttdata.masterthesis.javabackend.manager.TwitterManager;
-import com.nttdata.masterthesis.javabackend.manager.YoutubeManager;
 import com.nttdata.masterthesis.javabackend.ressource.NewsDTO;
 import com.nttdata.masterthesis.javabackend.ressource.ResponseEnvelope;
 
 /**
+ * REST-Service for news domain. Available Actions: GET
  *
  * @author MATHAF
  */
@@ -29,23 +28,21 @@ import com.nttdata.masterthesis.javabackend.ressource.ResponseEnvelope;
 @Interceptors( ServicesLoggingInterceptor.class )
 public class NewsChannelService
 {
+    @EJB
+    private NewsChannelManager newsChannelManager;
 
-    @EJB
-    NewsChannelManager newsChannelManager;
-    @EJB
-    TwitterManager twitterManager;
-    @EJB
-    YoutubeManager youtubeManager;
-
+    /**
+     * List of all current News.
+     * @return Envelope with metadata and data of methodcall.
+     */
     @GET
     @Produces( "application/json" )
     public ResponseEnvelope getNewsStream()
     {
-
         ResponseEnvelope response = new ResponseEnvelope( true );
 
         List<NewsDTO> news = newsChannelManager.getNewsChannel();
-        response.setData( news );
+        response.setBodyData( news );
 
         return response;
     }

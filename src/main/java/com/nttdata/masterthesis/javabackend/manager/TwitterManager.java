@@ -10,6 +10,7 @@ import java.util.List;
 import javax.ejb.LocalBean;
 import javax.ejb.Singleton;
 
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.nttdata.masterthesis.javabackend.config.ConfigurationConstants;
@@ -21,27 +22,47 @@ import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
-import twitter4j.User;
 import twitter4j.conf.ConfigurationBuilder;
 
 /**
- *
+ * Twitter Manager controlls the access to short message service Twitter.
  * @author MATHAF
  */
 @Singleton
 @LocalBean
 public class TwitterManager
 {
+    /**
+     * Logger Object.
+     */
+    public static final Logger LOG = LoggerFactory.getLogger( TwitterManager.class );
+    /**
+     * Url-path to twitter icon.
+     */
+    public static final String TWITTER_ICON;
+    private static final String ACCESS_TOKEN;
+    private static final String ACCESS_TOKEN_SECRET;
+    private static final String CUSTOMER_KEY;
+    private static final String CUSTOMER_KEY_SECRET;
+    private static final String APPLICATION_ROOT_URL;
 
-    static final org.slf4j.Logger LOG = LoggerFactory.getLogger( TwitterManager.class );
-    private final String ACCESS_TOKEN = ConfigurationSingleton.getInstance().getString( ConfigurationConstants.TWITTER_ACCESS_TOKEN );
-    private final String ACCESS_TOKEN_SECRET = ConfigurationSingleton.getInstance().getString( ConfigurationConstants.TWITTER_ACCESS_TOKEN_SECURE );
-    private final String CUSTOMER_KEY = ConfigurationSingleton.getInstance().getString( ConfigurationConstants.TWITTER_CUSTOMER_KEY );
-    private final String CUSTOMER_KEY_SECRET = ConfigurationSingleton.getInstance().getString( ConfigurationConstants.TWITTER_CUSTOMER_KEY_SECURE );
-    private final String APPLICATION_ROOT_URL = ConfigurationSingleton.getInstance().getString( ConfigurationConstants.APPLICATION_ROOT_URL );
-    private final String TWITTER_ICON = APPLICATION_ROOT_URL + "icons/newschannel/twitter.png";
+    static
+    {
+        ACCESS_TOKEN = ConfigurationSingleton.getInstance().getString( ConfigurationConstants.TWITTER_ACCESS_TOKEN );
+        ACCESS_TOKEN_SECRET = ConfigurationSingleton.getInstance().getString( ConfigurationConstants.TWITTER_ACCESS_TOKEN_SECURE );
+        CUSTOMER_KEY = ConfigurationSingleton.getInstance().getString( ConfigurationConstants.TWITTER_CUSTOMER_KEY );
+        CUSTOMER_KEY_SECRET = ConfigurationSingleton.getInstance().getString( ConfigurationConstants.TWITTER_CUSTOMER_KEY_SECURE );
+        APPLICATION_ROOT_URL = ConfigurationSingleton.getInstance().getString( ConfigurationConstants.APPLICATION_ROOT_URL );
+
+        TWITTER_ICON = APPLICATION_ROOT_URL + "icons/newschannel/twitter.png";
+    }
     private final Twitter twitter;
 
+    /**
+     * Default Constructor.
+     * Loads Twitter-API-KEYs from config-file and instantiates
+     * a Twitter Service Object.
+     */
     public TwitterManager()
     {
 
@@ -57,9 +78,9 @@ public class TwitterManager
 
         try
         {
-            User user = twitter.verifyCredentials();
-
-        } catch ( TwitterException ex )
+            twitter.verifyCredentials();
+        }
+        catch ( TwitterException ex )
         {
             LOG.error( "could not load home-timeline of twitter" );
         }
@@ -67,6 +88,10 @@ public class TwitterManager
 
     }
 
+    /**
+     * List of Tweet-Feeds of configured Twitter-user.
+     * @return a list of twitter feeds or an empty list in case of no result.
+     */
     public List<NewsDTO> getNews()
     {
 
@@ -85,7 +110,8 @@ public class TwitterManager
                 newsList.add( news );
             }
 
-        } catch ( TwitterException ex )
+        }
+        catch ( TwitterException ex )
         {
             LOG.error( "twitter error durring usertimeline request", ex );
         }

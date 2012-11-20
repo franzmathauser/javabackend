@@ -8,8 +8,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
@@ -19,12 +17,13 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
 
 import com.nttdata.masterthesis.javabackend.dao.MappedCategoryDAO;
 import com.nttdata.masterthesis.javabackend.entities.MappedCategory;
 import com.nttdata.masterthesis.javabackend.ressource.TransactionDTO;
-import com.nttdata.masterthesis.javabackend.services.rest.PayPalTransactionService;
 import com.paypal.exception.ClientActionRequiredException;
 import com.paypal.exception.HttpErrorException;
 import com.paypal.exception.InvalidCredentialException;
@@ -40,45 +39,64 @@ import urn.ebay.api.PayPalAPI.TransactionSearchResponseType;
 import urn.ebay.apis.eBLBaseComponents.PaymentTransactionSearchResultType;
 
 /**
- *
+ * PayPal Manager controlls the access to PayPal Service.
  * @author MATHAF
  */
 @Stateless
 @LocalBean
 public class PayPalManager
 {
+    /**
+     * Logger Object.
+     */
+    public static final Logger LOG = LoggerFactory.getLogger( PayPalManager.class );
+
+    /**
+     * filename of paypal config vaules.
+     */
+    public static final String PAYPAL_CONFIG_FILE = "paypal-sdk-config.properties";
+
+    /**
+     * search offset from current date.
+     */
+    public static final int PAYPAL_DATE_OFFSET = 100;
+
+    public static final String PAYPAL_DATEFORMAT_PATTERN = "yyyy-MM-dd'T'HH:mm:ss'Z'";
 
     @EJB
-    MappedCategoryDAO mappedCategoryDao;
+    private MappedCategoryDAO mappedCategoryDao;
 
+
+
+    /**
+     * List of Transaction.
+     * PayPal access is configured in config-file.
+     * @return List of Transaction DTO
+     */
     public List<TransactionDTO> getTransactions()
     {
 
         List<TransactionDTO> transactionList = new ArrayList<TransactionDTO>();
 
-        String fileName = "paypal-sdk-config.properties";
-        Class c1 = this.getClass();
-        ClassLoader loader = c1.getClassLoader();
-
         PayPalAPIInterfaceServiceService service;
-        List<PaymentTransactionSearchResultType> paymentTransactions = null;
+        List<PaymentTransactionSearchResultType> paymentTransactions;
         try
         {
 
-            InputStream is = this.getClass().getClassLoader().getResourceAsStream( fileName );
+            InputStream is = this.getClass().getClassLoader().getResourceAsStream( PAYPAL_CONFIG_FILE );
 
             service = new PayPalAPIInterfaceServiceService( is );
             TransactionSearchReq txSearchReq = new TransactionSearchReq();
             TransactionSearchRequestType txReqType = new TransactionSearchRequestType();
 
             DateTime dt = new DateTime();
-            dt = dt.minusDays( 100 );
+            dt = dt.minusDays( PAYPAL_DATE_OFFSET );
 
             txReqType.setStartDate( dt.toString() );
 
             txSearchReq.setTransactionSearchRequest( txReqType );
 
-            TransactionSearchResponseType txSearchRespType = null;
+            TransactionSearchResponseType txSearchRespType;
             txSearchRespType = service.transactionSearch( txSearchReq );
 
             paymentTransactions = txSearchRespType.getPaymentTransactions();
@@ -98,10 +116,7 @@ public class PayPalManager
                     transactionDto.setCategory( mappedCategory.getCategory().getName() );
                 }
 
-
-
-
-                DateTimeFormatter fmt = DateTimeFormat.forPattern( "yyyy-MM-dd'T'HH:mm:ss'Z'" );
+                DateTimeFormatter fmt = DateTimeFormat.forPattern( PAYPAL_DATEFORMAT_PATTERN );
                 dt = fmt.parseDateTime( transaction.getTimestamp() );
                 transactionDto.setBillingDate( dt.toDate() );
                 transactionDto.setValueDate( dt.toDate() );
@@ -112,39 +127,51 @@ public class PayPalManager
             }
 
 
-        } catch ( OAuthException ex )
+        }
+        catch ( OAuthException ex )
         {
-            Logger.getLogger( PayPalTransactionService.class.getName() ).log( Level.SEVERE, null, ex );
-        } catch ( IOException ex )
+            LOG.error( "OAUTH exception", ex );
+
+        }
+        catch ( IOException ex )
         {
-            Logger.getLogger( PayPalTransactionService.class.getName() ).log( Level.SEVERE, null, ex );
-        } catch ( SSLConfigurationException ex )
+            LOG.error( "IO exception", ex );
+        }
+        catch ( SSLConfigurationException ex )
         {
-            Logger.getLogger( PayPalTransactionService.class.getName() ).log( Level.SEVERE, null, ex );
-        } catch ( InvalidCredentialException ex )
+            LOG.error( "SSL config exception", ex );
+        }
+        catch ( InvalidCredentialException ex )
         {
-            Logger.getLogger( PayPalTransactionService.class.getName() ).log( Level.SEVERE, null, ex );
-        } catch ( HttpErrorException ex )
+            LOG.error( "invalid credentials exception", ex );
+        }
+        catch ( HttpErrorException ex )
         {
-            Logger.getLogger( PayPalTransactionService.class.getName() ).log( Level.SEVERE, null, ex );
-        } catch ( InvalidResponseDataException ex )
+            LOG.error( "http error exception", ex );
+        }
+        catch ( InvalidResponseDataException ex )
         {
-            Logger.getLogger( PayPalTransactionService.class.getName() ).log( Level.SEVERE, null, ex );
-        } catch ( ClientActionRequiredException ex )
+            LOG.error( "invalid response exception", ex );
+        }
+        catch ( ClientActionRequiredException ex )
         {
-            Logger.getLogger( PayPalTransactionService.class.getName() ).log( Level.SEVERE, null, ex );
-        } catch ( MissingCredentialException ex )
+            LOG.error( "client action rejected exception", ex );
+        }
+        catch ( MissingCredentialException ex )
         {
-            Logger.getLogger( PayPalTransactionService.class.getName() ).log( Level.SEVERE, null, ex );
-        } catch ( InterruptedException ex )
+            LOG.error( "no credentials exception", ex );
+        }
+        catch ( InterruptedException ex )
         {
-            Logger.getLogger( PayPalTransactionService.class.getName() ).log( Level.SEVERE, null, ex );
-        } catch ( ParserConfigurationException ex )
+            LOG.error( "interrupted exception", ex );
+        }
+        catch ( ParserConfigurationException ex )
         {
-            Logger.getLogger( PayPalTransactionService.class.getName() ).log( Level.SEVERE, null, ex );
-        } catch ( SAXException ex )
+            LOG.error( "parser config exception", ex );
+        }
+        catch ( SAXException ex )
         {
-            Logger.getLogger( PayPalTransactionService.class.getName() ).log( Level.SEVERE, null, ex );
+            LOG.error( "sax exception", ex );
         }
 
         return transactionList;

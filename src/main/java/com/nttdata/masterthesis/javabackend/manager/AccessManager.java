@@ -15,16 +15,25 @@ import com.nttdata.masterthesis.javabackend.entities.User;
 import com.nttdata.masterthesis.javabackend.manager.exceptions.ForbiddenException;
 
 /**
- *
+ * Access Manager controlls the access to restricted Resources.
  * @author MATHAF
  */
 @Stateless
 @LocalBean
 public class AccessManager
 {
+    /**
+     * Logger Object.
+     */
+    public static final Logger LOG = LoggerFactory.getLogger( AccessManager.class );
 
-    static final Logger LOG = LoggerFactory.getLogger( AccessManager.class );
-
+    /**
+     * Checks if a user is allowed to access a bankaccount.
+     * @param user User Entity
+     * @param bankAccount Bankaccount Entity
+     * @return true, if user can access ressource, else false
+     * @throws ForbiddenException user tries to access an account of another user
+     */
     public boolean isAllowed( User user, BankAccount bankAccount ) throws ForbiddenException
     {
 
@@ -32,7 +41,10 @@ public class AccessManager
         {
             String accountNumber = ( bankAccount == null ) ? null : bankAccount.getAccountNumber();
 
-            LOG.error( "access restricted for user: {} to access bankaccount: {}", user.getUserName(), accountNumber );
+            if ( LOG.isErrorEnabled() )
+            {
+                LOG.error( "access restricted for user: {} to access bankaccount: {}", user.getUserName(), accountNumber );
+            }
             throw new ForbiddenException( "access restricted" );
         }
         return true;

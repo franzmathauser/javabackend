@@ -8,10 +8,15 @@ import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.nttdata.masterthesis.javabackend.ressource.NewsDTO;
 
+
 /**
- *
+ * NewsChannel Manager controlls the access to News Service.
+ * This manager reunites news from youtube and twitter.
  * @author MATHAF
  */
 @Stateless
@@ -19,11 +24,20 @@ import com.nttdata.masterthesis.javabackend.ressource.NewsDTO;
 public class NewsChannelManager
 {
 
-    @EJB
-    TwitterManager twitterManager;
-    @EJB
-    YoutubeManager youtubeManager;
+    /**
+     * Logger Object.
+     */
+    public static final Logger LOG = LoggerFactory.getLogger( NewsChannelManager.class );
 
+    @EJB
+    private TwitterManager twitterManager;
+    @EJB
+    private YoutubeManager youtubeManager;
+
+    /**
+     * List of all current News from youtube and twitter.
+     * @return
+     */
     public List<NewsDTO> getNewsChannel()
     {
 

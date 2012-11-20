@@ -22,7 +22,7 @@ import com.nttdata.masterthesis.javabackend.ressource.ResponseEnvelope;
 import com.nttdata.masterthesis.javabackend.ressource.TransactionDTO;
 
 /**
- *
+ * REST-Service for transaction domain. Available Actions: GET
  * @author MATHAF
  */
 @Stateless
@@ -30,47 +30,38 @@ import com.nttdata.masterthesis.javabackend.ressource.TransactionDTO;
 @Interceptors( ServicesLoggingInterceptor.class )
 public class TransactionService
 {
-
     @Context
-    HttpServletRequest request;
+    private HttpServletRequest request;
     @EJB
-    TransactionManager transactionMgr;
+    private TransactionManager transactionMgr;
 
-    //@EJB
-    //TransactionDAO transactionDAO;
+    /**
+     * List of all transactions.
+     * @param bankAccountId id of account number
+     * @return Envelope with metadata and data of methodcall.
+     * @throws ForbiddenException user tries to access an account of another user
+     */
     @GET
-    public ResponseEnvelope getUserTransactions( @PathParam( "bankAccountId" ) Long bankAccountId ) throws ForbiddenException
+    public ResponseEnvelope getUserTransactions(
+    @PathParam( "bankAccountId" ) Long bankAccountId ) throws ForbiddenException
     {
 
-        //System.out.println(request.getUserPrincipal().getName());
         System.out.println( request.getSession().getId() );
 
         ResponseEnvelope response = new ResponseEnvelope();
         List<TransactionDTO> transactions = null;
 
         String user = request.getRemoteUser();
-        //try {
-        transactions = transactionMgr.getTransactionList( user, bankAccountId );
-        //removeCascading(transactions);
-        response.setSuccess( true );
-        response.setData( transactions );
+        try
+        {
+            transactions = transactionMgr.getTransactionList( user, bankAccountId );
+            response.setSuccess( true );
+            response.setBodyData( transactions );
 
-        //return Response.ok().entity(response).build();
-
-
-        return response;
-        //}
-        //catch(ForbiddenException ex){
-        //    throw new com.nttdata.masterthesis.javabackend.services.exceptions.ForbiddenException("Access is restricted.");
-        //}
-
-
-
+            return response;
+        } catch ( ForbiddenException ex )
+        {
+            throw new ForbiddenException( "Access is restricted." );
+        }
     }
-    //private void removeCascading(List<Transaction> transactions){
-    //    for(Transaction trx : transactions){
-    //        transactionDAO.detach(trx);
-    //        trx.setBankAccount(null);
-    //    }
-    //}
 }

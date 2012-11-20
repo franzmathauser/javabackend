@@ -27,6 +27,7 @@ import com.nttdata.masterthesis.javabackend.interceptor.ServicesLoggingIntercept
 import com.nttdata.masterthesis.javabackend.ressource.ResponseEnvelope;
 
 /**
+ * REST-Service for Authentication. Verfügbare Aktionen: GET, POST
  *
  * @author MATHAF
  */
@@ -39,13 +40,26 @@ import com.nttdata.masterthesis.javabackend.ressource.ResponseEnvelope;
 @Stateless
 public class AuthService
 {
-
-    static final Logger LOG = LoggerFactory.getLogger( AuthService.class );
+    private static final Logger LOG = LoggerFactory.getLogger( AuthService.class );
     @EJB
     private UserDAO userDAO;
 
-    @Path( "login" )
+    /**
+     * Creates a new session-context on serverside.
+     * The session-context is only created if the user credentials are correct.
+     * If a session-context is already established while this method is called,
+     * it gets invalidated and creates a new session-context.
+     *
+     * @param userName
+     *            Login-Name
+     * @param password
+     *            Password
+     * @param req HTTP request Object
+     *
+     * @return Envelope with metadata and data of methodcall.
+     */
     @POST
+    @Path( "login" )
     @Produces(
     {
         MediaType.APPLICATION_JSON
@@ -54,7 +68,9 @@ public class AuthService
     {
         MediaType.APPLICATION_FORM_URLENCODED
     } )
-    public ResponseEnvelope login( @FormParam( "username" ) String userName, @FormParam( "password" ) String password, @Context HttpServletRequest req )
+    public ResponseEnvelope login( @FormParam( "username" ) String userName,
+                                   @FormParam( "password" ) String password,
+                                   @Context HttpServletRequest req )
     {
         ResponseEnvelope response = new ResponseEnvelope();
 
@@ -115,11 +131,16 @@ public class AuthService
         user.setGroups( null );
         user.setBankAccount( null );
 
-        response.setData( user );
+        response.setBodyData( user );
 
         return response;
     }
 
+    /**
+     * Destroys a session-context on serverside.
+     * @param req HTTP request Object
+     * @return Envelope with metadata and data of methodcall.
+     */
     @GET
     @Path( "logout" )
     @Produces( MediaType.APPLICATION_JSON )

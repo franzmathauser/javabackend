@@ -16,7 +16,7 @@ import com.nttdata.masterthesis.javabackend.interceptor.ServicesLoggingIntercept
 import com.nttdata.masterthesis.javabackend.manager.PlacesManager;
 
 /**
- *
+ * REST-Service for storefinder domain. Available Actions: GET
  * @author MATHAF
  */
 @Stateless
@@ -26,8 +26,14 @@ public class PlacesService
 {
 
     @EJB
-    PlacesManager placesMgr;
+    private PlacesManager placesMgr;
 
+    /**
+     * List of all nearby bank stores to a geo coordinate.
+     * The radius of a geo-coord is 500m.
+     * @param location lat, lon (example: 48.13661,11.57709)
+     * @return google response json
+     */
     @GET
     @Produces( "application/json" )
     public String getHtml( @QueryParam( "location" ) String location )
