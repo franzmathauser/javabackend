@@ -21,13 +21,16 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nttdata.masterthesis.javabackend.ressource.ResponseEnvelope;
 
 /**
- *
+ * Filter checks user authentication.
+ * If a user is not logged in, the cancels the request and sends back a error message.
  * @author MATHAF
  */
 @WebFilter( filterName = "auth" )
 public class AuthenticationFilter implements Filter
 {
-
+    /**
+     * error message of response.
+     */
     public static String ERROR_MESSAGE = "No valid session";
 
     @Override
@@ -41,30 +44,15 @@ public class AuthenticationFilter implements Filter
     }
 
     @Override
-    public void doFilter( ServletRequest request, ServletResponse response, FilterChain chain ) throws IOException, ServletException
+    public void doFilter( ServletRequest request, ServletResponse response,
+                          FilterChain chain ) throws IOException, ServletException
     {
-        HttpServletResponse httpResponse = ( HttpServletResponse ) response;
-        HttpServletRequest httpRequest = ( HttpServletRequest ) request;
+        HttpServletResponse httpResponse = (HttpServletResponse) response;
+        HttpServletRequest httpRequest = (HttpServletRequest) request;
 
         if ( httpRequest.getUserPrincipal() == null )
         {
-            /*
-             ((HttpServletResponse)response).addHeader(
-             "Access-Control-Allow-Origin", "http://localhost"
-             );
 
-             ((HttpServletResponse)response).addHeader(
-             "Access-Control-Allow-Credentials", "true"
-             );
-
-             ((HttpServletResponse)response).addHeader(
-             "Access-Control-Allow-Headers", "Content-Type, Authorization, Accept, Origin, X-Requested-With"
-             );
-
-             ((HttpServletResponse)response).addHeader(
-             "Access-Control-Allow-Methods", "GET, POST, OPTIONS"
-             );
-             */
             httpResponse.setStatus( HttpServletResponse.SC_UNAUTHORIZED );
             httpResponse.setContentType( MediaType.APPLICATION_JSON );
 
@@ -75,7 +63,8 @@ public class AuthenticationFilter implements Filter
             String json = mapper.writeValueAsString( responseEnv );
             httpResponse.getWriter().print( json );
 
-        } else
+        }
+        else
         {
             chain.doFilter( request, response );
         }

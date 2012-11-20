@@ -16,13 +16,12 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
+ * Filter add Header to enable Cross-Origin Requests from a Browser.
  * @author MATHAF
  */
 @WebFilter( filterName = "cors" )
 public class CrossOriginResourceSharingFilter implements Filter
 {
-
     @Override
     public void init( FilterConfig fConfig ) throws ServletException
     {
@@ -38,20 +37,15 @@ public class CrossOriginResourceSharingFilter implements Filter
     ServletRequest request, ServletResponse response,
     FilterChain chain ) throws IOException, ServletException
     {
+        HttpServletResponse httpResponse = (HttpServletResponse) response;
 
-        ( ( HttpServletResponse ) response ).addHeader(
-        "Access-Control-Allow-Origin", "http://localhost" );
+        httpResponse.addHeader( "Access-Control-Allow-Origin", "http://localhost" );
 
-        ( ( HttpServletResponse ) response ).addHeader(
-        "Access-Control-Allow-Credentials", "true" );
+        httpResponse.addHeader( "Access-Control-Allow-Credentials", "true" );
 
-        ( ( HttpServletResponse ) response ).addHeader(
-        "Access-Control-Allow-Headers", "Content-Type, Authorization, Accept, Origin, X-Requested-With" );
+        httpResponse.addHeader( "Access-Control-Allow-Headers", "Content-Type, Authorization, Accept, Origin, X-Requested-With" );
 
-        ( ( HttpServletResponse ) response ).addHeader(
-        "Access-Control-Allow-Methods", "GET, POST, OPTIONS" );
-
-        System.out.println( "Filter:" + ( ( HttpServletResponse ) response ).getHeaderNames().toString() );
+        httpResponse.addHeader( "Access-Control-Allow-Methods", "GET, POST, OPTIONS" );
 
         chain.doFilter( request, response );
     }

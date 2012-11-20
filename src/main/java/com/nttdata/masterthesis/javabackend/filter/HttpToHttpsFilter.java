@@ -20,13 +20,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- *
+ * Filter redirects a http request to https.
  * @author MATHAF
  */
 @WebFilter( filterName = "http2https" )
 public class HttpToHttpsFilter implements Filter
 {
-
+    /**
+     * Logger Object.
+     */
     static final Logger LOG = LoggerFactory.getLogger( HttpToHttpsFilter.class );
 
     @Override
@@ -39,10 +41,11 @@ public class HttpToHttpsFilter implements Filter
     }
 
     @Override
-    public void doFilter( ServletRequest req, ServletResponse res, FilterChain chain ) throws IOException, ServletException
+    public void doFilter( ServletRequest req, ServletResponse res,
+                          FilterChain chain ) throws IOException, ServletException
     {
-        HttpServletRequest request = ( HttpServletRequest ) req;
-        HttpServletResponse response = ( HttpServletResponse ) res;
+        HttpServletRequest request = (HttpServletRequest) req;
+        HttpServletResponse response = (HttpServletResponse) res;
 
         if ( LOG.isInfoEnabled() )
         {
@@ -66,7 +69,8 @@ public class HttpToHttpsFilter implements Filter
             }
 
             response.sendRedirect( url );
-        } else
+        }
+        else
         {
             chain.doFilter( req, res ); // we already have a https connection ==> so just continue request
         }
