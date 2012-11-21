@@ -14,16 +14,19 @@ import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 
 /**
- *
+ * JsonDateTIME serializer serializes a Java-Date object as german datetime format.
  * @author MATHAF
  */
 public class CustomJsonDateTimeSerializer extends JsonSerializer<Date>
 {
-
+    /**
+     * datetimeformat of json response, for example. 01.01.2012 12:12:59 for January, 01 2012 12:12:59 pm
+     */
     public static final String DATETIME_FORMAT = "dd.MM.yyyy HH:mm:ss";
 
     @Override
-    public void serialize( Date aDate, JsonGenerator aJsonGenerator, SerializerProvider aSerializerProvider )
+    public void serialize( Date aDate, JsonGenerator aJsonGenerator,
+                           SerializerProvider aSerializerProvider )
     throws IOException, JsonProcessingException
     {
 

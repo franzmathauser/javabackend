@@ -12,7 +12,7 @@ import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.DefaultConfigurationBuilder;
 
 /**
- *
+ * Configuration class to load application properties from a file.
  * @author MATHAF
  */
 public class BackendConfiguration extends AbstractConfiguration
@@ -22,25 +22,25 @@ public class BackendConfiguration extends AbstractConfiguration
     private String configFilePath;
 
     /**
-     * Konstruktor mit Dateiname für die Konfiguration.
+     * Constructor with filename to load configuration.
      *
-     * @param configFilePath zur Konfiguration
+     * @param filePath path to configfile
      */
-    protected BackendConfiguration( String configFilePath )
+    protected BackendConfiguration( String filePath )
     {
-        if ( configFilePath == null )
+        if ( filePath == null )
         {
-            throw new IllegalArgumentException( "Ungueltiger Parameter configFilePath: " + null );
+            throw new IllegalArgumentException( "invalid parameter filePath: " + null );
         }
 
-        this.configFilePath = configFilePath;
+        this.configFilePath = filePath;
         setDefaultListDelimiter( ';' );
         loadConfiguration();
     }
 
     private void loadConfiguration()
     {
-        URL configURL = null;
+        URL configURL;
         try
         {
             configURL = getClass().getResource( configFilePath );
@@ -55,8 +55,6 @@ public class BackendConfiguration extends AbstractConfiguration
 
         } catch ( Exception ex )
         {
-            //throw new IllegalArgumentException("---------------------------" + configURL.toString() + ex.toString());
-
             throw new IllegalArgumentException( configFilePath );
         }
     }

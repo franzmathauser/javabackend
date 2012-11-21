@@ -61,12 +61,13 @@ public class PayPalManager
      */
     public static final int PAYPAL_DATE_OFFSET = 100;
 
+    /**
+     * datetime format of paypal dates.
+     */
     public static final String PAYPAL_DATEFORMAT_PATTERN = "yyyy-MM-dd'T'HH:mm:ss'Z'";
 
     @EJB
     private MappedCategoryDAO mappedCategoryDao;
-
-
 
     /**
      * List of Transaction.

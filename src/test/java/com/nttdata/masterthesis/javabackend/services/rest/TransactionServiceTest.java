@@ -18,7 +18,7 @@ import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 
 /**
- *
+ * The TransactionServiceTest checks the access to transactions.
  * @author MATHAF
  */
 public class TransactionServiceTest extends AbstractSecureTest

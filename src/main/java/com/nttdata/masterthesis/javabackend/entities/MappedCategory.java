@@ -13,18 +13,20 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
- *
+ * Entity bean for mapped categores.
+ * These are used to map external transactions to internal categories.
  * @author MATHAF
  */
 @Entity
 @Table( name = "mapped_category" )
 public class MappedCategory
 {
-
     @Id
     @GeneratedValue( strategy = GenerationType.AUTO )
     private Long id;
+
     private String mappedId;
+
     @ManyToOne( fetch = FetchType.EAGER )
     private Category category;
 

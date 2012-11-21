@@ -16,14 +16,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- *
+ * Event Listener writes container managed events to log file.
  * @author MATHAF
  */
 public class EventListener implements ServletContextListener,
-HttpSessionAttributeListener, HttpSessionListener
+                                      HttpSessionAttributeListener, HttpSessionListener
 {
+    /**
+     * Logger Object.
+     */
+    public static final Logger LOG = LoggerFactory.getLogger( EventListener.class );
 
-    static final Logger LOG = LoggerFactory.getLogger( EventListener.class );
     /**
      * The servlet context with which we are associated.
      */
@@ -34,6 +37,7 @@ HttpSessionAttributeListener, HttpSessionListener
      *
      * @param event The session attribute event
      */
+    @Override
     public void attributeAdded( HttpSessionBindingEvent event )
     {
 
@@ -47,6 +51,7 @@ HttpSessionAttributeListener, HttpSessionListener
      *
      * @param event The session attribute event
      */
+    @Override
     public void attributeRemoved( HttpSessionBindingEvent event )
     {
 
@@ -60,6 +65,7 @@ HttpSessionAttributeListener, HttpSessionListener
      *
      * @param event The session attribute event
      */
+    @Override
     public void attributeReplaced( HttpSessionBindingEvent event )
     {
 
@@ -73,6 +79,7 @@ HttpSessionAttributeListener, HttpSessionListener
      *
      * @param event The servlet context event
      */
+    @Override
     public void contextDestroyed( ServletContextEvent event )
     {
 
@@ -86,6 +93,7 @@ HttpSessionAttributeListener, HttpSessionListener
      *
      * @param event The servlet context event
      */
+    @Override
     public void contextInitialized( ServletContextEvent event )
     {
 
@@ -99,6 +107,7 @@ HttpSessionAttributeListener, HttpSessionListener
      *
      * @param event The session event
      */
+    @Override
     public void sessionCreated( HttpSessionEvent event )
     {
 
@@ -111,6 +120,7 @@ HttpSessionAttributeListener, HttpSessionListener
      *
      * @param event The session event
      */
+    @Override
     public void sessionDestroyed( HttpSessionEvent event )
     {
 
@@ -126,19 +136,5 @@ HttpSessionAttributeListener, HttpSessionListener
     private void log( String message )
     {
         LOG.info( "EventListener: {}", message );
-    }
-
-    /**
-     * Log a message and associated exception.
-     *
-     * @param message Message to be logged
-     * @param throwable Exception to be logged
-     */
-    private void log( String message, Throwable throwable )
-    {
-        if ( LOG.isErrorEnabled() )
-        {
-            LOG.error( "EventListener: " + message, throwable );
-        }
     }
 }

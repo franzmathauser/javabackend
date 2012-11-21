@@ -31,7 +31,7 @@ public class AuthenticationFilter implements Filter
     /**
      * error message of response.
      */
-    public static String ERROR_MESSAGE = "No valid session";
+    private static String ERROR_MESSAGE = "No valid session";
 
     @Override
     public void init( FilterConfig fConfig ) throws ServletException

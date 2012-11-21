@@ -23,15 +23,25 @@ import com.nttdata.masterthesis.javabackend.helper.CustomJsonDateSerializer;
 public class TransactionDTO implements Serializable
 {
     private String id;
+
     private Date billingDate;
+
     private Date valueDate;
+
     private float amount;
+
     private String revenueType;
+
     private String name;
+
     private String account;
+
     private String bankCode;
+
     private String purpose;
+
     private String category;
+
     private String categoryIcon;
 
     public String getId()
@@ -221,11 +231,5 @@ public class TransactionDTO implements Serializable
             return false;
         }
         return true;
-    }
-
-    @Override
-    public String toString()
-    {
-        return "TransactionDTO{" + "id=" + id + ", billingDate=" + billingDate + ", valueDate=" + valueDate + ", amount=" + amount + ", revenueType=" + revenueType + ", name=" + name + ", account=" + account + ", bankCode=" + bankCode + ", purpose=" + purpose + ", category=" + category + ", categoryIcon=" + categoryIcon + '}';
     }
 }

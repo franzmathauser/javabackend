@@ -15,25 +15,27 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- *
+ * Service Logger logs all requests incoming and response outgoing.
  * @author MATHAF
  */
 // @Interceptor //  it's not necessary for @Interceptors() bindings, and in a CDI deployment must specify bindings (as per the spec).
 public class ServicesLoggingInterceptor
 {
-
-    static final Logger LOG = LoggerFactory.getLogger( ServicesLoggingInterceptor.class );
+    /**
+     * Object Logger.
+     */
+    public static final Logger LOG = LoggerFactory.getLogger( ServicesLoggingInterceptor.class );
 
     /**
-     * Interceptor Methode logged die übergebenen Parameter, falls Parameter
-     * existieren. Im zweiten Schritt wird die Interceptor-Chain aufgerufen und
-     * die Zeit der benötigten dauer gemessen, diese wir zusammen mit dem
-     * Rückgabewert in das Log-File geschrieben. Tritt eine Exception auf, so
-     * wird diese ins Log geschrieben und weitergeworfen.
+     * Interceptor method loggs the ingoing parameters, if a parameter exists.
+     * In a second step the interceptor chain is called and the starttime is
+     * meassured to calculate the duration of the operation. The duration and
+     * return objects are written to the log file. A thrown exception will also
+     * be logged an rethrown.
      *
-     * @param ctx Interception Context
+     * @param ctx interception context
      * @return proceed object for call chain
-     * @throws Exception Exception
+     * @throws Exception exception if intercepted method throws an exception
      */
     @AroundInvoke
     public Object log( InvocationContext ctx ) throws Exception
@@ -64,7 +66,8 @@ public class ServicesLoggingInterceptor
             long endMethod = new Date().getTime();
 
             duration = endMethod - startMethod;
-        } catch ( Exception e )
+        }
+        catch ( Exception e )
         {
             if ( LOG.isErrorEnabled() )
             {
@@ -80,7 +83,7 @@ public class ServicesLoggingInterceptor
         Object logRet = ret;
         if ( logRet instanceof Response )
         {
-            logRet = ( ( Response ) ret ).getEntity();
+            logRet = ( (Response) ret ).getEntity();
         }
 
         Object[] args =

@@ -14,18 +14,20 @@ import com.nttdata.masterthesis.javabackend.manager.exceptions.ForbiddenExceptio
 import com.nttdata.masterthesis.javabackend.ressource.ResponseEnvelope;
 
 /**
- *
+ * A ForbiddenExceptionMapper enables to change the http response status
+ * if a ForbiddenException is thrown.
  * @author MATHAF
  */
 @Provider
 public class ForbiddenExceptionMapper implements ExceptionMapper<ForbiddenException>
 {
-
     private static final Response RESPONSE;
-    private static final ResponseEnvelope RESPONSE_ENVELOPE = new ResponseEnvelope( false );
+
+    private static final ResponseEnvelope RESPONSE_ENVELOPE;
 
     static
     {
+        RESPONSE_ENVELOPE = new ResponseEnvelope( false );
         RESPONSE = Response.status( HttpStatus.FORBIDDEN_403.getStatusCode() ).entity( RESPONSE_ENVELOPE ).build();
     }
 

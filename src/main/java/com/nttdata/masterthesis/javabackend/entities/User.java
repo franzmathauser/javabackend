@@ -29,7 +29,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.nttdata.masterthesis.javabackend.helper.CustomJsonDateSerializer;
 
 /**
- *
+ * Entity bean for user.
  * @author MATHAF
  */
 @Entity

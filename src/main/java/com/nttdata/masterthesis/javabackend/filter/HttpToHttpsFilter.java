@@ -34,10 +34,6 @@ public class HttpToHttpsFilter implements Filter
     @Override
     public void init( FilterConfig config ) throws ServletException
     {
-        // if you have any init-params in web.xml then you could retrieve them
-        // here by calling config.getInitParameter("my-init-param-name").
-        // example: you could define a comma separated list of paths that should be
-        // checked for http to https redirection
     }
 
     @Override

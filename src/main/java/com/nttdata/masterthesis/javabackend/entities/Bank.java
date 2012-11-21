@@ -18,21 +18,24 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
- *
+ * Bank entity bean for bank.
  * @author MATHAF
  */
 @Entity
 @Table( name = "bank" )
 public class Bank implements Serializable
 {
-
     private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue( strategy = GenerationType.AUTO )
     private Long id;
+
     private String name;
+
     @Column( name = "bankcode" )
     private String bankCode;
+
     @OneToMany( mappedBy = "bank", fetch = FetchType.LAZY, cascade = CascadeType.ALL )
     private List<BankAccount> bankAccounts;
 

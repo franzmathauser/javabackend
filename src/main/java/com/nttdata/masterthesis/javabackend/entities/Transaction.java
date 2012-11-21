@@ -19,35 +19,45 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 
 /**
- *
+ * Entity bean for transaction.
  * @author MATHAF
  */
 @Entity
 @Table( name = "bank_account_transaction" )
 public class Transaction implements Serializable
 {
-
     private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue( strategy = GenerationType.AUTO )
     private Long id;
+
     @Column( name = "billing_date" )
     @Temporal( javax.persistence.TemporalType.DATE )
     private Date billingDate;
+
     @Column( name = "value_date" )
     @Temporal( javax.persistence.TemporalType.DATE )
     private Date valueDate;
+
     private float amount;
+
     @Column( name = "revenue_type" )
     private String revenueType;
+
     private String name;
+
     private String account;
+
     @Column( name = "bankcode" )
     private String bankCode;
+
     private String purpose;
+
     @ManyToOne( fetch = FetchType.LAZY )
     @JoinColumn( name = "bank_account_id" )
     private BankAccount bankAccount;
+
     @ManyToOne( fetch = FetchType.EAGER )
     private Category category;
 
@@ -161,9 +171,4 @@ public class Transaction implements Serializable
         this.category = category;
     }
 
-    @Override
-    public String toString()
-    {
-        return "Transaction{" + "id=" + id + ", billingDate=" + billingDate + ", valueDate=" + valueDate + ", amount=" + amount + ", revenueType=" + revenueType + ", name=" + name + ", account=" + account + ", bankCode=" + bankCode + ", purpose=" + purpose + ", bankAccount=" + bankAccount + ", category=" + category + '}';
-    }
 }

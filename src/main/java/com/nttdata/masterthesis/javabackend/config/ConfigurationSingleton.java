@@ -5,13 +5,12 @@
 package com.nttdata.masterthesis.javabackend.config;
 
 /**
- *
+ * Configuration implements Singleton-Pattern to request config values.
  * @author MATHAF
  */
-public class ConfigurationSingleton extends BackendConfiguration
+public final class ConfigurationSingleton extends BackendConfiguration
 {
-
-    private static ConfigurationSingleton config = new ConfigurationSingleton();
+    private static final ConfigurationSingleton CONFIG = new ConfigurationSingleton();
 
     /**
      * Konstruktor.
@@ -28,9 +27,9 @@ public class ConfigurationSingleton extends BackendConfiguration
      */
     public static ConfigurationSingleton getInstance()
     {
-        synchronized ( config )
+        synchronized ( CONFIG )
         {
-            return config;
+            return CONFIG;
         }
     }
 }

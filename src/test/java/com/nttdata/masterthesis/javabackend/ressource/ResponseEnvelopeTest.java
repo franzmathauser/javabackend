@@ -4,9 +4,10 @@
  */
 package com.nttdata.masterthesis.javabackend.ressource;
 
-import com.nttdata.masterthesis.javabackend.services.rest.*;
 import static org.junit.Assert.*;
 import org.junit.Test;
+
+import com.nttdata.masterthesis.javabackend.services.rest.AbstractSecureTest;
 
 /**
  * Response Envelope Test provide some thes for the DTO Response Envelope.

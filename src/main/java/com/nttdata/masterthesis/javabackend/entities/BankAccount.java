@@ -22,33 +22,41 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 
 /**
- *
+ * Entity bean for bank account.
  * @author MATHAF
  */
 @Entity
 @Table( name = "bank_account" )
 public class BankAccount implements Serializable
 {
-
     private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue( strategy = GenerationType.AUTO )
     private Long id;
+
     @Column( name = "firstname" )
     private String firstName;
+
     @Column( name = "lastname" )
     private String lastName;
+
     @Column( name = "create_date" )
     @Temporal( javax.persistence.TemporalType.DATE )
     private Date createDate;
+
     @Column( name = "account_number" )
     private String accountNumber;
+
     @OneToMany( mappedBy = "bankAccount", fetch = FetchType.LAZY, cascade = CascadeType.ALL )
     private List<Transaction> transactions;
+
     @OneToMany( mappedBy = "bankAccount", fetch = FetchType.LAZY, cascade = CascadeType.ALL )
     private List<Category> categories;
+
     @OneToOne( mappedBy = "bankAccount", fetch = FetchType.LAZY, cascade = CascadeType.ALL )
     private User user;
+
     @ManyToOne( fetch = FetchType.LAZY )
     private Bank bank;
 

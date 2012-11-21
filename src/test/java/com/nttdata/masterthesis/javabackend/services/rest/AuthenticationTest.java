@@ -17,13 +17,16 @@ import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.representation.Form;
 
 /**
- *
+ * The AuthenticationTest checks the Login-Service of the application.
  * @author MATHAF
  */
 public class AuthenticationTest extends AbstractSecureTest
 {
     private final String requestUri;
 
+    /**
+     * Default constructor.
+     */
     public AuthenticationTest()
     {
         super();
@@ -121,6 +124,4 @@ public class AuthenticationTest extends AbstractSecureTest
         assertTrue( "authorized", env.isSuccess() );
 
     }
-
-
 }

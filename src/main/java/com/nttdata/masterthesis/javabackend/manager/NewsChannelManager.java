@@ -36,7 +36,7 @@ public class NewsChannelManager
 
     /**
      * List of all current News from youtube and twitter.
-     * @return
+     * @return List of News DTO if found else empty list
      */
     public List<NewsDTO> getNewsChannel()
     {
