@@ -27,7 +27,7 @@ public class CustomJsonDateSerializer extends JsonSerializer<Date>
     @Override
     public void serialize( Date aDate, JsonGenerator aJsonGenerator,
                            SerializerProvider aSerializerProvider )
-    throws IOException, JsonProcessingException
+    throws IOException
     {
 
         SimpleDateFormat dateFormat = new SimpleDateFormat( DATE_FORMAT );

@@ -20,7 +20,7 @@ public class HttpToHttpsFilterTest
 {
 
     /**
-     * check http to https redirect
+     * check http to https redirect.
      */
     @Test
     public void redirectionTest()
