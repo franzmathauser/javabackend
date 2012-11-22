@@ -1,6 +1,7 @@
 package com.nttdata.masterthesis.javabackend.manager;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -10,8 +11,6 @@ import javax.interceptor.Interceptors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.nttdata.masterthesis.javabackend.entities.Category;
-import com.nttdata.masterthesis.javabackend.entities.Transaction;
 import com.nttdata.masterthesis.javabackend.interceptor.CategoryIconInterceptor;
 import com.nttdata.masterthesis.javabackend.manager.exceptions.ForbiddenException;
 import com.nttdata.masterthesis.javabackend.ressource.TransactionDTO;
@@ -28,8 +27,10 @@ public class TransactionManager
      * Logger Object.
      */
     public static final Logger LOG = LoggerFactory.getLogger( TransactionManager.class );
+
     @EJB
     private PayPalManager payPalMgr;
+
     @EJB
     private DbTransactionManager dbTransactionMgr;
 
@@ -46,61 +47,34 @@ public class TransactionManager
     {
 
         List<TransactionDTO> transactionList = new ArrayList<TransactionDTO>();
-        List<Transaction> dbTransactions = dbTransactionMgr.getTransactionList( userName, bankAccountId );
+        List<TransactionDTO> dbTransactions = dbTransactionMgr.getTransactionList( userName, bankAccountId );
+        List<TransactionDTO> paypalTransactions = payPalMgr.getTransactions();
 
-        transactionList.addAll( convertTransactionListToTransactionDTOList( dbTransactions ) );
-        transactionList.addAll( payPalMgr.getTransactions() );
+        transactionList.addAll( dbTransactions );
+        transactionList.addAll( paypalTransactions );
+
+        Collections.sort( transactionList );
 
         return transactionList;
     }
 
     /**
-     * Convert a List of Transaction Entites to a REST DTO.
-     * @param transactions List of Transaction Entities
-     * @return List of Transaction DTOs
-     */
-    private List<TransactionDTO> convertTransactionListToTransactionDTOList(
-    List<Transaction> transactions )
-    {
-
-        List<TransactionDTO> transactionList = new ArrayList<TransactionDTO>();
-
-        for ( Transaction transaction : transactions )
-        {
-            transactionList.add( convertTransactionToTransactionDTO( transaction ) );
-        }
-        return transactionList;
-
-    }
-
-    /**
-     * Convert a Transaction Entity into a REST DTO.
-     * @param transaction Transaction Entity
+     * Updates the category of a transaction.
+     * @param user session username
+     * @param transaction transaction transfer object
      * @return Transaction DTO
+     * @throws ForbiddenException user tries to access an account of another user
      */
-    private TransactionDTO convertTransactionToTransactionDTO(
-    Transaction transaction )
+    public TransactionDTO updateTransactionCategory( String user,
+                                                     TransactionDTO transaction ) throws ForbiddenException
     {
-        TransactionDTO transactionDto = new TransactionDTO();
+        TransactionDTO retTransaction;
 
-        transactionDto.setId( Long.toString( transaction.getId() ) );
-        transactionDto.setName( transaction.getName() );
-        transactionDto.setPurpose( transaction.getPurpose() );
-        transactionDto.setAccount( transaction.getAccount() );
-        transactionDto.setAmount( transaction.getAmount() );
-        transactionDto.setBankCode( transaction.getBankCode() );
-
-        transactionDto.setRevenueType( transaction.getRevenueType() );
-        transactionDto.setValueDate( transaction.getValueDate() );
-        transactionDto.setBillingDate( transaction.getBillingDate() );
-
-        Category category = transaction.getCategory();
-        if ( category != null )
+        retTransaction = dbTransactionMgr.updateTransactionCategory( user, transaction );
+        if ( retTransaction == null )
         {
-            transactionDto.setCategory( category.getName() );
+            retTransaction = payPalMgr.updateTransactionCategory( user, transaction );
         }
-
-        return transactionDto;
-
+        return retTransaction;
     }
 }

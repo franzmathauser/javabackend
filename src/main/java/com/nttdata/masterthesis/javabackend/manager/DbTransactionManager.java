@@ -15,12 +15,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.nttdata.masterthesis.javabackend.dao.BankAccountDAO;
+import com.nttdata.masterthesis.javabackend.dao.CategoryDAO;
 import com.nttdata.masterthesis.javabackend.dao.TransactionDAO;
 import com.nttdata.masterthesis.javabackend.dao.UserDAO;
 import com.nttdata.masterthesis.javabackend.entities.BankAccount;
+import com.nttdata.masterthesis.javabackend.entities.Category;
 import com.nttdata.masterthesis.javabackend.entities.Transaction;
 import com.nttdata.masterthesis.javabackend.entities.User;
 import com.nttdata.masterthesis.javabackend.manager.exceptions.ForbiddenException;
+import com.nttdata.masterthesis.javabackend.ressource.TransactionDTO;
 
 /**
  * Db Transaction Manager controlls the access to Transactions from database.
@@ -37,24 +40,30 @@ public class DbTransactionManager
 
     @EJB
     private TransactionDAO transactionDAO;
+
     @EJB
     private UserDAO userDAO;
+
     @EJB
     private BankAccountDAO bankAccountDAO;
+
     @EJB
     private AccessManager accessManager;
+
+    @EJB
+    private CategoryDAO categoryDAO;
 
     /**
      * List of Transaction Entites.
      * @param userName login-username
      * @param bankAccountId bankaccount identifier
-     * @return Lis of Transaction Entites
+     * @return List of Transaction DTOs
      * @throws ForbiddenException user tries to access an account of another user
      */
-    public List<Transaction> getTransactionList( String userName,
-                                                 Long bankAccountId ) throws ForbiddenException
+    public List<TransactionDTO> getTransactionList( String userName,
+                                                    Long bankAccountId ) throws ForbiddenException
     {
-        List<Transaction> transactions = new ArrayList<Transaction>();
+        List<TransactionDTO> transactions = new ArrayList<TransactionDTO>();
 
         if ( userName == null )
         {
@@ -64,8 +73,9 @@ public class DbTransactionManager
         User user = userDAO.findByName( userName );
         BankAccount bankAccount = bankAccountDAO.find( bankAccountId );
         accessManager.isAllowed( user, bankAccount );
+        List<Transaction> transactionEntityList = getTransactionList( bankAccount );
 
-        transactions.addAll( getTransactionList( bankAccount ) );
+        transactions.addAll( convertTransactionListToTransactionDTOList( transactionEntityList ) );
 
         return transactions;
     }
@@ -78,5 +88,90 @@ public class DbTransactionManager
     private List<Transaction> getTransactionList( BankAccount bankAccount )
     {
         return transactionDAO.findByBankAccount( bankAccount );
+    }
+
+    /**
+     * Updates the category of a transaction.
+     * @param userName session username
+     * @param transactionDTO transaction transfer object
+     * @return transaction transfer object
+     * @throws ForbiddenException user tries to access an account of another user
+     */
+    public TransactionDTO updateTransactionCategory( String userName,
+                                           TransactionDTO transactionDTO ) throws ForbiddenException
+    {
+        try
+        {
+            long transactionId = Long.parseLong( transactionDTO.getId() );
+            Transaction transaction = transactionDAO.find( transactionId );
+            User user = userDAO.findByName( userName );
+
+            if ( transaction != null )
+            {
+                accessManager.isAllowed( user, transaction.getBankAccount() );
+                // TODO check if category id is also from user
+                Category category = categoryDAO.find( transactionDTO.getCategoryId() );
+                transaction.setCategory( category );
+                transactionDAO.save( transaction );
+
+                return transactionDTO;
+            }
+        }
+        catch ( NumberFormatException ex )
+        {
+            LOG.error( "transaction might be a paypal transaction", ex );
+        }
+        return null;
+    }
+
+    /**
+     * Convert a List of Transaction Entites to a REST DTO.
+     * @param transactions List of Transaction Entities
+     * @return List of Transaction DTOs
+     */
+    private List<TransactionDTO> convertTransactionListToTransactionDTOList(
+    List<Transaction> transactions )
+    {
+
+        List<TransactionDTO> transactionList = new ArrayList<TransactionDTO>();
+
+        for ( Transaction transaction : transactions )
+        {
+            transactionList.add( convertTransactionToTransactionDTO( transaction ) );
+        }
+        return transactionList;
+
+    }
+
+    /**
+     * Convert a Transaction Entity into a REST DTO.
+     * @param transaction Transaction Entity
+     * @return Transaction DTO
+     */
+    private TransactionDTO convertTransactionToTransactionDTO(
+    Transaction transaction )
+    {
+        TransactionDTO transactionDto = new TransactionDTO();
+
+        transactionDto.setId( Long.toString( transaction.getId() ) );
+        transactionDto.setName( transaction.getName() );
+        transactionDto.setPurpose( transaction.getPurpose() );
+        transactionDto.setAccount( transaction.getAccount() );
+        transactionDto.setAmount( transaction.getAmount() );
+        transactionDto.setBankCode( transaction.getBankCode() );
+
+        transactionDto.setRevenueType( transaction.getRevenueType() );
+        transactionDto.setValueDate( transaction.getValueDate() );
+        transactionDto.setBillingDate( transaction.getBillingDate() );
+
+        Category category = transaction.getCategory();
+        if ( category != null )
+        {
+            transactionDto.setCategory( category.getName() );
+            transactionDto.setCategoryId( category.getId() );
+        }
+
+        return transactionDto;
+
     }
 }

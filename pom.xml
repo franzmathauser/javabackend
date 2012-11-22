@@ -269,24 +269,6 @@
               </plugin>-->
 
               <plugin>
-                    <groupId>org.codehaus.enunciate</groupId>
-                        <artifactId>maven-enunciate-plugin</artifactId>
-                        <version>1.26</version>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>docs</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <!-- the directory where to put the docs -->
-                            <docsDir>${project.build.directory}/docs</docsDir>
-                            <configFile>enunciate.xml</configFile>
-                        </configuration>
-                </plugin>
-
-              <plugin>
               <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>
                 <version>3.2</version>

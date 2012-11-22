@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 
 import com.nttdata.masterthesis.javabackend.config.ConfigurationConstants;
 import com.nttdata.masterthesis.javabackend.config.ConfigurationSingleton;
+import com.nttdata.masterthesis.javabackend.ressource.CategoryContainer;
 import com.nttdata.masterthesis.javabackend.ressource.TransactionDTO;
 
 /**
@@ -54,13 +55,13 @@ public class CategoryIconInterceptor
     public Object log( InvocationContext ctx ) throws Exception
     {
 
-        List<TransactionDTO> ret = (List<TransactionDTO>) ctx.proceed();
+        List<CategoryContainer> ret = (List<CategoryContainer>) ctx.proceed();
 
-        for ( TransactionDTO transaction : ret )
+        for ( CategoryContainer element : ret )
         {
-            if ( transaction.getCategoryIcon() == null && transaction.getCategory() != null )
+            if ( element.getCategoryIconUrl() == null && element.getCategoryName() != null )
             {
-                transaction.setCategoryIcon( ICON_ROOT_URL + transaction.getCategory() + ".png" );
+                element.setCategoryIconUrl( ICON_ROOT_URL + element.getCategoryName() + ".png" );
             }
         }
 

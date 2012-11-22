@@ -11,7 +11,9 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.nttdata.masterthesis.javabackend.helper.CustomJsonDateDeserializer;
 import com.nttdata.masterthesis.javabackend.helper.CustomJsonDateSerializer;
 
 /**
@@ -20,7 +22,7 @@ import com.nttdata.masterthesis.javabackend.helper.CustomJsonDateSerializer;
  */
 @XmlRootElement
 @XmlAccessorType( XmlAccessType.FIELD )
-public class TransactionDTO implements Serializable
+public class TransactionDTO implements Serializable, CategoryContainer, Comparable<TransactionDTO>
 {
     private String id;
 
@@ -44,6 +46,8 @@ public class TransactionDTO implements Serializable
 
     private String categoryIcon;
 
+    private long categoryId;
+
     public String getId()
     {
         return id;
@@ -60,6 +64,7 @@ public class TransactionDTO implements Serializable
         return billingDate;
     }
 
+    @JsonDeserialize( using = CustomJsonDateDeserializer.class )
     public void setBillingDate( Date billingDate )
     {
         this.billingDate = billingDate;
@@ -71,6 +76,7 @@ public class TransactionDTO implements Serializable
         return valueDate;
     }
 
+    @JsonDeserialize( using = CustomJsonDateDeserializer.class )
     public void setValueDate( Date valueDate )
     {
         this.valueDate = valueDate;
@@ -156,6 +162,34 @@ public class TransactionDTO implements Serializable
         this.categoryIcon = categoryIcon;
     }
 
+    public long getCategoryId()
+    {
+        return categoryId;
+    }
+
+    public void setCategoryId( long categoryId )
+    {
+        this.categoryId = categoryId;
+    }
+
+    @Override
+    public String getCategoryName()
+    {
+        return getCategory();
+    }
+
+    @Override
+    public String getCategoryIconUrl()
+    {
+        return getCategoryIcon();
+    }
+
+    @Override
+    public void setCategoryIconUrl( String urlPath )
+    {
+        setCategoryIcon( urlPath );
+    }
+
     @Override
     public int hashCode()
     {
@@ -231,5 +265,24 @@ public class TransactionDTO implements Serializable
             return false;
         }
         return true;
+    }
+
+    @Override
+    public int compareTo( TransactionDTO o )
+    {
+        long diff = o.getBillingDate().getTime() - this.getBillingDate().getTime();
+
+        if ( diff > 0 )
+        {
+            return 1;
+        }
+        else if ( diff < 0 )
+        {
+            return -1;
+        }
+        else
+        {
+            return 0;
+        }
     }
 }

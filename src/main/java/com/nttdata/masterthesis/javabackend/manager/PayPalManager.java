@@ -21,7 +21,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
 
+import com.nttdata.masterthesis.javabackend.dao.CategoryDAO;
 import com.nttdata.masterthesis.javabackend.dao.MappedCategoryDAO;
+import com.nttdata.masterthesis.javabackend.entities.Category;
 import com.nttdata.masterthesis.javabackend.entities.MappedCategory;
 import com.nttdata.masterthesis.javabackend.ressource.TransactionDTO;
 import com.paypal.exception.ClientActionRequiredException;
@@ -69,6 +71,9 @@ public class PayPalManager
     @EJB
     private MappedCategoryDAO mappedCategoryDao;
 
+    @EJB
+    private CategoryDAO categoryDAO;
+
     /**
      * List of Transaction.
      * PayPal access is configured in config-file.
@@ -115,6 +120,7 @@ public class PayPalManager
                 if ( mappedCategory != null )
                 {
                     transactionDto.setCategory( mappedCategory.getCategory().getName() );
+                    transactionDto.setCategoryId( mappedCategory.getCategory().getId() );
                 }
 
                 DateTimeFormatter fmt = DateTimeFormat.forPattern( PAYPAL_DATEFORMAT_PATTERN );
@@ -177,5 +183,32 @@ public class PayPalManager
 
         return transactionList;
 
+    }
+
+    /**
+     * Updates the category of a transaction.
+     * @param user username
+     * @param transaction transaction transfer object
+     * @return transaction transfer object
+     */
+    public TransactionDTO updateTransactionCategory( String user,
+                                                     TransactionDTO transaction )
+    {
+        String transactionId = transaction.getId();
+        //TODO check if user can access this transaction.
+        MappedCategory mappedCategory = mappedCategoryDao.findByMappedId( transactionId );
+        Category category = categoryDAO.find( transaction.getCategoryId() );
+        if ( mappedCategory != null )
+        {
+            mappedCategory.setCategory( category );
+        }
+        else
+        {
+            mappedCategory = new MappedCategory();
+            mappedCategory.setMappedId( transactionId );
+            mappedCategory.setCategory( category );
+        }
+        mappedCategoryDao.save( mappedCategory );
+        return transaction;
     }
 }
