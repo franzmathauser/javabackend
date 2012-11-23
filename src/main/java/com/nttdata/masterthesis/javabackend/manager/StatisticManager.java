@@ -3,6 +3,7 @@ package com.nttdata.masterthesis.javabackend.manager;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -30,6 +31,13 @@ public class StatisticManager
     @EJB
     private TransactionManager transactionManager;
 
+    /**
+     * Get transaction amount grouped by week of year.
+     * @param user session username
+     * @param bankAccountId bankaccount identifier
+     * @return map of statistic values. key is week of year, value is transaction amount.
+     * @throws ForbiddenException user tries to access an account of another user
+     */
     public Map<String, Float> getTransactionAmountPerWeekOfYear( String user,
                                                                  Long bankAccountId ) throws ForbiddenException
     {
@@ -52,8 +60,16 @@ public class StatisticManager
         return statistics;
     }
 
+    /**
+     * Get transaction amout by category.
+     * The sum of transaction amount is calculated by the sum of the absolute value.
+     * @param user session username
+     * @param bankAccountId bankaccount identifier
+     * @return map of statistic values. key is category, value is the absolute value of the transaction amount.
+     * @throws ForbiddenException user tries to access an account of another user
+     */
     public Map<String, Float> getTransactionByCategory( String user,
-                                                                 Long bankAccountId ) throws ForbiddenException
+                                                        Long bankAccountId ) throws ForbiddenException
     {
         List<TransactionDTO> transactions = transactionManager.getTransactionList( user, bankAccountId );
         Map<String, Float> statistics = new HashMap<String, Float>();
@@ -66,7 +82,7 @@ public class StatisticManager
             {
                 currentAmount = 0f;
             }
-            currentAmount += Math.abs( transaction.getAmount());
+            currentAmount += Math.abs( transaction.getAmount() );
             statistics.put( categoryText, currentAmount );
         }
 
