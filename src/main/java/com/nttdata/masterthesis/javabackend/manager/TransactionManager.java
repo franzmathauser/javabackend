@@ -65,6 +65,7 @@ public class TransactionManager
      * @return Transaction DTO
      * @throws ForbiddenException user tries to access an account of another user
      */
+    @Interceptors( CategoryIconInterceptor.class )
     public TransactionDTO updateTransactionCategory( String user,
                                                      TransactionDTO transaction ) throws ForbiddenException
     {

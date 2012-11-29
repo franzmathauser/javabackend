@@ -15,7 +15,6 @@ import org.slf4j.LoggerFactory;
 import com.nttdata.masterthesis.javabackend.config.ConfigurationConstants;
 import com.nttdata.masterthesis.javabackend.config.ConfigurationSingleton;
 import com.nttdata.masterthesis.javabackend.ressource.CategoryContainer;
-import com.nttdata.masterthesis.javabackend.ressource.TransactionDTO;
 
 /**
  * Interceptor adds a icon-url sting into a transaction dto depending on the category.
@@ -55,16 +54,38 @@ public class CategoryIconInterceptor
     public Object log( InvocationContext ctx ) throws Exception
     {
 
-        List<CategoryContainer> ret = (List<CategoryContainer>) ctx.proceed();
+        Object obj = ctx.proceed();
+
+        if ( obj instanceof List<?> )
+        {
+            List<CategoryContainer> ret = (List<CategoryContainer>) obj;
+            return doList( ret );
+        }
+        else
+        {
+            CategoryContainer ret = (CategoryContainer) obj;
+            return doPlain( ret );
+        }
+
+    }
+
+    private List<CategoryContainer> doList( List<CategoryContainer> ret )
+    {
 
         for ( CategoryContainer element : ret )
         {
-            if ( element.getCategoryIconUrl() == null && element.getCategoryName() != null )
-            {
-                element.setCategoryIconUrl( ICON_ROOT_URL + element.getCategoryName() + ".png" );
-            }
+            doPlain( element );
         }
 
         return ret;
+    }
+
+    private Object doPlain( CategoryContainer element )
+    {
+        if ( element.getCategoryIconUrl() == null && element.getCategoryName() != null )
+        {
+            element.setCategoryIconUrl( ICON_ROOT_URL + element.getCategoryName() + ".png" );
+        }
+        return element;
     }
 }

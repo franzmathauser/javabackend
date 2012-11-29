@@ -115,7 +115,7 @@ public class CategoryService
         try
         {
             category.setId( categoryId );
-            category = categoryManager.createCategory( user, bankAccountId, category );
+            category = categoryManager.updateCategory( user, bankAccountId, category );
             response.setSuccess( true );
             response.setBodyData( category );
 

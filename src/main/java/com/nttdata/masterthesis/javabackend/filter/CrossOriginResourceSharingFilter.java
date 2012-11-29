@@ -13,7 +13,11 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Filter add Header to enable Cross-Origin Requests from a Browser.
@@ -22,6 +26,11 @@ import javax.servlet.http.HttpServletResponse;
 @WebFilter( filterName = "cors" )
 public class CrossOriginResourceSharingFilter implements Filter
 {
+    /**
+     * Logger Object.
+     */
+    static final Logger LOG = LoggerFactory.getLogger( CrossOriginResourceSharingFilter.class );
+
     @Override
     public void init( FilterConfig fConfig ) throws ServletException
     {
@@ -38,14 +47,17 @@ public class CrossOriginResourceSharingFilter implements Filter
     FilterChain chain ) throws IOException, ServletException
     {
         HttpServletResponse httpResponse = (HttpServletResponse) response;
+        HttpServletRequest httpRequest = (HttpServletRequest) request;
 
-        httpResponse.addHeader( "Access-Control-Allow-Origin", "http://localhost" );
+        String origin = httpRequest.getHeader( "Origin" );
+
+        httpResponse.addHeader( "Access-Control-Allow-Origin", origin );
 
         httpResponse.addHeader( "Access-Control-Allow-Credentials", "true" );
 
         httpResponse.addHeader( "Access-Control-Allow-Headers", "Content-Type, Authorization, Accept, Origin, X-Requested-With" );
 
-        httpResponse.addHeader( "Access-Control-Allow-Methods", "GET, POST, OPTIONS" );
+        httpResponse.addHeader( "Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS" );
 
         chain.doFilter( request, response );
     }

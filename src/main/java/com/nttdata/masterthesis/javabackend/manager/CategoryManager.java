@@ -121,6 +121,7 @@ public class CategoryManager
      * @return category transfer object
      * @throws ForbiddenException user tries to access an account of another user
      */
+    @Interceptors( CategoryIconInterceptor.class )
     public CategoryDTO createCategory( String username, Long bankAccountId,
                                        CategoryDTO categoryDTO ) throws ForbiddenException
     {
@@ -148,6 +149,7 @@ public class CategoryManager
      * @return category transfer object
      * @throws ForbiddenException user tries to access an account of another user
      */
+    @Interceptors( CategoryIconInterceptor.class )
     public CategoryDTO updateCategory( String username, Long bankAccountId,
                                        CategoryDTO categoryDTO ) throws ForbiddenException
     {
