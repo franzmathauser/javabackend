@@ -20,6 +20,7 @@ import javax.ws.rs.core.Context;
 import com.nttdata.masterthesis.javabackend.interceptor.ServicesLoggingInterceptor;
 import com.nttdata.masterthesis.javabackend.manager.StatisticManager;
 import com.nttdata.masterthesis.javabackend.manager.exceptions.ForbiddenException;
+import com.nttdata.masterthesis.javabackend.ressource.IncomeOutcomeSaldoDTO;
 import com.nttdata.masterthesis.javabackend.ressource.ResponseEnvelope;
 import com.nttdata.masterthesis.javabackend.ressource.StatisticDTO;
 
@@ -102,6 +103,44 @@ public class StatisticService
                 StatisticDTO statistic = new StatisticDTO();
                 statistic.setxValue( e.getKey() );
                 statistic.setY1Value( e.getValue() );
+                statisticList.add( statistic );
+            }
+
+            response.setSuccess( true );
+            response.setBodyData( statisticList );
+
+            return response;
+        }
+        catch ( ForbiddenException ex )
+        {
+            throw new ForbiddenException( "Access is restricted." );
+        }
+    }
+
+    @GET
+    @Path("/incomeOutcomeSaldo")
+    public ResponseEnvelope getIncomeOutcomeSaldo(
+    @PathParam( "bankAccountId" ) Long bankAccountId ) throws ForbiddenException
+    {
+
+        ResponseEnvelope response = new ResponseEnvelope();
+        List<StatisticDTO> statisticList = new ArrayList<StatisticDTO>();
+
+        String user = request.getRemoteUser();
+        try
+        {
+            Map<String, IncomeOutcomeSaldoDTO> statistics = statisticMgr.getIncomeOutcomeStatistic( user, bankAccountId );
+            float saldo = 0f;
+
+            for ( Map.Entry<String, IncomeOutcomeSaldoDTO> e : statistics.entrySet() )
+            {
+                StatisticDTO statistic = new StatisticDTO();
+                statistic.setxValue( e.getKey() );
+                float income = e.getValue().getIncome();
+                float outcome = e.getValue().getOutcome();
+                statistic.setY1Value( income );
+                statistic.setY2Value( Math.abs( outcome ) );
+                statistic.setY3Value( e.getValue().getSaldo() );
                 statisticList.add( statistic );
             }
 

@@ -8,6 +8,8 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -17,6 +19,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 @XmlRootElement
 @XmlAccessorType( XmlAccessType.FIELD )
+@JsonInclude(Include.NON_NULL)
 public class StatisticDTO
 {
     @JsonProperty("name")
@@ -25,9 +28,11 @@ public class StatisticDTO
     @JsonProperty("value1")
     private float y1Value;
 
-    private String y2Value;
+    @JsonProperty("value2")
+    private float y2Value;
 
-    private String y3Value;
+    @JsonProperty("value3")
+    private float y3Value;
 
     private String y4Value;
 
@@ -63,22 +68,22 @@ public class StatisticDTO
         this.y1Value = y1Value;
     }
 
-    public String getY2Value()
+    public float getY2Value()
     {
         return y2Value;
     }
 
-    public void setY2Value( String y2Value )
+    public void setY2Value( float y2Value )
     {
         this.y2Value = y2Value;
     }
 
-    public String getY3Value()
+    public float getY3Value()
     {
         return y3Value;
     }
 
-    public void setY3Value( String y3Value )
+    public void setY3Value( float y3Value )
     {
         this.y3Value = y3Value;
     }
