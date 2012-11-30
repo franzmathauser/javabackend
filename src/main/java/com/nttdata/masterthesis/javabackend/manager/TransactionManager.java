@@ -48,12 +48,12 @@ public class TransactionManager
 
         List<TransactionDTO> transactionList = new ArrayList<TransactionDTO>();
         List<TransactionDTO> dbTransactions = dbTransactionMgr.getTransactionList( userName, bankAccountId );
-        List<TransactionDTO> paypalTransactions = payPalMgr.getTransactions();
+        //List<TransactionDTO> paypalTransactions = payPalMgr.getTransactions();
 
         transactionList.addAll( dbTransactions );
-        transactionList.addAll( paypalTransactions );
+        //transactionList.addAll( paypalTransactions );
 
-        Collections.sort( transactionList );
+        Collections.reverse( transactionList );
 
         return transactionList;
     }

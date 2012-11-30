@@ -4,6 +4,7 @@
  */
 package com.nttdata.masterthesis.javabackend.services.rest;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -55,6 +56,7 @@ public class BankAccountService
         try
         {
             transactions = transactionMgr.getTransactionList( user, bankAccountId );
+            Collections.sort(transactions);
             response.setSuccess( true );
             response.setBodyData( transactions );
 

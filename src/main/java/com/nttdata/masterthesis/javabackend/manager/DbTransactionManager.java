@@ -163,6 +163,7 @@ public class DbTransactionManager
         transactionDto.setRevenueType( transaction.getRevenueType() );
         transactionDto.setValueDate( transaction.getValueDate() );
         transactionDto.setBillingDate( transaction.getBillingDate() );
+        transactionDto.setBillingDateMillis( transaction.getBillingDate().getTime());
 
         Category category = transaction.getCategory();
         if ( category != null )

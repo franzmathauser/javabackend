@@ -126,6 +126,7 @@ public class PayPalManager
                 DateTimeFormatter fmt = DateTimeFormat.forPattern( PAYPAL_DATEFORMAT_PATTERN );
                 dt = fmt.parseDateTime( transaction.getTimestamp() );
                 transactionDto.setBillingDate( dt.toDate() );
+                transactionDto.setBillingDateMillis( dt.getMillis());
                 transactionDto.setValueDate( dt.toDate() );
                 transactionDto.setPurpose( transaction.getStatus() );
                 transactionDto.setAccount( transaction.getPayer() );

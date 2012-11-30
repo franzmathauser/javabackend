@@ -48,6 +48,20 @@ public class TransactionDTO implements Serializable, CategoryContainer, Comparab
 
     private long categoryId;
 
+    private long billingDateMillis;
+
+    public long getBillingDateMillis()
+    {
+        return billingDateMillis;
+    }
+
+    public void setBillingDateMillis( long billingDateMillis )
+    {
+        this.billingDateMillis = billingDateMillis;
+    }
+
+
+
     public String getId()
     {
         return id;
