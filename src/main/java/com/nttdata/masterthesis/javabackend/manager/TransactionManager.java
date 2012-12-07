@@ -11,6 +11,8 @@ import javax.interceptor.Interceptors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.nttdata.masterthesis.javabackend.ressource.BankTransferDTO;
 import com.nttdata.masterthesis.javabackend.interceptor.CategoryIconInterceptor;
 import com.nttdata.masterthesis.javabackend.manager.exceptions.ForbiddenException;
 import com.nttdata.masterthesis.javabackend.ressource.TransactionDTO;
@@ -77,5 +79,11 @@ public class TransactionManager
             retTransaction = payPalMgr.updateTransactionCategory( user, transaction );
         }
         return retTransaction;
+    }
+
+    public void doBankTransfer( String user, Long bankAccountId,
+                                BankTransferDTO bankTransfer ) throws ForbiddenException
+    {
+        dbTransactionMgr.doBankTransfer( user, bankAccountId, bankTransfer );
     }
 }

@@ -56,7 +56,7 @@ public class BankAccountService
         try
         {
             transactions = transactionMgr.getTransactionList( user, bankAccountId );
-            Collections.sort(transactions);
+            Collections.sort( transactions );
             response.setSuccess( true );
             response.setBodyData( transactions );
 

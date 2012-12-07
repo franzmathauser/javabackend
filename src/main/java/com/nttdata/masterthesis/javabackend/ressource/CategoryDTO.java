@@ -4,13 +4,11 @@
  */
 package com.nttdata.masterthesis.javabackend.ressource;
 
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 
 /**
  * Resource for category content.
@@ -19,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  */
 @XmlRootElement
 @XmlAccessorType( XmlAccessType.FIELD )
-@JsonIgnoreProperties(ignoreUnknown=true)
+@JsonIgnoreProperties( ignoreUnknown = true )
 public class CategoryDTO implements CategoryContainer
 {
     private long id;
@@ -48,7 +46,6 @@ public class CategoryDTO implements CategoryContainer
         this.name = name;
     }
 
-
     public String getIconUrl()
     {
         return iconUrl;
@@ -74,6 +71,6 @@ public class CategoryDTO implements CategoryContainer
     @Override
     public void setCategoryIconUrl( String urlPath )
     {
-       setIconUrl( urlPath);
+        setIconUrl( urlPath );
     }
 }

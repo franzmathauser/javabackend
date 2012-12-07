@@ -4,7 +4,6 @@
  */
 package com.nttdata.masterthesis.javabackend.services.rest;
 
-
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -35,9 +34,9 @@ public class CategoryService
 {
     @Context
     private HttpServletRequest request;
+
     @EJB
     private CategoryManager categoryManager;
-
 
     /**
      * List of all categories to a bankaccount.

@@ -5,6 +5,7 @@
 package com.nttdata.masterthesis.javabackend.manager;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -14,6 +15,7 @@ import javax.ejb.Stateless;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.nttdata.masterthesis.javabackend.ressource.BankTransferDTO;
 import com.nttdata.masterthesis.javabackend.dao.BankAccountDAO;
 import com.nttdata.masterthesis.javabackend.dao.CategoryDAO;
 import com.nttdata.masterthesis.javabackend.dao.TransactionDAO;
@@ -98,7 +100,7 @@ public class DbTransactionManager
      * @throws ForbiddenException user tries to access an account of another user
      */
     public TransactionDTO updateTransactionCategory( String userName,
-                                           TransactionDTO transactionDTO ) throws ForbiddenException
+                                                     TransactionDTO transactionDTO ) throws ForbiddenException
     {
         try
         {
@@ -163,7 +165,7 @@ public class DbTransactionManager
         transactionDto.setRevenueType( transaction.getRevenueType() );
         transactionDto.setValueDate( transaction.getValueDate() );
         transactionDto.setBillingDate( transaction.getBillingDate() );
-        transactionDto.setBillingDateMillis( transaction.getBillingDate().getTime());
+        transactionDto.setBillingDateMillis( transaction.getBillingDate().getTime() );
 
         Category category = transaction.getCategory();
         if ( category != null )
@@ -173,6 +175,39 @@ public class DbTransactionManager
         }
 
         return transactionDto;
+
+    }
+
+    public void doBankTransfer( String userName, Long bankAccountId,
+                         BankTransferDTO bankTransfer ) throws ForbiddenException
+    {
+
+        User user = userDAO.findByName( userName );
+        BankAccount bankAccount = bankAccountDAO.find( bankAccountId );
+        accessManager.isAllowed( user, bankAccount );
+
+        Transaction transaction = new Transaction();
+
+        StringBuilder purpose = new StringBuilder();
+        purpose.append( bankTransfer.getPurpose1() );
+        purpose.append( bankTransfer.getPurpose2() );
+        purpose.append( bankTransfer.getPurpose3() );
+        purpose.append( bankTransfer.getPurpose4() );
+        purpose.append( bankTransfer.getPurpose5() );
+
+        float amount = Math.abs( Float.parseFloat( bankTransfer.getAmount() ) );
+
+
+        transaction.setBankAccount( bankAccount );
+        transaction.setAmount( -1 * amount );
+        transaction.setName( bankTransfer.getName() );
+        transaction.setAccount( bankTransfer.getAccountNumber() );
+        transaction.setBankCode( bankTransfer.getBankCode() );
+        transaction.setBillingDate( new Date() );
+        transaction.setValueDate( new Date() );
+        transaction.setPurpose( purpose.toString() );
+
+        transactionDAO.save( transaction );
 
     }
 }

@@ -60,8 +60,6 @@ public class TransactionDTO implements Serializable, CategoryContainer, Comparab
         this.billingDateMillis = billingDateMillis;
     }
 
-
-
     public String getId()
     {
         return id;

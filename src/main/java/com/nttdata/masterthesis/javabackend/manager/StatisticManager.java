@@ -87,7 +87,10 @@ public class StatisticManager
             {
                 currentAmount = 0f;
             }
-            currentAmount += Math.abs( transaction.getAmount() );
+            if ( transaction.getAmount() < 0 )
+            {
+                currentAmount += Math.abs( transaction.getAmount() );
+            }
             statistics.put( categoryText, currentAmount );
         }
 
@@ -172,8 +175,9 @@ public class StatisticManager
             }
             float newAmount = categoryAmount + transactionAmount;
 
-            Float maxCatAmount = categoryMaxAmount.get(category);
-            if(maxCatAmount == null){
+            Float maxCatAmount = categoryMaxAmount.get( category );
+            if ( maxCatAmount == null )
+            {
                 maxCatAmount = 0f;
             }
             categoryMaxAmount.put( category, maxCatAmount + transactionAmount );
@@ -187,12 +191,14 @@ public class StatisticManager
 
         // pretty format
 
-        return formatMonthlyCategories(statistics, sortedMap, maxCategories);
+        return formatMonthlyCategories( statistics, sortedMap, maxCategories );
 
     }
 
-    private Map<String, Map<String, Float>> formatMonthlyCategories( Map<String, Map<String, Float>> statistics,
-                                                                     TreeMap<String, Float> sortOrder, int maxCategories)
+    private Map<String, Map<String, Float>> formatMonthlyCategories(
+    Map<String, Map<String, Float>> statistics,
+                                                                     TreeMap<String, Float> sortOrder,
+                                                                     int maxCategories )
     {
         Map<String, Map<String, Float>> formattedStatistic = new HashMap<String, Map<String, Float>>();
 
@@ -206,21 +212,22 @@ public class StatisticManager
 
             for ( Map.Entry<String, Float> sortedEntry : sortOrder.entrySet() )
             {
-                    i++;
+                i++;
 
-                    if(i > maxCategories){
-                        break;
-                    }
+                if ( i > maxCategories )
+                {
+                    break;
+                }
 
-                    String category = sortedEntry.getKey();
-                    Float amount = entry.getValue().get( category );
+                String category = sortedEntry.getKey();
+                Float amount = entry.getValue().get( category );
 
-                    if ( amount == null )
-                    {
-                        amount = 0f;
-                    }
+                if ( amount == null )
+                {
+                    amount = 0f;
+                }
 
-                    newEntry.put( category, amount );
+                newEntry.put( category, amount );
 
             }
             formattedStatistic.put( month, newEntry );
