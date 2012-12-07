@@ -25,6 +25,7 @@ import com.nttdata.masterthesis.javabackend.dao.UserDAO;
 import com.nttdata.masterthesis.javabackend.entities.User;
 import com.nttdata.masterthesis.javabackend.interceptor.ServicesLoggingInterceptor;
 import com.nttdata.masterthesis.javabackend.ressource.ResponseEnvelope;
+import com.nttdata.masterthesis.javabackend.ressource.UserDTO;
 
 /**
  * REST-Service for Authentication. Verfügbare Aktionen: GET, POST
@@ -118,18 +119,20 @@ public class AuthService
         }
 
         //read the user data from db and return to caller
-        User user = userDAO.findByName( userName );
+        User dbUser = userDAO.findByName( userName );
 
         if ( LOG.isInfoEnabled() )
         {
             LOG.info( "Authentication: successfully retrieved User Profile from DB for ", userName );
         }
 
-        //we don't want to send the hashed password out in the json response
-        userDAO.detach( user );
-        user.setPassword( null );
-        user.setGroups( null );
-        user.setBankAccount( null );
+        UserDTO user = new UserDTO();
+        user.setId( dbUser.getId());
+        user.setUserName( dbUser.getUserName());
+        user.setEmail( dbUser.getEmail());
+        user.setLastLogin( dbUser.getLastLogin());
+        user.setCountLoginErrors( dbUser.getCountLoginErrors());
+        user.setAllowedBankAccountId( dbUser.getBankAccount().getId() );
 
         response.setBodyData( user );
 
