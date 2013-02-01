@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
-    
+
     <servlet>
         <servlet-name>jersey-serlvet</servlet-name>
         <servlet-class>
@@ -11,19 +11,19 @@
             <param-value>true</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
-    </servlet> 
+    </servlet>
     <servlet-mapping>
         <servlet-name>jersey-serlvet</servlet-name>
         <url-pattern>/rest/*</url-pattern>
     </servlet-mapping>
-    
+
     <listener>
         <listener-class>com.nttdata.masterthesis.javabackend.listener.EventListener</listener-class>
     </listener>
-    
-    
+
+
     <login-config>
-        
+
         <auth-method>BASIC</auth-method>
         <realm-name>userMgmtJdbcRealm</realm-name>
        <!--
@@ -32,16 +32,16 @@
           <form-error-page>/login.jsp?auth-error=1</form-error-page>
         </form-login-config>
         -->
-        
-        
+
+
     </login-config>
-    
-    <!-- define order of filter execution --> 
+
+    <!-- define order of filter execution -->
     <!-- this can't be done thru Annotations -->
-    <filter-mapping>
+<!--    <filter-mapping>
         <filter-name>http2https</filter-name>
         <url-pattern>/*</url-pattern>
-    </filter-mapping>
+    </filter-mapping>-->
     <filter-mapping>
         <filter-name>cors</filter-name>
         <url-pattern>/*</url-pattern>
@@ -50,9 +50,9 @@
         <filter-name>auth</filter-name>
         <url-pattern>/rest/secure/*</url-pattern>
     </filter-mapping>
-    
-    
-  
+
+
+
   <!-- declare the roles relevant for our webapp -->
   <security-role>
     <role-name>ADMINISTRATOR</role-name>
@@ -63,23 +63,23 @@
   <security-role>
     <role-name>DEFAULT</role-name>
   </security-role>
-  
-   
+
+
   <session-config>
     <!-- on productive systems you might have another value for the timeout -->
     <session-timeout>5</session-timeout>
-    <!-- 
-       we don't want to use the default name JSESSIONID because this 
-       tells everyone (especially hackers) that our application is based on java 
+    <!--
+       we don't want to use the default name JSESSIONID because this
+       tells everyone (especially hackers) that our application is based on java
     -->
     <cookie-config>
       <name>SESSIONID</name>
       <http-only>true</http-only>
-      <secure>true</secure>
+<!--      <secure>true</secure>-->
       <max-age>30000</max-age>
     </cookie-config>
     <tracking-mode>COOKIE</tracking-mode>
-    
+
   </session-config>
-    
+
 </web-app>

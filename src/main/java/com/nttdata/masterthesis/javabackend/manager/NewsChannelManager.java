@@ -43,7 +43,7 @@ public class NewsChannelManager
 
         List<NewsDTO> newsList = new ArrayList<NewsDTO>();
 
-        newsList.addAll( twitterManager.getNews() );
+        //newsList.addAll( twitterManager.getNews() );
         newsList.addAll( youtubeManager.getLatestVideoFeeds( "nttdata" ) );
 
         Collections.sort( newsList );

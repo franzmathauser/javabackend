@@ -1,15 +1,12 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.nttdata.masterthesis.javabackend;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 import com.nttdata.masterthesis.javabackend.filter.HttpToHttpsFilterTest;
-import com.nttdata.masterthesis.javabackend.services.rest.AuthenticationTest;
-import com.nttdata.masterthesis.javabackend.services.rest.TransactionServiceTest;
+import com.nttdata.masterthesis.javabackend.ressource.ResponseEnvelopeTest;
+import com.nttdata.masterthesis.javabackend.services.rest.security.AuthenticationTest;
+import com.nttdata.masterthesis.javabackend.services.rest.security.ServiceAccessTest;
 
 /**
  * Test Suite to setup all REST-API tests.
@@ -18,7 +15,7 @@ import com.nttdata.masterthesis.javabackend.services.rest.TransactionServiceTest
 @RunWith( Suite.class )
 @Suite.SuiteClasses(
 {
-    HttpToHttpsFilterTest.class, AuthenticationTest.class, TransactionServiceTest.class
+    HttpToHttpsFilterTest.class, AuthenticationTest.class, ServiceAccessTest.class, ResponseEnvelopeTest.class
 } )
 public class RestApiTestSuite
 {

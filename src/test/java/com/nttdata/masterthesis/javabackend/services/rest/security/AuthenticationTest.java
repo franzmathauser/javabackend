@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.nttdata.masterthesis.javabackend.services.rest;
+package com.nttdata.masterthesis.javabackend.services.rest.security;
 
 import javax.ws.rs.core.Cookie;
 import javax.ws.rs.core.MediaType;
