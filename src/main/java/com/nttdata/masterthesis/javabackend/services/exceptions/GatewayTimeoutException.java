@@ -1,7 +1,11 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+/********************************************
+ *       M A S T E R T H E S I S            *
+ *                                          *
+ * Franz Mathauser                          *
+ * Hochschule München                       *
+ * Immatrikulationsnummer: 01161608         *
+ *                                          *
+ ********************************************/
 package com.nttdata.masterthesis.javabackend.services.exceptions;
 
 import javax.ws.rs.WebApplicationException;
@@ -17,7 +21,6 @@ import org.glassfish.grizzly.http.util.HttpStatus;
  */
 public class GatewayTimeoutException extends WebApplicationException
 {
-
     /**
      * Creates a HTTP-Response with status 504 als JSON object.
      * @param message error message

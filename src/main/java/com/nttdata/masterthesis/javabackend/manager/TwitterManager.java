@@ -1,7 +1,11 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+/********************************************
+ *       M A S T E R T H E S I S            *
+ *                                          *
+ * Franz Mathauser                          *
+ * Hochschule München                       *
+ * Immatrikulationsnummer: 01161608         *
+ *                                          *
+ ********************************************/
 package com.nttdata.masterthesis.javabackend.manager;
 
 import java.util.ArrayList;
@@ -36,14 +40,20 @@ public class TwitterManager
      * Logger Object.
      */
     public static final Logger LOG = LoggerFactory.getLogger( TwitterManager.class );
+
     /**
      * Url-path to twitter icon.
      */
     public static final String TWITTER_ICON;
+
     private static final String ACCESS_TOKEN;
+
     private static final String ACCESS_TOKEN_SECRET;
+
     private static final String CUSTOMER_KEY;
+
     private static final String CUSTOMER_KEY_SECRET;
+
     private static final String APPLICATION_ROOT_URL;
 
     static

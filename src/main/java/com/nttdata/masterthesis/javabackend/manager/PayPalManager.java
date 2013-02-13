@@ -1,7 +1,11 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+/********************************************
+ *       M A S T E R T H E S I S            *
+ *                                          *
+ * Franz Mathauser                          *
+ * Hochschule München                       *
+ * Immatrikulationsnummer: 01161608         *
+ *                                          *
+ ********************************************/
 package com.nttdata.masterthesis.javabackend.manager;
 
 import java.io.IOException;
@@ -126,7 +130,7 @@ public class PayPalManager
                 DateTimeFormatter fmt = DateTimeFormat.forPattern( PAYPAL_DATEFORMAT_PATTERN );
                 dt = fmt.parseDateTime( transaction.getTimestamp() );
                 transactionDto.setBillingDate( dt.toDate() );
-                transactionDto.setBillingDateMillis( dt.getMillis());
+                transactionDto.setBillingDateMillis( dt.getMillis() );
                 transactionDto.setValueDate( dt.toDate() );
                 transactionDto.setPurpose( transaction.getStatus() );
                 transactionDto.setAccount( transaction.getPayer() );

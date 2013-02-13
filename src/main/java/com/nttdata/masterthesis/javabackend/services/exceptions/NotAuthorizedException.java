@@ -1,7 +1,11 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+/********************************************
+ *       M A S T E R T H E S I S            *
+ *                                          *
+ * Franz Mathauser                          *
+ * Hochschule München                       *
+ * Immatrikulationsnummer: 01161608         *
+ *                                          *
+ ********************************************/
 package com.nttdata.masterthesis.javabackend.services.exceptions;
 
 import javax.ws.rs.WebApplicationException;
@@ -20,7 +24,6 @@ import com.nttdata.masterthesis.javabackend.ressource.ResponseEnvelope;
  */
 public class NotAuthorizedException extends WebApplicationException
 {
-
     /**
      * Creates a HTTP-Response with status 401 als JSON object.
      * @param message error message

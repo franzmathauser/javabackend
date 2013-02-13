@@ -1,7 +1,11 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+/********************************************
+ *       M A S T E R T H E S I S            *
+ *                                          *
+ * Franz Mathauser                          *
+ * Hochschule München                       *
+ * Immatrikulationsnummer: 01161608         *
+ *                                          *
+ ********************************************/
 package com.nttdata.masterthesis.javabackend.manager;
 
 import javax.ejb.LocalBean;
@@ -30,10 +34,12 @@ public class PlacesManager
      * Logger Object.
      */
     public static final Logger LOG = LoggerFactory.getLogger( PlacesManager.class );
+
     /**
      * Base Url to Googles REST Service.
      */
     public static final String GOOGLE_PLACES_URI;
+
     private static final String GOOGLE_API_KEY;
 
     static

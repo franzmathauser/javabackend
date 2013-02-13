@@ -1,7 +1,11 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+/********************************************
+ *       M A S T E R T H E S I S            *
+ *                                          *
+ * Franz Mathauser                          *
+ * Hochschule München                       *
+ * Immatrikulationsnummer: 01161608         *
+ *                                          *
+ ********************************************/
 package com.nttdata.masterthesis.javabackend.manager;
 
 import java.util.ArrayList;
@@ -179,7 +183,7 @@ public class DbTransactionManager
     }
 
     public void doBankTransfer( String userName, Long bankAccountId,
-                         BankTransferDTO bankTransfer ) throws ForbiddenException
+                                BankTransferDTO bankTransfer ) throws ForbiddenException
     {
 
         User user = userDAO.findByName( userName );

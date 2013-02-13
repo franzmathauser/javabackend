@@ -1,7 +1,11 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+/********************************************
+ *       M A S T E R T H E S I S            *
+ *                                          *
+ * Franz Mathauser                          *
+ * Hochschule München                       *
+ * Immatrikulationsnummer: 01161608         *
+ *                                          *
+ ********************************************/
 package com.nttdata.masterthesis.javabackend.services.rest;
 
 import javax.ejb.EJB;
@@ -24,7 +28,6 @@ import com.nttdata.masterthesis.javabackend.manager.PlacesManager;
 @Interceptors( ServicesLoggingInterceptor.class )
 public class PlacesService
 {
-
     @EJB
     private PlacesManager placesMgr;
 

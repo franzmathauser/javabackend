@@ -1,7 +1,11 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+/********************************************
+ *       M A S T E R T H E S I S            *
+ *                                          *
+ * Franz Mathauser                          *
+ * Hochschule München                       *
+ * Immatrikulationsnummer: 01161608         *
+ *                                          *
+ ********************************************/
 package com.nttdata.masterthesis.javabackend.services.rest;
 
 import java.util.ArrayList;
@@ -47,7 +51,7 @@ public class StatisticService
      * @throws ForbiddenException user tries to access an account of another user
      */
     @GET
-    @Path("/byWeekOfYear")
+    @Path( "/byWeekOfYear" )
     public ResponseEnvelope getTransactionAmountPerWeekOfYear(
     @PathParam( "bankAccountId" ) Long bankAccountId ) throws ForbiddenException
     {
@@ -86,7 +90,7 @@ public class StatisticService
      * @throws ForbiddenException user tries to access an account of another user
      */
     @GET
-    @Path("/byCategory")
+    @Path( "/byCategory" )
     public ResponseEnvelope getTransactionByCategory(
     @PathParam( "bankAccountId" ) Long bankAccountId ) throws ForbiddenException
     {
@@ -119,7 +123,7 @@ public class StatisticService
     }
 
     @GET
-    @Path("/incomeOutcomeSaldo")
+    @Path( "/incomeOutcomeSaldo" )
     public ResponseEnvelope getIncomeOutcomeSaldo(
     @PathParam( "bankAccountId" ) Long bankAccountId ) throws ForbiddenException
     {
@@ -157,16 +161,18 @@ public class StatisticService
     }
 
     @GET
-    @Path("/byMonthlyCategory")
+    @Path( "/byMonthlyCategory" )
     public ResponseEnvelope getByMonthlyCategory(
-    @PathParam( "bankAccountId" ) Long bankAccountId, @QueryParam("maxCategories") int maxCategories ) throws ForbiddenException
+    @PathParam( "bankAccountId" ) Long bankAccountId,
+    @QueryParam( "maxCategories" ) int maxCategories ) throws ForbiddenException
     {
 
         ResponseEnvelope response = new ResponseEnvelope();
 
-        if(maxCategories > 10) {
-            response.setSuccess( false);
-            response.setErrorMsg( "max categories to large.");
+        if ( maxCategories > 10 )
+        {
+            response.setSuccess( false );
+            response.setErrorMsg( "max categories to large." );
             return response;
         }
         List<StatisticDTO> statisticList = new ArrayList<StatisticDTO>();
@@ -174,21 +180,22 @@ public class StatisticService
         String user = request.getRemoteUser();
         try
         {
-            Map<String, Map<String,Float>> statistics = statisticMgr.getMonthlyCategories( user, bankAccountId, maxCategories);
+            Map<String, Map<String, Float>> statistics = statisticMgr.getMonthlyCategories( user, bankAccountId, maxCategories );
 
-            for ( Map.Entry<String, Map<String,Float>> e : statistics.entrySet() )
+            for ( Map.Entry<String, Map<String, Float>> e : statistics.entrySet() )
             {
                 StatisticDTO statistic = new StatisticDTO();
                 statistic.setxValue( e.getKey() );
-                Map<String,Float> value = e.getValue();
+                Map<String, Float> value = e.getValue();
                 int i = 0;
-                for ( Map.Entry<String,Float> e2 : value.entrySet() )
+                for ( Map.Entry<String, Float> e2 : value.entrySet() )
                 {
                     String category = e2.getKey();
                     Float amount = e2.getValue();
 
-                    switch(i){
-                        case 0 :
+                    switch ( i )
+                    {
+                        case 0:
                             //statistic.setId(category);
                             statistic.setY1Value( amount );
                             break;

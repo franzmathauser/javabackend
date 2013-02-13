@@ -1,10 +1,15 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+/********************************************
+ *       M A S T E R T H E S I S            *
+ *                                          *
+ * Franz Mathauser                          *
+ * Hochschule München                       *
+ * Immatrikulationsnummer: 01161608         *
+ *                                          *
+ ********************************************/
 package com.nttdata.masterthesis.javabackend.services.rest;
 
 import java.util.List;
+
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.interceptor.Interceptors;
@@ -70,6 +75,7 @@ public class CategoryService
     /**
      * Creates a new category into a bankaccount.
      * @param bankAccountId id of account number
+     * @param category catagory transfer object
      * @return Envelope with metadata and data of methodcall.
      * @throws ForbiddenException user tries to access an account of another user
      */
@@ -98,6 +104,8 @@ public class CategoryService
     /**
      * Updates a category from a bankaccount.
      * @param bankAccountId id of account number
+     * @param category category transfer object
+     * @param categoryId category identifier
      * @return Envelope with metadata and data of methodcall.
      * @throws ForbiddenException user tries to access an account of another user
      */

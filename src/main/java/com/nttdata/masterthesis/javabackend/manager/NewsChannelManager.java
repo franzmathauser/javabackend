@@ -1,3 +1,11 @@
+/********************************************
+ *       M A S T E R T H E S I S            *
+ *                                          *
+ * Franz Mathauser                          *
+ * Hochschule München                       *
+ * Immatrikulationsnummer: 01161608         *
+ *                                          *
+ ********************************************/
 package com.nttdata.masterthesis.javabackend.manager;
 
 import java.util.ArrayList;
@@ -13,7 +21,6 @@ import org.slf4j.LoggerFactory;
 
 import com.nttdata.masterthesis.javabackend.ressource.NewsDTO;
 
-
 /**
  * NewsChannel Manager controlls the access to News Service.
  * This manager reunites news from youtube and twitter.
@@ -23,7 +30,6 @@ import com.nttdata.masterthesis.javabackend.ressource.NewsDTO;
 @LocalBean
 public class NewsChannelManager
 {
-
     /**
      * Logger Object.
      */
@@ -31,6 +37,7 @@ public class NewsChannelManager
 
     @EJB
     private TwitterManager twitterManager;
+
     @EJB
     private YoutubeManager youtubeManager;
 

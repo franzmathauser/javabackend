@@ -1,7 +1,11 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+/********************************************
+ *       M A S T E R T H E S I S            *
+ *                                          *
+ * Franz Mathauser                          *
+ * Hochschule München                       *
+ * Immatrikulationsnummer: 01161608         *
+ *                                          *
+ ********************************************/
 package com.nttdata.masterthesis.javabackend.ressource;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -19,43 +23,42 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 @XmlRootElement
 @XmlAccessorType( XmlAccessType.FIELD )
-@JsonInclude(Include.NON_NULL)
+@JsonInclude( Include.NON_NULL )
 public class StatisticDTO
 {
-
     private String id;
 
-    @JsonProperty("name")
+    @JsonProperty( "name" )
     private String xValue;
 
-    @JsonProperty("value1")
+    @JsonProperty( "value1" )
     private float y1Value;
 
-    @JsonProperty("value2")
+    @JsonProperty( "value2" )
     private float y2Value;
 
-    @JsonProperty("value3")
+    @JsonProperty( "value3" )
     private float y3Value;
 
-    @JsonProperty("value4")
+    @JsonProperty( "value4" )
     private float y4Value;
 
-    @JsonProperty("value5")
+    @JsonProperty( "value5" )
     private float y5Value;
 
-    @JsonProperty("value6")
+    @JsonProperty( "value6" )
     private float y6Value;
 
-    @JsonProperty("value7")
+    @JsonProperty( "value7" )
     private float y7Value;
 
-    @JsonProperty("value8")
+    @JsonProperty( "value8" )
     private float y8Value;
 
-    @JsonProperty("value9")
+    @JsonProperty( "value9" )
     private float y9Value;
 
-    @JsonProperty("value10")
+    @JsonProperty( "value10" )
     private float y10Value;
 
     public String getId()

@@ -1,7 +1,11 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+/********************************************
+ *       M A S T E R T H E S I S            *
+ *                                          *
+ * Franz Mathauser                          *
+ * Hochschule München                       *
+ * Immatrikulationsnummer: 01161608         *
+ *                                          *
+ ********************************************/
 package com.nttdata.masterthesis.javabackend.filter;
 
 import static org.junit.Assert.*;
@@ -18,7 +22,6 @@ import com.sun.jersey.api.client.WebResource;
  */
 public class HttpToHttpsFilterTest
 {
-
     /**
      * check http to https redirect.
      */

@@ -1,7 +1,11 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+/********************************************
+ *       M A S T E R T H E S I S            *
+ *                                          *
+ * Franz Mathauser                          *
+ * Hochschule München                       *
+ * Immatrikulationsnummer: 01161608         *
+ *                                          *
+ ********************************************/
 package com.nttdata.masterthesis.javabackend.ressource;
 
 /**
@@ -11,13 +15,11 @@ package com.nttdata.masterthesis.javabackend.ressource;
  */
 public interface CategoryContainer
 {
-
     /**
      * getter to access category name
      * @return url path to icon
      */
     String getCategoryName();
-
 
     /**
      * getter to access category icon url.
@@ -30,6 +32,4 @@ public interface CategoryContainer
      * @param urlPath url path to icon
      */
     void setCategoryIconUrl( String urlPath );
-
-
 }

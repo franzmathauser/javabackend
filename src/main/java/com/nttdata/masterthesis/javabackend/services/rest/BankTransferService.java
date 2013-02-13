@@ -1,7 +1,11 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+/********************************************
+ *       M A S T E R T H E S I S            *
+ *                                          *
+ * Franz Mathauser                          *
+ * Hochschule München                       *
+ * Immatrikulationsnummer: 01161608         *
+ *                                          *
+ ********************************************/
 package com.nttdata.masterthesis.javabackend.services.rest;
 
 import javax.ejb.EJB;
@@ -13,10 +17,10 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Context;
 
-import com.nttdata.masterthesis.javabackend.ressource.BankTransferDTO;
 import com.nttdata.masterthesis.javabackend.interceptor.ServicesLoggingInterceptor;
 import com.nttdata.masterthesis.javabackend.manager.TransactionManager;
 import com.nttdata.masterthesis.javabackend.manager.exceptions.ForbiddenException;
+import com.nttdata.masterthesis.javabackend.ressource.BankTransferDTO;
 import com.nttdata.masterthesis.javabackend.ressource.ResponseEnvelope;
 
 /**

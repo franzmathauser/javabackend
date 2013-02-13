@@ -1,7 +1,11 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+/********************************************
+ *       M A S T E R T H E S I S            *
+ *                                          *
+ * Franz Mathauser                          *
+ * Hochschule München                       *
+ * Immatrikulationsnummer: 01161608         *
+ *                                          *
+ ********************************************/
 package com.nttdata.masterthesis.javabackend.services.rest;
 
 import javax.ejb.EJB;
@@ -42,6 +46,7 @@ import com.nttdata.masterthesis.javabackend.ressource.UserDTO;
 public class AuthService
 {
     private static final Logger LOG = LoggerFactory.getLogger( AuthService.class );
+
     @EJB
     private UserDAO userDAO;
 
@@ -88,7 +93,8 @@ public class AuthService
             {
                 req.logout();
                 req.getSession().invalidate();
-            } catch ( ServletException ex )
+            }
+            catch ( ServletException ex )
             {
                 if ( LOG.isErrorEnabled() )
                 {
@@ -106,7 +112,8 @@ public class AuthService
             {
                 LOG.info( "Authentication: successfully logged in ", userName );
             }
-        } catch ( ServletException ex )
+        }
+        catch ( ServletException ex )
         {
 
             if ( LOG.isErrorEnabled() )
@@ -127,11 +134,11 @@ public class AuthService
         }
 
         UserDTO user = new UserDTO();
-        user.setId( dbUser.getId());
-        user.setUserName( dbUser.getUserName());
-        user.setEmail( dbUser.getEmail());
-        user.setLastLogin( dbUser.getLastLogin());
-        user.setCountLoginErrors( dbUser.getCountLoginErrors());
+        user.setId( dbUser.getId() );
+        user.setUserName( dbUser.getUserName() );
+        user.setEmail( dbUser.getEmail() );
+        user.setLastLogin( dbUser.getLastLogin() );
+        user.setCountLoginErrors( dbUser.getCountLoginErrors() );
         user.setAllowedBankAccountId( dbUser.getBankAccount().getId() );
 
         response.setBodyData( user );
@@ -157,7 +164,8 @@ public class AuthService
             req.logout();
             req.getSession().invalidate();
             response.setSuccess( true );
-        } catch ( ServletException e )
+        }
+        catch ( ServletException e )
         {
 
             if ( LOG.isErrorEnabled() )

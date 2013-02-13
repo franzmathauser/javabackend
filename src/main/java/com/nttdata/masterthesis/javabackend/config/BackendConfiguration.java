@@ -1,7 +1,11 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+/********************************************
+ *       M A S T E R T H E S I S            *
+ *                                          *
+ * Franz Mathauser                          *
+ * Hochschule München                       *
+ * Immatrikulationsnummer: 01161608         *
+ *                                          *
+ ********************************************/
 package com.nttdata.masterthesis.javabackend.config;
 
 import java.net.URL;
@@ -17,8 +21,8 @@ import org.apache.commons.configuration.DefaultConfigurationBuilder;
  */
 public class BackendConfiguration extends AbstractConfiguration
 {
-
     private Configuration configuration;
+
     private String configFilePath;
 
     /**
@@ -53,7 +57,8 @@ public class BackendConfiguration extends AbstractConfiguration
             configBuilder.setURL( configURL );
             configuration = configBuilder.getConfiguration();
 
-        } catch ( Exception ex )
+        }
+        catch ( Exception ex )
         {
             throw new IllegalArgumentException( configFilePath );
         }

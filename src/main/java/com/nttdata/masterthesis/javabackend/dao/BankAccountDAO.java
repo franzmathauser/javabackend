@@ -1,7 +1,11 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+/********************************************
+ *       M A S T E R T H E S I S            *
+ *                                          *
+ * Franz Mathauser                          *
+ * Hochschule München                       *
+ * Immatrikulationsnummer: 01161608         *
+ *                                          *
+ ********************************************/
 package com.nttdata.masterthesis.javabackend.dao;
 
 import java.util.List;
@@ -20,7 +24,6 @@ import com.nttdata.masterthesis.javabackend.entities.BankAccount;
 @Stateless
 public class BankAccountDAO
 {
-
     @PersistenceContext
     private EntityManager em;
 

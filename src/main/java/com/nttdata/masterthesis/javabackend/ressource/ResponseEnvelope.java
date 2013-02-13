@@ -1,7 +1,11 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+/********************************************
+ *       M A S T E R T H E S I S            *
+ *                                          *
+ * Franz Mathauser                          *
+ * Hochschule München                       *
+ * Immatrikulationsnummer: 01161608         *
+ *                                          *
+ ********************************************/
 package com.nttdata.masterthesis.javabackend.ressource;
 
 import java.util.Map;
@@ -35,9 +39,13 @@ public class ResponseEnvelope
      * version of the json structure.
      */
     private final float version = 1.0f;
+
     private boolean success = false;
+
     private String errorMsg;
+
     private Map<String, Object> fieldErrors;
+
     @XmlAnyElement( lax = true )
     private Object bodyData;
 
@@ -164,5 +172,4 @@ public class ResponseEnvelope
         }
         return true;
     }
-
 }

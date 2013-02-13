@@ -1,7 +1,11 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+/********************************************
+ *       M A S T E R T H E S I S            *
+ *                                          *
+ * Franz Mathauser                          *
+ * Hochschule München                       *
+ * Immatrikulationsnummer: 01161608         *
+ *                                          *
+ ********************************************/
 package com.nttdata.masterthesis.javabackend.entities;
 
 import java.io.Serializable;
@@ -37,27 +41,34 @@ import com.nttdata.masterthesis.javabackend.helper.CustomJsonDateSerializer;
 @Cacheable( false )
 public class User implements Serializable
 {
-
     private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue( strategy = GenerationType.AUTO )
     private Long id;
+
     @Column( name = "username", nullable = false )
     private String userName;
+
     @Column( nullable = false ) //sha-512 + hex
     private String password;
+
     private String email;
+
     @Column( name = "count_login_errors" )
     private int countLoginErrors;
+
     @Column( name = "last_login_date" )
     @Temporal( javax.persistence.TemporalType.DATE )
     private Date lastLogin;
+
     @OneToOne( fetch = FetchType.LAZY )
     @JoinColumn( name = "bank_account_id" )
     private BankAccount bankAccount;
+
     @ElementCollection( targetClass = Group.class )
     @CollectionTable( name = "user_group",
-    joinColumns =
+                      joinColumns =
     @JoinColumn( name = "account_user_id", nullable = false, referencedColumnName = "id" ), uniqueConstraints =
     {
         @UniqueConstraint( columnNames =

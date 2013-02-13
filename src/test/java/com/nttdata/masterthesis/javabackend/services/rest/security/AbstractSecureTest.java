@@ -1,7 +1,11 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+/********************************************
+ *       M A S T E R T H E S I S            *
+ *                                          *
+ * Franz Mathauser                          *
+ * Hochschule München                       *
+ * Immatrikulationsnummer: 01161608         *
+ *                                          *
+ ********************************************/
 package com.nttdata.masterthesis.javabackend.services.rest.security;
 
 import com.nttdata.masterthesis.javabackend.config.ConfigurationConstants;
@@ -15,9 +19,13 @@ import com.sun.jersey.api.representation.Form;
 public abstract class AbstractSecureTest
 {
     private final String cnName = ConfigurationSingleton.getInstance().getString( ConfigurationConstants.CN_NAME );
+
     private final String user = ConfigurationSingleton.getInstance().getString( ConfigurationConstants.JUNIT_TESTUSER1_NAME );
+
     private final String password = ConfigurationSingleton.getInstance().getString( ConfigurationConstants.JUNIT_TESTUSER1_PASSWORD );
+
     private final String loginURI = "https://" + cnName + ":8181/JavaBackend/rest/auth/login";
+
     private final Form loginForm;
 
     /**

@@ -1,7 +1,11 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+/********************************************
+ *       M A S T E R T H E S I S            *
+ *                                          *
+ * Franz Mathauser                          *
+ * Hochschule München                       *
+ * Immatrikulationsnummer: 01161608         *
+ *                                          *
+ ********************************************/
 package com.nttdata.masterthesis.javabackend.ressource;
 
 import java.util.Date;
@@ -23,7 +27,9 @@ import com.nttdata.masterthesis.javabackend.helper.CustomJsonDateTimeSerializer;
 public class NewsDTO implements Comparable<NewsDTO>
 {
     private String message;
+
     private Date date;
+
     private String image;
 
     public String getMessage()

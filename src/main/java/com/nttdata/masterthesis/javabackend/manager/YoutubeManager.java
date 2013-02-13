@@ -1,7 +1,11 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+/********************************************
+ *       M A S T E R T H E S I S            *
+ *                                          *
+ * Franz Mathauser                          *
+ * Hochschule München                       *
+ * Immatrikulationsnummer: 01161608         *
+ *                                          *
+ ********************************************/
 package com.nttdata.masterthesis.javabackend.manager;
 
 import java.io.IOException;
@@ -38,25 +42,33 @@ public class YoutubeManager
      * Logger Object.
      */
     public static final Logger LOG = LoggerFactory.getLogger( YoutubeManager.class );
+
     /**
      * Url-path to youtube icon.
      */
     public static final String YOUTUBE_ICON;
+
     /**
      * Google GDATA Service URL.
      */
     public static final String YOUTUBE_URL = "http://gdata.youtube.com/feeds/api/videos";
+
     /**
      * Youtube url for embedded videos.
      */
     public static final String YOUTUBE_EMBEDDED_URL = "http://www.youtube.com/v/";
+
     /**
      * max number of requested video feeds.
      */
     public static final int MAX_RESULTS = 25;
+
     private static final String DEVELOPER_KEY;
+
     private static final String DEVELOPER_APP_NAME;
+
     private static final String APPLICATION_ROOT_URL;
+
     private final YouTubeService service;
 
     static

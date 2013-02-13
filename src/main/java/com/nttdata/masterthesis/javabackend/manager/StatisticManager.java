@@ -1,3 +1,11 @@
+/********************************************
+ *       M A S T E R T H E S I S            *
+ *                                          *
+ * Franz Mathauser                          *
+ * Hochschule München                       *
+ * Immatrikulationsnummer: 01161608         *
+ *                                          *
+ ********************************************/
 package com.nttdata.masterthesis.javabackend.manager;
 
 import java.text.DecimalFormat;
@@ -114,7 +122,7 @@ public class StatisticManager
             DateTime billingDate = new DateTime( transaction.getBillingDate() );
             DecimalFormat df = new DecimalFormat( "00" );
 
-            String monthText = df.format( billingDate.getMonthOfYear() ) + "/" + billingDate.getYear();
+            String monthText = billingDate.getYear() + "/" + df.format( billingDate.getMonthOfYear() );
 
             IncomeOutcomeSaldoDTO entry = statistics.get( monthText );
             if ( entry == null )
@@ -197,8 +205,8 @@ public class StatisticManager
 
     private Map<String, Map<String, Float>> formatMonthlyCategories(
     Map<String, Map<String, Float>> statistics,
-                                                                     TreeMap<String, Float> sortOrder,
-                                                                     int maxCategories )
+    TreeMap<String, Float> sortOrder,
+    int maxCategories )
     {
         Map<String, Map<String, Float>> formattedStatistic = new HashMap<String, Map<String, Float>>();
 

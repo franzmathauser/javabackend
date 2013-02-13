@@ -1,7 +1,11 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+/********************************************
+ *       M A S T E R T H E S I S            *
+ *                                          *
+ * Franz Mathauser                          *
+ * Hochschule München                       *
+ * Immatrikulationsnummer: 01161608         *
+ *                                          *
+ ********************************************/
 package com.nttdata.masterthesis.javabackend.ressource;
 
 import java.io.Serializable;
@@ -19,8 +23,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType( XmlAccessType.FIELD )
 public class UserDTO implements Serializable
 {
-
-
     private Long id;
 
     private String userName;
@@ -92,6 +94,4 @@ public class UserDTO implements Serializable
     {
         this.allowedBankAccountId = allowedBankAccountId;
     }
-
-
 }
