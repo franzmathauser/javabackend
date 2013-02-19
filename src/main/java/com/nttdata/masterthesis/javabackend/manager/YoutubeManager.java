@@ -61,7 +61,7 @@ public class YoutubeManager
     /**
      * max number of requested video feeds.
      */
-    public static final int MAX_RESULTS = 25;
+    public static final int MAX_RESULTS = 10;
 
     private static final String DEVELOPER_KEY;
 

@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * Resource for news content.
+ * Resource for statistic content.
  *
  * @author MATHAF
  */
@@ -71,12 +71,14 @@ public class StatisticDTO
         this.id = id;
     }
 
-    public String getxValue()
+
+
+    public String getXValue()
     {
         return xValue;
     }
 
-    public void setxValue( String xValue )
+    public void setXValue( String xValue )
     {
         this.xValue = xValue;
     }

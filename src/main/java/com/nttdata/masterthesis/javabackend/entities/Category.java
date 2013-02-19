@@ -88,4 +88,14 @@ public class Category implements Serializable
     {
         this.bankAccount = bankAccount;
     }
+
+    public Set<MappedCategory> getMappedCategory()
+    {
+        return mappedCategory;
+    }
+
+    public void setMappedCategory( Set<MappedCategory> mappedCategory )
+    {
+        this.mappedCategory = mappedCategory;
+    }
 }

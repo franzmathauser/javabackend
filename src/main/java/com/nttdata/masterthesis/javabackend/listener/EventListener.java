@@ -34,7 +34,7 @@ public class EventListener implements ServletContextListener,
     /**
      * The servlet context with which we are associated.
      */
-    private ServletContext context = null;
+    private ServletContext context;
 
     /**
      * Record the fact that a servlet context attribute was added.

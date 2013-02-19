@@ -105,6 +105,13 @@ public class StatisticManager
         return statistics;
     }
 
+    /**
+     * Get transaction amout by income, outcome and saldo.
+     * @param user session username
+     * @param bankAccountId bankaccount identifier
+     * @return map of statistic values. key is month, values are income, outcome, saldo.
+     * @throws ForbiddenException user tries to access an account of another user
+     */
     public Map<String, IncomeOutcomeSaldoDTO> getIncomeOutcomeStatistic(
     String user,
     Long bankAccountId ) throws ForbiddenException
@@ -149,6 +156,14 @@ public class StatisticManager
         return statistics;
     }
 
+    /**
+     * Get transaction amout by month and category.
+     * @param user session user
+     * @param bankAccountId bank account identifier
+     * @param maxCategories max number of categories
+     * @return map of statistic values.
+     * @throws ForbiddenException user tries to access an account of another user
+     */
     public Map<String, Map<String, Float>> getMonthlyCategories(
     String user,
     Long bankAccountId, Integer maxCategories ) throws ForbiddenException
@@ -245,13 +260,16 @@ public class StatisticManager
         return formattedStatistic;
     }
 
-    private class ValueComparator implements Comparator<String>
+    /**
+     * Comperator for values.
+     */
+    private static class ValueComparator implements Comparator<String>
     {
-        Map<String, Float> base;
+        private Map<String, Float> base;
 
-        public ValueComparator( Map<String, Float> base )
+        public ValueComparator( Map<String, Float> b )
         {
-            this.base = base;
+            this.base = b;
         }
 
         // Note: this comparator imposes orderings that are inconsistent with equals.

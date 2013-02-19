@@ -16,7 +16,7 @@ package com.nttdata.masterthesis.javabackend.ressource;
 public interface CategoryContainer
 {
     /**
-     * getter to access category name
+     * getter to access category name.
      * @return url path to icon
      */
     String getCategoryName();

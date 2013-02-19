@@ -19,7 +19,6 @@ import javax.ejb.Stateless;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.nttdata.masterthesis.javabackend.ressource.BankTransferDTO;
 import com.nttdata.masterthesis.javabackend.dao.BankAccountDAO;
 import com.nttdata.masterthesis.javabackend.dao.CategoryDAO;
 import com.nttdata.masterthesis.javabackend.dao.TransactionDAO;
@@ -29,6 +28,7 @@ import com.nttdata.masterthesis.javabackend.entities.Category;
 import com.nttdata.masterthesis.javabackend.entities.Transaction;
 import com.nttdata.masterthesis.javabackend.entities.User;
 import com.nttdata.masterthesis.javabackend.manager.exceptions.ForbiddenException;
+import com.nttdata.masterthesis.javabackend.ressource.BankTransferDTO;
 import com.nttdata.masterthesis.javabackend.ressource.TransactionDTO;
 
 /**
@@ -182,6 +182,13 @@ public class DbTransactionManager
 
     }
 
+    /**
+     * Perform a transaction.
+     * @param userName session username
+     * @param bankAccountId bank account identifier
+     * @param bankTransfer bank transfer dto
+     * @throws ForbiddenException user tries to access an account of another user
+     */
     public void doBankTransfer( String userName, Long bankAccountId,
                                 BankTransferDTO bankTransfer ) throws ForbiddenException
     {

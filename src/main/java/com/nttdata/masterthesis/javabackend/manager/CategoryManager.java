@@ -176,7 +176,7 @@ public class CategoryManager
      * Delete a Category Entry from a Bankaccount.
      * @param username session username
      * @param bankAccountId bankaccount identifier
-     * @param categoryDTO category transfer object
+     * @param categoryId category identifier
      * @throws ForbiddenException user tries to access an account of another user
      */
     public void deleteCategory( String username, Long bankAccountId,

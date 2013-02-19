@@ -9,7 +9,6 @@
 package com.nttdata.masterthesis.javabackend.filter;
 
 import static org.junit.Assert.*;
-
 import org.junit.Test;
 
 import com.sun.jersey.api.client.Client;

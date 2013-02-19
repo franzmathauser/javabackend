@@ -23,7 +23,7 @@ import com.nttdata.masterthesis.javabackend.ressource.NewsDTO;
 
 /**
  * NewsChannel Manager controlls the access to News Service.
- * This manager reunites news from youtube and twitter.
+ * This manager reunites news from youtube, yahoo and twitter.
  * @author MATHAF
  */
 @Stateless
@@ -41,8 +41,11 @@ public class NewsChannelManager
     @EJB
     private YoutubeManager youtubeManager;
 
+    @EJB
+    private YqlManager yqlManager;
+
     /**
-     * List of all current News from youtube and twitter.
+     * List of all current News from youtube, yahoo and twitter.
      * @return List of News DTO if found else empty list
      */
     public List<NewsDTO> getNewsChannel()
@@ -50,7 +53,8 @@ public class NewsChannelManager
 
         List<NewsDTO> newsList = new ArrayList<NewsDTO>();
 
-        //newsList.addAll( twitterManager.getNews() );
+        newsList.addAll( yqlManager.getFinanceFeed());
+        newsList.addAll( twitterManager.getNews() );
         newsList.addAll( youtubeManager.getLatestVideoFeeds( "nttdata" ) );
 
         Collections.sort( newsList );

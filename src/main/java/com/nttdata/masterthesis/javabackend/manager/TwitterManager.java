@@ -81,9 +81,11 @@ public class TwitterManager
         .setOAuthConsumerKey( CUSTOMER_KEY )
         .setOAuthConsumerSecret( CUSTOMER_KEY_SECRET )
         .setOAuthAccessToken( ACCESS_TOKEN )
-        .setOAuthAccessTokenSecret( ACCESS_TOKEN_SECRET );
+        .setOAuthAccessTokenSecret( ACCESS_TOKEN_SECRET )
+        .setHttpConnectionTimeout( 2000 );
 
         TwitterFactory tf = new TwitterFactory( cb.build() );
+
         twitter = tf.getInstance();
 
         try
@@ -92,7 +94,10 @@ public class TwitterManager
         }
         catch ( TwitterException ex )
         {
-            LOG.error( "could not load home-timeline of twitter" );
+            if ( LOG.isErrorEnabled() )
+            {
+                LOG.error( "could not load home-timeline of twitter", ex );
+            }
         }
 
 

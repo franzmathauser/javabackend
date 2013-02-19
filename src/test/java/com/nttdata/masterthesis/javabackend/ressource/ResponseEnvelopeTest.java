@@ -8,7 +8,8 @@
  ********************************************/
 package com.nttdata.masterthesis.javabackend.ressource;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 
 import com.nttdata.masterthesis.javabackend.services.rest.security.AbstractSecureTest;

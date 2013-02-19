@@ -67,7 +67,7 @@ public class StatisticService
             for ( Map.Entry<String, Float> e : statistics.entrySet() )
             {
                 StatisticDTO statistic = new StatisticDTO();
-                statistic.setxValue( e.getKey() );
+                statistic.setXValue( e.getKey() );
                 statistic.setY1Value( e.getValue() );
                 statisticList.add( statistic );
             }
@@ -106,7 +106,7 @@ public class StatisticService
             for ( Map.Entry<String, Float> e : statistics.entrySet() )
             {
                 StatisticDTO statistic = new StatisticDTO();
-                statistic.setxValue( e.getKey() );
+                statistic.setXValue( e.getKey() );
                 statistic.setY1Value( e.getValue() );
                 statisticList.add( statistic );
             }
@@ -122,6 +122,12 @@ public class StatisticService
         }
     }
 
+    /**
+     * Statistic shows transaction amounts per income, outcome and saldo.
+     * @param bankAccountId id of account number
+     * @return Envelope with metadata and data of methodcall.
+     * @throws ForbiddenException user tries to access an account of another user
+     */
     @GET
     @Path( "/incomeOutcomeSaldo" )
     public ResponseEnvelope getIncomeOutcomeSaldo(
@@ -135,12 +141,11 @@ public class StatisticService
         try
         {
             Map<String, IncomeOutcomeSaldoDTO> statistics = statisticMgr.getIncomeOutcomeStatistic( user, bankAccountId );
-            float saldo = 0f;
 
             for ( Map.Entry<String, IncomeOutcomeSaldoDTO> e : statistics.entrySet() )
             {
                 StatisticDTO statistic = new StatisticDTO();
-                statistic.setxValue( e.getKey() );
+                statistic.setXValue( e.getKey() );
                 float income = e.getValue().getIncome();
                 float outcome = e.getValue().getOutcome();
                 statistic.setY1Value( income );
@@ -160,6 +165,13 @@ public class StatisticService
         }
     }
 
+    /**
+     * Statistic shows transaction amounts by month and category.
+     * @param bankAccountId id of account number
+     * @param maxCategories number of categories, limit is 10
+     * @return Envelope with metadata and data of methodcall.
+     * @throws ForbiddenException user tries to access an account of another user
+     */
     @GET
     @Path( "/byMonthlyCategory" )
     public ResponseEnvelope getByMonthlyCategory(
@@ -185,12 +197,11 @@ public class StatisticService
             for ( Map.Entry<String, Map<String, Float>> e : statistics.entrySet() )
             {
                 StatisticDTO statistic = new StatisticDTO();
-                statistic.setxValue( e.getKey() );
+                statistic.setXValue( e.getKey() );
                 Map<String, Float> value = e.getValue();
                 int i = 0;
                 for ( Map.Entry<String, Float> e2 : value.entrySet() )
                 {
-                    String category = e2.getKey();
                     Float amount = e2.getValue();
 
                     switch ( i )
